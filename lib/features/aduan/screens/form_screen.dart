@@ -1,12 +1,12 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/aduan/presentation/controllers/wilayah_search_controller.dart';
 import 'package:desa_digital/features/aduan/screens/detail_lampiran_screen.dart';
 import 'package:desa_digital/features/aduan/screens/pilih_lokasi_map_screen.dart';
 import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -24,6 +24,7 @@ class _FormScreenState extends State<FormScreen> {
   PlatformFile? selectedVideo;
   XFile? selectedPhoto;
   Groceries? _selected = Groceries.privat;
+  String? selectedRegion;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -518,7 +519,7 @@ class _FormScreenState extends State<FormScreen> {
                   readOnly: true,
                   focusNode: FocusNode(),
                   decoration: InputDecoration(
-                    labelText: "Pilih Kabupaten/Kota",
+                    labelText: selectedRegion ?? "Pilih Kabupaten/Kota",
                     labelStyle: Theme.of(context).textTheme.labelSmall,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -537,8 +538,8 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                   ),
 
-                  onTap: () {
-                    showModalBottomSheet(
+                  onTap: () async {
+                    final selected = await showModalBottomSheet<String>(
                       context: context,
                       isScrollControlled: true,
                       shape: RoundedRectangleBorder(
@@ -547,6 +548,12 @@ class _FormScreenState extends State<FormScreen> {
                         ),
                       ),
                       builder: (context) {
+                        if (Get.isRegistered<WilayahSearchController>()) {
+                          Get.delete<WilayahSearchController>();
+                        }
+                        final controller =
+                            Get.put(WilayahSearchController());
+
                         return AnimatedPadding(
                           padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -567,7 +574,12 @@ class _FormScreenState extends State<FormScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextFormField(
+TextField(
+                                  controller: controller.searchController,
+                                  onChanged: controller.onQueryChanged,
+                                  autofocus: true,
+                                  textCapitalization:
+                                      TextCapitalization.characters,
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16),
@@ -586,38 +598,104 @@ class _FormScreenState extends State<FormScreen> {
                                       ),
                                     ),
                                     hintText:
-                                        "Cari Lokasi (Kabupaten/Kota/Kecamatan/Kelurahan)",
+                                        "Cari Provinsi/Kabupaten/Kecamatan/Kelurahan",
                                     hintStyle: Theme.of(
                                       context,
                                     ).textTheme.labelMedium,
                                   ),
                                 ),
-                                SizedBox(height: 12),
+                                const SizedBox(height: 12),
                                 Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 40,
-                                    ),
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/data-kosong.png",
-                                            height: 150,
-                                            width: 150,
+                                  child: Obx(() {
+                                    if (controller.isLoading.value) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+
+                                    if (controller.results.isEmpty) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 40,
+                                        ),
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Image.asset(
+                                                "assets/images/data-kosong.png",
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                controller
+                                                            .searchController
+                                                            .text
+                                                            .trim()
+                                                            .length <
+                                                        WilayahSearchController
+                                                            .minChars
+                                                    ? "Masukkan minimal 3 karakter pada kolom pencarian"
+                                                    : "Data tidak ditemukan",
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.labelSmall,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            "Masukkan minimal 3 karakter pada kolom pencarian",
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.labelSmall,
-                                            textAlign: TextAlign.center,
+                                        ),
+                                      );
+                                    }
+
+                                    final count = controller.results.length;
+
+                                    return Column(
+                                      children: [
+                                        Text(
+                                          "$count hasil ditemukan",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.labelSmall,
+                                        ),
+                                        const SizedBox(height: 4),
+Expanded(
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              _SearchableWheel(
+                                                controller: controller,
+                                                count: count,
+                                              ),
+                                              IgnorePointer(
+                                                child: Container(
+                                                  height: 56,
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                    horizontal: 18,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors.primary
+                                                        .withAlpha(14),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          14,
+                                                        ),
+                                                    border: Border.all(
+                                                      color: AppColors.primary
+                                                          .withAlpha(60),
+                                                      width: 1,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
                                 ),
                                 Row(
                                   children: [
@@ -645,7 +723,7 @@ class _FormScreenState extends State<FormScreen> {
                                             ),
                                           ),
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () => Get.back(),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.red
                                                   .withAlpha(40),
@@ -695,7 +773,17 @@ class _FormScreenState extends State<FormScreen> {
                                             ),
                                           ),
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              final location =
+                                                  controller.fullLocation;
+
+                                              if (location != null) {
+                                                Navigator.pop(
+                                                  context,
+                                                  location,
+                                                );
+                                              }
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: AppColors.primary
                                                   .withAlpha(40),
@@ -728,6 +816,12 @@ class _FormScreenState extends State<FormScreen> {
                         );
                       },
                     );
+
+                    if (selected != null) {
+                      setState(() {
+                        selectedRegion = selected;
+                      });
+                    }
                   },
                 ),
               ),
@@ -1213,6 +1307,69 @@ class _FormScreenState extends State<FormScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _SearchableWheel extends StatefulWidget {
+  final WilayahSearchController controller;
+  final int count;
+
+  const _SearchableWheel({
+    required this.controller,
+    required this.count,
+  });
+
+  @override
+  State<_SearchableWheel> createState() => _SearchableWheelState();
+}
+
+class _SearchableWheelState extends State<_SearchableWheel> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.controller.attachScrollListener();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = widget.controller;
+    final count = widget.count;
+
+    return ListWheelScrollView.useDelegate(
+      controller: controller.scrollController,
+      itemExtent: WilayahSearchController.itemExtent,
+      onSelectedItemChanged: (index) {
+        if (index != controller.selectedIndex.value) {
+          controller.selectedIndex.value = index;
+        }
+      },
+      childDelegate: ListWheelChildBuilderDelegate(
+        childCount: count,
+        builder: (context, index) {
+          final region = controller.results[index];
+          final selected = index == controller.selectedIndex.value;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                controller.pathOf(region),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: selected ? AppColors.primary : Colors.black,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
