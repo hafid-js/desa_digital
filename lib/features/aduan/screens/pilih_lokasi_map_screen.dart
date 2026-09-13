@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math' as math;
@@ -79,6 +81,7 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+extendBody: true,
       body: Stack(
         children: [
           Stack(
@@ -157,6 +160,51 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
               // Card alamat kamu di sini
             ],
           ),
+
+          // Back arrow + Lokasi Saya
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 235,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Transform.rotate(
+                      angle: -45 * math.pi / 45,
+                      child: const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.my_location_rounded,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        "Lokasi Saya",
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: Stack(
@@ -165,19 +213,19 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
           // CONTAINER BAWAH
           Container(
             width: double.infinity,
-            color: Colors.white,
             padding: const EdgeInsets.only(
               right: 0,
               left: 0,
-              top: 14,
+              top: 0,
               bottom: 28,
             ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),         color: Colors.white),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  padding: EdgeInsets.only(right: 12, left: 12, top: 12, bottom: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -199,12 +247,16 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.location_on),
+                            Icon(Icons.location_on, color: AppColors.secondary,),
                             const SizedBox(width: 8),
 
                             if (isLoading)
-                              const Text("Mencari alamat...")
-                            else
+                              Text(
+                                  "Mencari Alamat...",
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ) else
                               Expanded(
                                 child: Text(
                                   alamat,
@@ -232,7 +284,9 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
                       style: ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(
                           AppColors.primary,
+                          
                         ),
+                        padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 14))
                       ),
                       onPressed: isLoading
                           ? null
@@ -247,51 +301,9 @@ class _PilihLokasiMapScreenState extends State<PilihLokasiMapScreen> {
                         'Simpan',
                         style: Theme.of(
                           context,
-                        ).textTheme.titleSmall!.copyWith(color: Colors.white),
+                        ).textTheme.titleMedium!.copyWith(color: Colors.white),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // ARROW
-          Positioned(
-            top: -60,
-            left: 16,
-            right: 16,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Transform.rotate(
-                    angle: -45 * math.pi / 45,
-                    child: const Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.my_location_rounded,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        "Lokasi Saya",
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],

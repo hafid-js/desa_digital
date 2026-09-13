@@ -1,5 +1,7 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/aduan/screens/detail_lampiran_screen.dart';
 import 'package:desa_digital/features/aduan/screens/pilih_lokasi_map_screen.dart';
+import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +9,8 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+
+enum Groceries { privat, publik }
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -19,6 +23,7 @@ class _FormScreenState extends State<FormScreen> {
   PlatformFile? selectedPdf;
   PlatformFile? selectedVideo;
   XFile? selectedPhoto;
+  Groceries? _selected = Groceries.privat;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,117 +60,129 @@ class _FormScreenState extends State<FormScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: SizedBox(
-                        width: 120,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.asset(
-                              "assets/images/aduan/example1.png",
-                              height: 100,
-                              width: 120,
-                              fit: BoxFit.cover,
-                            ),
-
-                            Container(
-                              width: double.infinity,
-                              color: AppColors.secondary,
-                              padding: EdgeInsets.symmetric(vertical: 2),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Iconsax.edit,
-                                    color: Colors.white,
-                                    size: 14,
-                                    weight: 30,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    "Edit",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall!
-                                        .copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
+                    GestureDetector(
+                      onTap: () => Get.to(
+                        () => DetailLampiranScreen(),
+                        arguments: "foto",
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: SizedBox(
+                          width: 120,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                "assets/images/aduan/example1.png",
+                                height: 100,
+                                width: 120,
+                                fit: BoxFit.cover,
                               ),
-                            ),
-                          ],
+
+                              Container(
+                                width: double.infinity,
+                                color: AppColors.secondary,
+                                padding: EdgeInsets.symmetric(vertical: 2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Iconsax.edit,
+                                      color: Colors.white,
+                                      size: 14,
+                                      weight: 30,
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      "Edit",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall!
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(width: 10),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: SizedBox(
-                        width: 120,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 100,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                color: AppColors.primary.withAlpha(30),
+                    GestureDetector(
+                      onTap: () => Get.to(
+                        () => DetailLampiranScreen(),
+                        arguments: "pdf",
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: SizedBox(
+                          width: 120,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                height: 100,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withAlpha(30),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.filePdf,
+                                        color: AppColors.textPrimaryLight,
+                                        size: 25,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "Lorem_Ipsum_is_simply_dummy_text_of_the_printing.pdf",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelSmall,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(height: 5),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
+                              Container(
+                                width: double.infinity,
+                                color: AppColors.secondary,
+                                padding: EdgeInsets.symmetric(vertical: 2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.filePdf,
-                                      color: AppColors.textPrimaryLight,
-                                      size: 25,
+                                    Icon(
+                                      Iconsax.edit,
+                                      color: Colors.white,
+                                      size: 14,
+                                      weight: 30,
                                     ),
-                                    SizedBox(height: 5),
+                                    SizedBox(width: 5),
                                     Text(
-                                      "Lorem_Ipsum_is_simply_dummy_text_of_the_printing.pdf",
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.labelSmall,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                      "Edit",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall!
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
-                                    SizedBox(height: 5),
                                   ],
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              color: AppColors.secondary,
-                              padding: EdgeInsets.symmetric(vertical: 2),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Iconsax.edit,
-                                    color: Colors.white,
-                                    size: 14,
-                                    weight: 30,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    "Edit",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall!
-                                        .copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -423,6 +440,9 @@ class _FormScreenState extends State<FormScreen> {
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 12,
+                                              ),
                                               backgroundColor:
                                                   AppColors.primary,
                                               foregroundColor:
@@ -448,11 +468,12 @@ class _FormScreenState extends State<FormScreen> {
                                                 SizedBox(width: 6),
                                                 Text(
                                                   "Ambil Foto",
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -476,7 +497,7 @@ class _FormScreenState extends State<FormScreen> {
                         ),
                         child: Icon(
                           Icons.camera_alt,
-                          size: 40,
+                          size: 35,
                           color: AppColors.primary,
                         ),
                       ),
@@ -593,7 +614,6 @@ class _FormScreenState extends State<FormScreen> {
                                             ).textTheme.labelSmall,
                                             textAlign: TextAlign.center,
                                           ),
-                                          
                                         ],
                                       ),
                                     ),
@@ -719,8 +739,17 @@ class _FormScreenState extends State<FormScreen> {
                   readOnly: true,
                   focusNode: FocusNode(),
                   decoration: InputDecoration(
-                    labelText: "Pilih Kabupaten/Kota",
-                    labelStyle: Theme.of(context).textTheme.labelSmall,
+                    prefixIcon: Icon(
+                      Icons.map_outlined,
+                      color: AppColors.primary,
+                    ),
+                    labelText: "Tambah titik lokasi (opsional)",
+                    labelStyle: Theme.of(context).textTheme.labelSmall!
+                        .copyWith(
+                          color: AppColors.primary,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(
@@ -740,9 +769,447 @@ class _FormScreenState extends State<FormScreen> {
 
                   onTap: () {
                     Get.to(() => PilihLokasiMapScreen());
-                  }
+                  },
                 ),
               ),
+              SizedBox(height: 20),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Rincian Laporan",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    WidgetSpan(child: SizedBox(width: 5)),
+                    TextSpan(
+                      text: "Minimal 50 karakter",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+
+              TextFormField(
+                maxLines: null,
+                minLines: 8,
+                expands: false,
+
+                decoration: InputDecoration(
+                  labelText: "Rincian Laporan",
+                  labelStyle: Theme.of(context).textTheme.labelMedium,
+                  alignLabelWithHint: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color: AppColors.dark.withAlpha(50),
+                      width: 1.5,
+                    ),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: AppColors.primary, width: 1),
+                  ),
+                  hintText: "Ceritakan laporan secara lengkap dan jelas",
+                  hintStyle: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
+
+              SizedBox(height: 8),
+              Text(
+                "Sertakan waktu kejadian dan detail yang diperlukan",
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Jenis Privasi",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              SizedBox(height: 10),
+              Card(
+                elevation: 0,
+                margin: EdgeInsets.zero,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: BorderSide(color: Colors.grey.shade300, width: 0.5),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 56,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  _selected = Groceries.privat;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Radio<Groceries>(
+                                    value: Groceries.privat,
+                                    groupValue: _selected,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selected = value;
+                                      });
+                                    },
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith<
+                                          Color
+                                        >((states) {
+                                          if (states.contains(
+                                            MaterialState.selected,
+                                          )) {
+                                            return Colors.green;
+                                          }
+
+                                          return Colors.grey;
+                                        }),
+                                  ),
+
+                                  const SizedBox(width: 4),
+
+                                  const Text(
+                                    'Privat (Rahasia)',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 0.5,
+                            height: double.infinity,
+                            color: Colors.grey.shade300,
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(16),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  _selected = Groceries.publik;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Radio<Groceries>(
+                                    value: Groceries.publik,
+                                    groupValue: _selected,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selected = value;
+                                      });
+                                    },
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith<
+                                          Color
+                                        >((states) {
+                                          if (states.contains(
+                                            MaterialState.selected,
+                                          )) {
+                                            return Colors.green;
+                                          }
+
+                                          return Colors.grey;
+                                        }),
+                                  ),
+
+                                  const SizedBox(width: 4),
+
+                                  const Text(
+                                    'Publik',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(height: 0.5, color: Colors.grey.shade300),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(25),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            _selected == Groceries.privat
+                                ? Icons.lock_outline_rounded
+                                : Icons.public_rounded,
+                            color: AppColors.primary.withAlpha(120),
+                            size: 25,
+                          ),
+
+                          const SizedBox(width: 12),
+
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _selected == Groceries.privat
+                                      ? 'Aduan Privat (Rahasia)'
+                                      : 'Aduan Publik',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  _selected == Groceries.privat
+                                      ? 'Aduan hanya dapat diakses olehmu sebagai '
+                                            'pelapor dan petugas yang melakukan tindak '
+                                            'lanjut. Aduan privat tidak akan terlihat '
+                                            'oleh pengguna lain.'
+                                      : 'Aduan dapat dilihat oleh pengguna aplikasi '
+                                            'Ngopeni Nglakoni lainnya. Pilih opsi ini '
+                                            'jika kamu bersedia agar aduanmu dapat '
+                                            'dilihat oleh publik.',
+                                  style: const TextStyle(fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                        ],
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+                                          Padding(padding: EdgeInsets.symmetric(vertical: 12), child: ElevatedButton(
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                          backgroundColor: Theme.of(
+                            context,
+                          ).scaffoldBackgroundColor,
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                          ),
+                          builder: (context) {
+                            return StatefulBuilder(
+                              builder: (context, setModalState) {
+                                return DraggableScrollableSheet(
+                                  expand: false,
+
+                                  initialChildSize: 0.22,
+                                  minChildSize: 0.2,
+                                  maxChildSize: 1.0,
+                                  builder: (context, scrollController) {
+                                    return Container(
+                                      padding: EdgeInsets.all(12),
+                                      width: double.infinity,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Yakin ingin mengirim laporan?",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge!
+                                                .copyWith(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            "Pastikan informasi yang akan kamu laporkan sudah benar dan lengkap.",
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.labelSmall,
+                                          ),
+                                          SizedBox(height: 30),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: SizedBox(
+                                                  height: 42,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      border: Border(
+                                                        left: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.secondary,
+                                                        ),
+                                                        right: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.secondary,
+                                                        ),
+                                                        bottom: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.secondary,
+                                                        ),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            20,
+                                                          ),
+                                                    ),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            AppColors.secondary.withAlpha(40),
+                                                        foregroundColor:
+                                                      AppColors.secondary.withAlpha(40),
+                                                        elevation: 0,
+                                                        side: BorderSide.none,
+                                                        // shape: RoundedRectangleBorder(
+                                                        //   borderRadius:
+                                                        //       BorderRadius.circular(
+                                                        //         20,
+                                                        //       ),
+                                                        // ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Tinjau Ulang",
+                                                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.secondary)
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 12),
+
+                                              Expanded(
+                                                child: SizedBox(
+                                                  height: 42,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      border: Border(
+                                                        left: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.primary,
+                                                        ),
+                                                        right: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.primary,
+                                                        ),
+                                                        bottom: BorderSide(
+                                                          width: 0.2,
+                                                          color:
+                                                              AppColors.primary,
+                                                        ),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            20,
+                                                          ),
+                                                    ),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            AppColors.primary,
+                                                        foregroundColor:
+                                                            AppColors.primary,
+                                                        elevation: 0,
+                                                        side: BorderSide.none,
+                                                        // shape: RoundedRectangleBorder(
+                                                        //   borderRadius:
+                                                        //       BorderRadius.circular(
+                                                        //         20,
+                                                        //       ),
+                                                        // ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Ya, Kirim",
+                                                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white)
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 12,
+                                                horizontal: 12
+                                              ),
+                                                minimumSize: const Size(double.infinity, 48),
+                                              backgroundColor:
+                                                  AppColors.primary,
+                                              foregroundColor:
+                                                  AppColors.primary,
+                                              elevation: 0,
+                                              side: BorderSide.none,
+                                              // shape: RoundedRectangleBorder(
+                                              //   borderRadius:
+                                              //       BorderRadius.circular(
+                                              //         20,
+                                              //       ),
+                                              // ),
+                                            ),
+                                            child: Text(
+                                                  "Kirim Laporan",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      ),
+                                                ),
+                                          ),)
             ],
           ),
         ),
