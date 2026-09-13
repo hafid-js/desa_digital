@@ -1,7 +1,10 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/aduan/screens/pilih_lokasi_map_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -337,17 +340,18 @@ class _FormScreenState extends State<FormScreen> {
                                                           ),
                                                     ),
                                                     child: ElevatedButton(
-                                                             onPressed: () async {
+                                                      onPressed: () async {
                                                         final PlatformFile?
                                                         file =
                                                             await FilePicker.pickFile(
                                                               type: FileType
-                                                                  .video
+                                                                  .video,
                                                             );
 
                                                         if (file != null) {
                                                           setState(() {
-                                                            selectedVideo = file;
+                                                            selectedVideo =
+                                                                file;
                                                           });
                                                         }
                                                       },
@@ -400,22 +404,24 @@ class _FormScreenState extends State<FormScreen> {
                                           ),
                                           SizedBox(height: 10),
                                           ElevatedButton(
-                                               onPressed: () async {
-  final ImagePicker picker = ImagePicker();
+                                            onPressed: () async {
+                                              final ImagePicker picker =
+                                                  ImagePicker();
 
-  final XFile? image = await picker.pickImage(
-    source: ImageSource.camera,
-  );
+                                              final XFile? image = await picker
+                                                  .pickImage(
+                                                    source: ImageSource.camera,
+                                                  );
 
-  if (image != null) {
-    print('Foto: ${image.path}');
+                                              if (image != null) {
+                                                print('Foto: ${image.path}');
 
-    // simpan ke state kalau mau ditampilkan
-    setState(() {
-      selectedPhoto = image;
-    });
-  }
-},
+                                                // simpan ke state kalau mau ditampilkan
+                                                setState(() {
+                                                  selectedPhoto = image;
+                                                });
+                                              }
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.primary,
@@ -484,6 +490,259 @@ class _FormScreenState extends State<FormScreen> {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               SizedBox(height: 10),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {},
+                child: TextFormField(
+                  readOnly: true,
+                  focusNode: FocusNode(),
+                  decoration: InputDecoration(
+                    labelText: "Pilih Kabupaten/Kota",
+                    labelStyle: Theme.of(context).textTheme.labelSmall,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: AppColors.dark.withAlpha(50),
+                        width: 1.5,
+                      ),
+                    ),
+
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: AppColors.dark.withAlpha(50),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(16),
+                        ),
+                      ),
+                      builder: (context) {
+                        return AnimatedPadding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          duration: const Duration(milliseconds: 100),
+                          child: Container(
+                            height: 400,
+                            padding: EdgeInsets.only(
+                              right: 8,
+                              left: 8,
+                              top: 10,
+                              bottom: 25,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                        color: AppColors.primary,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                        color: AppColors.primary,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    hintText:
+                                        "Cari Lokasi (Kabupaten/Kota/Kecamatan/Kelurahan)",
+                                    hintStyle: Theme.of(
+                                      context,
+                                    ).textTheme.labelMedium,
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 40,
+                                    ),
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/data-kosong.png",
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            "Masukkan minimal 3 karakter pada kolom pencarian",
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.labelSmall,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              left: BorderSide(
+                                                width: 0.2,
+                                                color: Colors.red,
+                                              ),
+                                              right: BorderSide(
+                                                width: 0.2,
+                                                color: Colors.red,
+                                              ),
+                                              bottom: BorderSide(
+                                                width: 0.2,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                          ),
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red
+                                                  .withAlpha(40),
+                                              foregroundColor: Colors.red,
+                                              elevation: 0,
+                                              side: BorderSide.none,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              "Batal",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              left: BorderSide(
+                                                width: 0.2,
+                                                color: AppColors.primary,
+                                              ),
+                                              right: BorderSide(
+                                                width: 0.2,
+                                                color: AppColors.primary,
+                                              ),
+                                              bottom: BorderSide(
+                                                width: 0.2,
+                                                color: AppColors.primary,
+                                              ),
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                          ),
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: AppColors.primary
+                                                  .withAlpha(40),
+                                              foregroundColor:
+                                                  AppColors.primary,
+                                              elevation: 0,
+                                              side: BorderSide.none,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              "Pilih",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: AppColors.primary,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 10),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {},
+                child: TextFormField(
+                  readOnly: true,
+                  focusNode: FocusNode(),
+                  decoration: InputDecoration(
+                    labelText: "Pilih Kabupaten/Kota",
+                    labelStyle: Theme.of(context).textTheme.labelSmall,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: AppColors.dark.withAlpha(50),
+                        width: 1.5,
+                      ),
+                    ),
+
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                        color: AppColors.dark.withAlpha(50),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+
+                  onTap: () {
+                    Get.to(() => PilihLokasiMapScreen());
+                  }
+                ),
+              ),
             ],
           ),
         ),

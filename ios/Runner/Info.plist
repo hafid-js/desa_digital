@@ -26,6 +26,8 @@
 	<string>Kamera digunakan untuk mengambil foto laporan.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Mikrofon digunakan untuk merekam video laporan.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Lokasi digunakan untuk menentukan titik lokasi aduan Anda.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
