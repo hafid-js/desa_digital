@@ -1,6 +1,7 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/core/utils/constants/colors.dart';
 import 'package:desa_digital/features/aduan/screens/form_screen.dart';
+import 'package:desa_digital/features/aduan/screens/list_aduan_screen.dart';
 import 'package:desa_digital/shared/widgets/texts/section_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
@@ -666,7 +667,9 @@ class _AduanScreenState extends State<AduanScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      GestureDetector(
+                        onTap: () => Get.to(() => ListAduanScreen()),
+                        child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -712,6 +715,7 @@ class _AduanScreenState extends State<AduanScreen> {
                             ),
                           ],
                         ),
+                      ),
                       ),
                       SizedBox(height: 20),
                       Container(
