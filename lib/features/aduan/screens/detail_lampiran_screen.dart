@@ -88,8 +88,7 @@ class DetailLampiranScreen extends StatelessWidget {
             ),
 
             const SizedBox(width: 12),
-            Expanded(
-              child: SizedBox(
+            SizedBox(
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {},
@@ -112,10 +111,8 @@ class DetailLampiranScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
           ],
-        ) :  Expanded(
-              child: SizedBox(
+        ) :  SizedBox(
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {},
@@ -138,7 +135,6 @@ class DetailLampiranScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
       ),
     );
   }

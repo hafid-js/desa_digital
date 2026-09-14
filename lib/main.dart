@@ -21,7 +21,9 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
 
+
         theme: AppTheme.lightTheme(),
+        
         darkTheme: AppTheme.darkTheme(),
 
         themeMode: ThemeMode.light,

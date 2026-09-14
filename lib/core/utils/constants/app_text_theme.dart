@@ -38,13 +38,13 @@ class AppTextTheme {
 
     labelSmall: TextStyle(
       fontSize: 12,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       color: AppColors.textSecondaryLight,
     ),
 
     labelMedium: TextStyle(
       fontSize: 14,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       color: AppColors.textSecondaryLight,
     ),
 
@@ -90,14 +90,14 @@ class AppTextTheme {
     /// LABEL
     labelSmall: TextStyle(
       fontSize: 12,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
 
       color: AppColors.textSecondaryDark,
     ),
 
     labelMedium: TextStyle(
       fontSize: 14,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       color: AppColors.textSecondaryDark,
     ),
 

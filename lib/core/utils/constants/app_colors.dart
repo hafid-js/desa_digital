@@ -12,7 +12,9 @@ final class AppColors {
   /// DARK
   static const Color dark = Color(0xFF0F202B);
   static const Color darkCard = Color(0xFF132E3A);
-  static Color secondary = HexColor.fromHex("#F7771A");
+  static Color secondary = HexColor.fromHex("#fd7e14");
+  static Color tertiary = HexColor.fromHex("#4EA6DC");
+  static Color quartenary = HexColor.fromHex("#2B8637");
   static Color darkDisableColor = HexColor.fromHex("#193341");
   static const Color darkSurface = Color(0xFF17404A);
       static Color lightSurface = HexColor.fromHex("#F5F6F6");
@@ -36,7 +38,8 @@ final class AppColors {
 // static Color get textPrimaryLight  =>
 //       setting.currentColor.value;
 static const Color textPrimaryLight = Color(0xFF2D4A52);
-  static Color textSecondaryLight = HexColor.fromHex("#343a40");
+  static Color textSecondaryLight = Color.fromARGB(255, 128, 125, 125);
+  //  HexColor.fromHex("#343a40");
 
   /// BORDER
   //  static Color get borderPrimary  =>
