@@ -52,6 +52,7 @@ dependencies:
   geocoding: ^5.0.0
   latlong2: ^0.10.1
   http: ^1.6.0
+  table_calendar: ^3.2.1
 
 dev_dependencies:
   flutter_test:

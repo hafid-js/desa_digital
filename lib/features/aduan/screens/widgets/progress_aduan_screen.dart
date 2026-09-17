@@ -83,7 +83,7 @@ class ProgressAduanScreen extends StatelessWidget {
                 admin,
                 style: Theme.of(
                   context,
-                ).textTheme.labelMedium!.copyWith(color: Colors.black,fontWeight: FontWeight.w500),
+                ).textTheme.labelSmall!.copyWith(color: Colors.black,fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 2),
               Text(

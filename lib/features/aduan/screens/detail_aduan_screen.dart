@@ -82,9 +82,9 @@ class _DetailAduanScreenState extends State<DetailAduanScreen> {
                   ),
 
                   Positioned(
-                    bottom: 18,
-                    left: 18,
-                    right: 18,
+                    bottom: 12,
+                    left: 12,
+                    right: 12,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -114,9 +114,9 @@ class _DetailAduanScreenState extends State<DetailAduanScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 20,
-                  left: 18,
-                  right: 18,
-                  bottom: 20,
+                  left: 12,
+                  right: 12,
+                  bottom: 12,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

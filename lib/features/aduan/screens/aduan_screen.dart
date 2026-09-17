@@ -21,37 +21,35 @@ class _AduanScreenState extends State<AduanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 50,
+        toolbarHeight: 80,
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
+        bottom: PreferredSize(
+    preferredSize: const Size.fromHeight(60),
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Aduan Masyarakat",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            "Sampaikan aduan seputar layanan atau fasilitas umum di Provinsi Jawa Tengah",
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ],
+      ),
+    ),
+  ),
       ),
 
       body: Column(
         children: [
-          Container(
-            padding: EdgeInsets.all(12),
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Aduan Masyarakat",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  "Sampaikan aduan seputar layanan atau fasilitas umum di Provinsi Jawa Tengah",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
-            ),
-          ),
+          
           Padding(
             padding: EdgeInsets.all(12),
             child: Column(

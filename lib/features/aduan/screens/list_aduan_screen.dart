@@ -47,7 +47,7 @@ class ListAduanScreen extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        "assets/images/aduan/example1.png",
+                        "assets/images/aduan/aduan.png",
                         height: 70,
                         width: 70,
                         fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class ListAduanScreen extends StatelessWidget {
                           Text(
                             "LGWS67947799",
                             style: Theme.of(context).textTheme.titleSmall!
-                                .copyWith(color: AppColors.primary),
+                                .copyWith(color: AppColors.primary, fontSize: 12),
                           ),
                           SizedBox(height: 5),
                           Text(

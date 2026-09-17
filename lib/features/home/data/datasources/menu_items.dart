@@ -1,3 +1,4 @@
+import 'package:desa_digital/features/acara/screens/event_screen.dart';
 import 'package:desa_digital/features/aduan/screens/aduan_screen.dart';
 
 final List<Map<String, dynamic>> menuItems = [
@@ -17,9 +18,9 @@ final List<Map<String, dynamic>> menuItems = [
     "page": () => const AduanScreen(),
   },
   {
-    "title": "Event",
+    "title": "Acara",
     "icon": "assets/icons/event-jateng.png",
-    "page": () => const AduanScreen(),
+    "page": () => const EventScreen(),
   },
   {
     "title": "Pajak",

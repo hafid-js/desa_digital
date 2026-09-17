@@ -22,7 +22,7 @@ class USectionHeading extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1, overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black), maxLines: 1, overflow: TextOverflow.ellipsis,
         ),
         if(showActionButton) TextButton(onPressed: onPressed, child: Text(buttonTitle ?? '', style: TextStyle(color: HexColor.fromHex("#020381"), fontSize: 14),)),
       ],

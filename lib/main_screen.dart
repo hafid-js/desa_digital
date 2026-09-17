@@ -1,4 +1,5 @@
 
+import 'package:desa_digital/features/aktivitas/screens/aktivitas_screen.dart';
 import 'package:desa_digital/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [HomeScreen(), HomeScreen(), HomeScreen()];
+  final List<Widget> _screens = [HomeScreen(), AktivitasScreen(), HomeScreen()];
 
   void _onItemTapped(int index) {
     setState(() {

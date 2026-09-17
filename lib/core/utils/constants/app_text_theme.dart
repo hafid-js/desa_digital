@@ -6,8 +6,8 @@ class AppTextTheme {
 
   static TextTheme lightTextTheme = TextTheme(
     /// HEADLINE
-    headlineMedium: TextStyle(
-      fontSize: 24,
+    headlineSmall: TextStyle(
+      fontSize: 18,
       fontWeight: FontWeight.bold,
       color: AppColors.dark,
     ),
