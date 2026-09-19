@@ -1,6 +1,8 @@
 
 import 'package:desa_digital/features/aktivitas/screens/aktivitas_screen.dart';
 import 'package:desa_digital/features/home/screens/home_screen.dart';
+import 'package:desa_digital/features/notifikasi/screens/notifikasi_screen.dart';
+import 'package:desa_digital/features/profil/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,7 +15,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [HomeScreen(), AktivitasScreen(), HomeScreen()];
+  final List<Widget> _screens = [HomeScreen(), AktivitasScreen(), NotifikasiScreen(), ProfilScreen()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         selectedIconTheme: IconThemeData(size: 30),
         unselectedIconTheme: IconThemeData(size: 25),
         currentIndex: _selectedIndex,
@@ -50,6 +53,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),
             label: 'Aktivitas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_none_rounded),
+            label: 'Notifications',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

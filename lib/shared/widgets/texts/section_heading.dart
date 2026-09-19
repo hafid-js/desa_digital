@@ -1,3 +1,4 @@
+import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +23,9 @@ class USectionHeading extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black), maxLines: 1, overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
-        if(showActionButton) TextButton(onPressed: onPressed, child: Text(buttonTitle ?? '', style: TextStyle(color: HexColor.fromHex("#020381"), fontSize: 14),)),
+        if(showActionButton) TextButton(onPressed: onPressed, child: Text(buttonTitle ?? '', style: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.blue),)),
       ],
     );
   }

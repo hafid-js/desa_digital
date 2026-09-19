@@ -71,7 +71,7 @@ class _EventScreenState extends State<EventScreen> {
               headerVisible: true,
               headerStyle: HeaderStyle(
                 titleTextStyle: Theme.of(context).textTheme.labelMedium!
-                    .copyWith(color: Colors.black, fontWeight: FontWeight.w300),
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.w400),
 
                 formatButtonVisible: true,
               ),

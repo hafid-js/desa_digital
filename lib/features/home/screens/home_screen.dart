@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/widgets/search_bar.dart';
+import 'package:desa_digital/features/artikel/screens/artikel_screen.dart';
 import 'package:desa_digital/features/home/data/datasources/article.dart';
 import 'package:desa_digital/features/home/data/datasources/events.dart';
 import 'package:desa_digital/features/home/data/datasources/menu_items.dart';
@@ -42,19 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 20),
                         _buildMenuSection(context),
                         SizedBox(height: 20),
-                        PromoCard(),
-                        Column(
-                          children: [
-                            USectionHeading(
-                              title: "Beasiswa Santri dan Pengasuh",
-                              buttonTitle: '',
-                            ),
-                            URoundedImage(
-                              imageUrl: "assets/images/banners/banner-4.png",
-                              isNetworkImage: false,
-                            ),
-                          ],
-                        ),
+                        // PromoCard(),
+                        // Column(
+                        //   children: [
+                        //     USectionHeading(
+                        //       title: "Beasiswa Santri dan Pengasuh",
+                        //       buttonTitle: '',
+                        //     ),
+                        //     URoundedImage(
+                        //       imageUrl: "assets/images/banners/banner-4.png",
+                        //       isNetworkImage: false,
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: "Artikel Terbaru",
               items: articles,
               padding: const EdgeInsets.only(left: 15, top: 5, bottom: 20),
-              onButtonPressed: () {},
+              onButtonPressed: () => Get.to(()=> BeritaScreen()),
               onTap: (item) {},
             ),
             Footer()

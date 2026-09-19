@@ -1,3 +1,4 @@
+import 'package:desa_digital/features/acara/screens/detail_event_screen.dart';
 import 'package:desa_digital/shared/widgets/rounded_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -10,7 +11,7 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () => Get.to(() => const DetailEventScreen()),
+      onTap: () => Get.to(() => const DetailEventScreen()),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

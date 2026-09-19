@@ -1,3 +1,5 @@
+import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:flutter/material.dart';
 
 class Footer extends StatelessWidget {
@@ -6,13 +8,11 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(176, 238, 238, 238),
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(right: 15, left: 15, top: 0, bottom: 30),
+      padding: EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.more_horiz, color: Colors.grey, size: 30),
+          const Icon(Icons.more_horiz, color: Colors.grey, size: 20),
           SizedBox(height: 2),
           RichText(
             textAlign: TextAlign.center,
@@ -21,7 +21,7 @@ class Footer extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "Jateng Ngopeni Nglakoni. ",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
                   text:
