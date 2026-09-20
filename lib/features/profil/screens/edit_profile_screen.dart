@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/ucircular_image.dart';
+import 'package:desa_digital/features/profil/screens/edit_email_screen.dart';
+import 'package:desa_digital/features/profil/screens/edit_phone_screen.dart';
 import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -191,9 +193,18 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               child: Column(
                 children: [
                   SizedBox(height: 20),
-                  ProfileImagePicker(
-                    imageFile: _profileImage,
-                    onPickImage: _pickImage,
+                  // ProfileImagePicker(
+                  //   imageFile: _profileImage,
+                  //   onPickImage: _pickImage,
+                  // ),
+                  CircleAvatar(
+                    backgroundColor: AppColors.primary.withAlpha(40),
+                    radius: 45,
+                    child: Icon(
+                      Iconsax.user,
+                      size: 30,
+                      color: AppColors.primary,
+                    ),
                   ),
                   MainInfoForm(),
                 ],
@@ -307,6 +318,16 @@ class MainInfoForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: TextFormField(
+        readOnly: label != "Nama Lengkap" ? true : false,
+        onTap: label == "Nama Lengkap"
+      ? null
+      : () {
+          if (label == "Email") {
+            Get.to(() => EditEmailScreen());
+          } else if (label == "Nomor Whatsapp") {
+            Get.to(() => EditPhoneScreen());
+          }
+        },
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelText: label,
@@ -321,7 +342,19 @@ class MainInfoForm extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(color: AppColors.primary),
           ),
-          suffixIcon: suffixIcon != null ? Icon(suffixIcon, size: 18) : null,
+          suffixIcon: suffixIcon != null
+              ? label == "Email"
+                    ? GestureDetector(
+                        onTap: () => Get.to(() => EditEmailScreen()),
+                        child: Icon(suffixIcon, size: 18),
+                      )
+                    : label == "Nomor Whatsapp"
+                    ? GestureDetector(
+                        onTap: () => Get.to(() => EditPhoneScreen()),
+                        child: Icon(suffixIcon, size: 18),
+                      )
+                    : Icon(suffixIcon, size: 18)
+              : null,
         ),
       ),
     );

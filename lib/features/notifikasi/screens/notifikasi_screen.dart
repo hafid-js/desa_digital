@@ -12,7 +12,7 @@ class NotifikasiScreen extends StatefulWidget {
 }
 
 class _NotifikasiScreenState extends State<NotifikasiScreen> {
-bool isBeritaTerkini = false;
+  bool isBeritaTerkini = false;
   bool isPeringatanCuaca = false;
   bool isEventDesa = false;
   @override
@@ -55,7 +55,7 @@ bool isBeritaTerkini = false;
                                   ),
                             ),
                             BeritaTerkiniTile(
-          icon: Iconsax.cloud_drizzle,
+                              icon: Iconsax.cloud_drizzle,
                               title: "Berita Terkini",
                               subtitle: "Informasi terbaru seputar Desa",
                               value: isBeritaTerkini,
@@ -67,8 +67,9 @@ bool isBeritaTerkini = false;
                             ),
                             BeritaTerkiniTile(
                               icon: Iconsax.cloud_drizzle,
-                                 title: "Peringatan Dini Cuaca",
-                              subtitle: "Informasi potensi cuaca buruk di wilayah Desa",
+                              title: "Peringatan Dini Cuaca",
+                              subtitle:
+                                  "Informasi potensi cuaca buruk di wilayah Desa",
                               value: isPeringatanCuaca,
                               onChanged: (v) {
                                 modalSetState(() {
@@ -77,8 +78,8 @@ bool isBeritaTerkini = false;
                               },
                             ),
                             BeritaTerkiniTile(
-                                 icon: Iconsax.calendar_1,
-                                 title: "Event Desa Hari Ini",
+                              icon: Iconsax.calendar_1,
+                              title: "Event Desa Hari Ini",
                               subtitle: "Informasi acara di Desa hari ini",
                               value: isEventDesa,
                               onChanged: (v) {
@@ -87,25 +88,29 @@ bool isBeritaTerkini = false;
                                 });
                               },
                             ),
-                            Padding(padding: EdgeInsets.symmetric(vertical: 12), child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.primary,
-                      elevation: 0,
-                      side: BorderSide.none,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: Text(
-                      "Ubah Data",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium!.copyWith(color: Colors.white),
-                    ),
-                  ),)
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.infinity, 48),
+                                  backgroundColor: AppColors.primary,
+                                  foregroundColor: AppColors.primary,
+                                  elevation: 0,
+                                  side: BorderSide.none,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Ubah Data",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       );
