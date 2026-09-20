@@ -9,6 +9,7 @@ final class AppColors {
   /// PRIMARY
   static Color primary = HexColor.fromHex("#455cca");
   static Color blue = HexColor.fromHex("#020381");
+  static Color green = HexColor.fromHex("#23a842");
 
   /// DARK
   static const Color dark = Color(0xFF0F202B);

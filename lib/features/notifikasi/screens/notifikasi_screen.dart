@@ -1,11 +1,20 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/notifikasi/screens/widgets/berita_terkini_tile.dart';
 import 'package:desa_digital/features/notifikasi/screens/widgets/notifikasi_kosong_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class NotifikasiScreen extends StatelessWidget {
+class NotifikasiScreen extends StatefulWidget {
   const NotifikasiScreen({super.key});
 
+  @override
+  State<NotifikasiScreen> createState() => _NotifikasiScreenState();
+}
+
+class _NotifikasiScreenState extends State<NotifikasiScreen> {
+bool isBeritaTerkini = false;
+  bool isPeringatanCuaca = false;
+  bool isEventDesa = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +27,97 @@ class NotifikasiScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () => {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return StatefulBuilder(
+                    builder: (context, modalSetState) {
+                      return Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Pengaturan Notifikasi",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "Pilih notifikasi yang kamu ingin terima",
+                              style: Theme.of(context).textTheme.labelSmall!
+                                  .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                            ),
+                            BeritaTerkiniTile(
+          icon: Iconsax.cloud_drizzle,
+                              title: "Berita Terkini",
+                              subtitle: "Informasi terbaru seputar Desa",
+                              value: isBeritaTerkini,
+                              onChanged: (v) {
+                                modalSetState(() {
+                                  isBeritaTerkini = v;
+                                });
+                              },
+                            ),
+                            BeritaTerkiniTile(
+                              icon: Iconsax.cloud_drizzle,
+                                 title: "Peringatan Dini Cuaca",
+                              subtitle: "Informasi potensi cuaca buruk di wilayah Desa",
+                              value: isPeringatanCuaca,
+                              onChanged: (v) {
+                                modalSetState(() {
+                                  isPeringatanCuaca = v;
+                                });
+                              },
+                            ),
+                            BeritaTerkiniTile(
+                                 icon: Iconsax.calendar_1,
+                                 title: "Event Desa Hari Ini",
+                              subtitle: "Informasi acara di Desa hari ini",
+                              value: isEventDesa,
+                              onChanged: (v) {
+                                modalSetState(() {
+                                  isEventDesa = v;
+                                });
+                              },
+                            ),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 12), child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 48),
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: AppColors.primary,
+                      elevation: 0,
+                      side: BorderSide.none,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: Text(
+                      "Ubah Data",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelMedium!.copyWith(color: Colors.white),
+                    ),
+                  ),)
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            },
+            child: Icon(Iconsax.setting_2, color: AppColors.primary),
+          ),
+        ],
+        actionsPadding: EdgeInsets.only(right: 12),
       ),
       body: DefaultTabController(
         length: 4,
@@ -164,64 +264,128 @@ class NotifikasiScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Container(
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(color: AppColors.light),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: AppColors.secondary.withAlpha(
-                                  40,
-                                ),
-                                child: Icon(
-                                  Iconsax.menu_board,
-                                  color: AppColors.secondary,
-                                  size: 20,
-                                ),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(color: AppColors.light),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: AppColors.secondary
+                                        .withAlpha(40),
+                                    child: Icon(
+                                      Iconsax.menu_board,
+                                      color: AppColors.secondary,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Event Desa Hari Ini",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          "Husabaqah Tilawatil Qur'an (MTq) Tingkat Nasional XXI Tahun 2026 Berlangsung Di Kota Semarang",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall!
+                                              .copyWith(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "13 jam yang lalu",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall!
+                                              .copyWith(fontSize: 11),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(width: 20),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Event Kelurahan Hari Ini",
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.titleSmall,
+                            ),
+
+                            // Garis bawah yang dipendekkan (tidak full)
+                            Divider(
+                              color: AppColors.grey.withAlpha(180),
+                              thickness: 0.5,
+                              height: 1,
+                              indent: 16, // Jarak dari batas kiri
+                              endIndent: 16, // Jarak dari batas kanan
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(color: Colors.white),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: AppColors.secondary
+                                        .withAlpha(40),
+                                    child: Icon(
+                                      Iconsax.menu_board,
+                                      color: AppColors.secondary,
+                                      size: 20,
                                     ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      "Husabaqah Tilawatil Qur'an (MTq) Tingkat Nasional XXI Tahun 2026 Berlangsung Di Kota Semarang",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall!
-                                          .copyWith(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Event Desa Hari Ini",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          "Husabaqah Tilawatil Qur'an (MTq) Tingkat Nasional XXI Tahun 2026 Berlangsung Di Kota Semarang",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall!
+                                              .copyWith(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "13 jam yang lalu",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall!
+                                              .copyWith(fontSize: 11),
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "13 jam yang lalu",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall!
-                                          .copyWith(fontSize: 11),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                                     
-                              
-                            ],
-                          ),
-                        ),
-                 Divider(color: Colors.pink)
-                      
+                            ),
                           ],
-                        )
+                        ),
                       ),
                       NotifikasiKosongScreen(),
                       NotifikasiKosongScreen(),
