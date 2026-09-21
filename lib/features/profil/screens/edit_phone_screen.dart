@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/profil/screens/verifikasi_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -88,9 +89,7 @@ bottomNavigationBar: Obx(
       bottom: MediaQuery.of(context).viewInsets.bottom + 12,
     ),
     child: ElevatedButton(
-      onPressed: isValid.value ? () {
-        // Aksi ketika button di-klik saat valid
-      } : null, // Set null agar button disabled jika tidak valid
+                onPressed: isValid.value ? () => Get.to(() => VerifikasiScreen(), arguments: "082322875277") : null,
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 48),
         // Menggunakan withAlpha(40) / withOpacity(0.16) jika tidak valid

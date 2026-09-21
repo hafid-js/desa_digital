@@ -1063,9 +1063,7 @@ Expanded(
                                   _selected == Groceries.privat
                                       ? 'Aduan Privat (Rahasia)'
                                       : 'Aduan Publik',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
 
                                 const SizedBox(height: 5),
@@ -1080,7 +1078,7 @@ Expanded(
                                             'Ngopeni Nglakoni lainnya. Pilih opsi ini '
                                             'jika kamu bersedia agar aduanmu dapat '
                                             'dilihat oleh publik.',
-                                  style: const TextStyle(fontSize: 11),
+                                  style: Theme.of(context).textTheme.labelSmall!.copyWith(fontSize: 11, color: Colors.black, fontWeight: FontWeight.w300),
                                 ),
                               ],
                             ),

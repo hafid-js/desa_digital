@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/utils/constants/app_colors.dart';
+import 'package:desa_digital/features/profil/screens/verifikasi_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Jika menggunakan GetX untuk validasi email (GetUtils.isEmail)
 
@@ -80,7 +81,7 @@ class EditEmailScreen extends StatelessWidget {
               bottom: MediaQuery.of(context).viewInsets.bottom + 12,
             ),
             child: ElevatedButton(
-              onPressed: isValid ? () {} : null,
+              onPressed: isValid ? () => Get.to(() => VerifikasiScreen(), arguments: "dev@hafidtech.com") : null,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 48),
                 backgroundColor: isValid

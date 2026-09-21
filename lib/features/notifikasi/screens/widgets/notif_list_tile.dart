@@ -2,14 +2,14 @@ import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/setting_switch_tile.dart';
 import 'package:flutter/material.dart';
 
-class BeritaTerkiniTile extends StatelessWidget {
+class NotifListTile extends StatelessWidget {
   final bool value;
   final IconData icon;
   final String title;
   final String subtitle;
   final ValueChanged<bool> onChanged;
 
-  const BeritaTerkiniTile({
+  const NotifListTile({
     super.key,
     required this.value,
     required this.icon,

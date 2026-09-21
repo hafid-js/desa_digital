@@ -23,6 +23,15 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen>
     with SingleTickerProviderStateMixin {
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController(
+    text: 'HafidTech',
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: 'dev@hafidtech.com',
+  );
+  final TextEditingController _phoneController = TextEditingController(
+    text: '082322875277',
+  );
   late TabController _tabController;
   final ScrollController _scrollControllerTab2 = ScrollController();
   bool _showButton = true;
@@ -146,6 +155,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     _tabController.dispose();
     _scrollControllerTab2.dispose();
     _dateController.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -206,7 +218,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       color: AppColors.primary,
                     ),
                   ),
-                  MainInfoForm(),
+                  MainInfoForm(
+                    fullNameController: _fullNameController,
+                    emailController: _emailController,
+                    phoneController: _phoneController,
+                  ),
                 ],
               ),
             ),
@@ -225,6 +241,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   },
                   religionItems: religionItems,
                   marriedStatus: marriedStatus,
+                  fullNameController: _fullNameController,
+                  emailController: _emailController,
+                  phoneController: _phoneController,
                 ),
               ),
             ),
@@ -251,10 +270,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       ),
                     ),
                     child: Text(
-                      "Ubah Data",
+                      "Simpan",
                       style: Theme.of(
                         context,
-                      ).textTheme.labelMedium!.copyWith(color: Colors.white),
+                      ).textTheme.labelMedium!.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
@@ -312,14 +331,29 @@ class ProfileImagePicker extends StatelessWidget {
 }
 
 class MainInfoForm extends StatelessWidget {
-  const MainInfoForm({super.key});
+  final TextEditingController fullNameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
 
-  Widget _buildTextField({required String label, IconData? suffixIcon}) {
+  const MainInfoForm({
+    super.key,
+    required this.fullNameController,
+    required this.emailController,
+    required this.phoneController,
+  });
+
+  Widget _buildTextField({
+    required String label,
+    IconData? suffixIcon,
+    TextEditingController? controller,
+    bool editable = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: TextFormField(
-        readOnly: label != "Nama Lengkap" ? true : false,
-        onTap: label == "Nama Lengkap"
+        controller: controller,
+        readOnly: !editable,
+        onTap: editable
       ? null
       : () {
           if (label == "Email") {
@@ -372,9 +406,21 @@ class MainInfoForm extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           SizedBox(height: 15),
-          _buildTextField(label: "Nama Lengkap"),
-          _buildTextField(label: "Email", suffixIcon: Iconsax.edit),
-          _buildTextField(label: "Nomor Whatsapp", suffixIcon: Iconsax.edit),
+          _buildTextField(
+            label: "Nama Lengkap",
+            controller: fullNameController,
+            editable: true,
+          ),
+          _buildTextField(
+            label: "Email",
+            controller: emailController,
+            suffixIcon: Iconsax.edit,
+          ),
+          _buildTextField(
+            label: "Nomor Whatsapp",
+            controller: phoneController,
+            suffixIcon: Iconsax.edit,
+          ),
         ],
       ),
     );
@@ -388,6 +434,9 @@ class PersonalDataForm extends StatelessWidget {
   final ValueChanged<Groceries?> onGenderChanged;
   final List<String> religionItems;
   final List<String> marriedStatus;
+  final TextEditingController fullNameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
 
   const PersonalDataForm({
     super.key,
@@ -397,34 +446,57 @@ class PersonalDataForm extends StatelessWidget {
     required this.onGenderChanged,
     required this.religionItems,
     required this.marriedStatus,
+    required this.fullNameController,
+    required this.emailController,
+    required this.phoneController,
   });
 
   Widget _buildTextField({
     required String label,
     bool isNumber = false,
+    bool isReadOnly = false,
     int? maxLength,
+    TextEditingController? controller,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: TextFormField(
+        controller: controller,
+        enabled: !isReadOnly,
         keyboardType: isNumber ? TextInputType.number : null,
         inputFormatters: isNumber
             ? [FilteringTextInputFormatter.digitsOnly]
             : null,
         maxLength: maxLength,
+        style: isReadOnly
+            ? TextStyle(color: Colors.black87, fontSize: 14)
+            : null,
         decoration: InputDecoration(
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelBehavior: isReadOnly
+              ? FloatingLabelBehavior.always
+              : FloatingLabelBehavior.auto,
           labelText: label,
           labelStyle: TextStyle(fontSize: 14, color: Colors.grey),
-          floatingLabelStyle: TextStyle(color: AppColors.primary),
+          floatingLabelStyle: TextStyle(color: Colors.black54, fontSize: 12),
+          // fillColor: isReadOnly ? AppColors.grey.withAlpha(30) : null,
+          // filled: isReadOnly,
 
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: Colors.black54, width: 1),
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors.primary, width: 1),
+            borderSide: BorderSide(
+              color: isReadOnly ? Colors.black54 : AppColors.primary,
+              width: 1,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors.primary),
+            borderSide: BorderSide(
+              color: isReadOnly ? AppColors.grey : AppColors.primary,
+            ),
           ),
         ),
       ),
@@ -512,9 +584,21 @@ class PersonalDataForm extends StatelessWidget {
       children: [
         Text("Data Diri", style: Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 10),
-        _buildTextField(label: "Email"),
-        _buildTextField(label: "Nama Lengkap"),
-        _buildTextField(label: "Nomor Whatsapp"),
+        _buildTextField(
+          label: "Email",
+          isReadOnly: true,
+          controller: emailController,
+        ),
+        _buildTextField(
+          label: "Nama Lengkap",
+          isReadOnly: true,
+          controller: fullNameController,
+        ),
+        _buildTextField(
+          label: "Nomor Whatsapp",
+          isReadOnly: true,
+          controller: phoneController,
+        ),
         _buildTextField(label: "NIK", isNumber: true, maxLength: 16),
         _buildTextField(label: "Tempat Lahir"),
         Padding(
