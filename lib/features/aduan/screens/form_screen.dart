@@ -551,8 +551,7 @@ class _FormScreenState extends State<FormScreen> {
                         if (Get.isRegistered<WilayahSearchController>()) {
                           Get.delete<WilayahSearchController>();
                         }
-                        final controller =
-                            Get.put(WilayahSearchController());
+                        final controller = Get.put(WilayahSearchController());
 
                         return AnimatedPadding(
                           padding: EdgeInsets.only(
@@ -574,7 +573,7 @@ class _FormScreenState extends State<FormScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-TextField(
+                                TextField(
                                   controller: controller.searchController,
                                   onChanged: controller.onQueryChanged,
                                   autofocus: true,
@@ -629,9 +628,7 @@ TextField(
                                               ),
                                               SizedBox(height: 10),
                                               Text(
-                                                controller
-                                                            .searchController
-                                                            .text
+                                                controller.searchController.text
                                                             .trim()
                                                             .length <
                                                         WilayahSearchController
@@ -660,7 +657,7 @@ TextField(
                                           ).textTheme.labelSmall,
                                         ),
                                         const SizedBox(height: 4),
-Expanded(
+                                        Expanded(
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
@@ -673,8 +670,8 @@ Expanded(
                                                   height: 56,
                                                   margin:
                                                       const EdgeInsets.symmetric(
-                                                    horizontal: 18,
-                                                  ),
+                                                        horizontal: 18,
+                                                      ),
                                                   decoration: BoxDecoration(
                                                     color: AppColors.primary
                                                         .withAlpha(14),
@@ -1063,7 +1060,7 @@ Expanded(
                                   _selected == Groceries.privat
                                       ? 'Aduan Privat (Rahasia)'
                                       : 'Aduan Publik',
-                                  style: Theme.of(context).textTheme.titleSmall
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
 
                                 const SizedBox(height: 5),
@@ -1078,230 +1075,234 @@ Expanded(
                                             'Ngopeni Nglakoni lainnya. Pilih opsi ini '
                                             'jika kamu bersedia agar aduanmu dapat '
                                             'dilihat oleh publik.',
-                                  style: Theme.of(context).textTheme.labelSmall!.copyWith(fontSize: 11, color: Colors.black, fontWeight: FontWeight.w300),
+                                  style: Theme.of(context).textTheme.labelSmall!
+                                      .copyWith(
+                                        fontSize: 11,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
-                    
                   ],
                 ),
               ),
               SizedBox(height: 10),
-                                          Padding(padding: EdgeInsets.symmetric(vertical: 12), child: ElevatedButton(
-                                            onPressed: () {
-                                              showModalBottomSheet(
-                          backgroundColor: Theme.of(
-                            context,
-                          ).scaffoldBackgroundColor,
-                          context: context,
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
-                          ),
-                          builder: (context) {
-                            return StatefulBuilder(
-                              builder: (context, setModalState) {
-                                return DraggableScrollableSheet(
-                                  expand: false,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      backgroundColor: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor,
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(16),
+                        ),
+                      ),
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (context, setModalState) {
+                            return DraggableScrollableSheet(
+                              expand: false,
 
-                                  initialChildSize: 0.22,
-                                  minChildSize: 0.2,
-                                  maxChildSize: 1.0,
-                                  builder: (context, scrollController) {
-                                    return Container(
-                                      padding: EdgeInsets.all(12),
-                                      width: double.infinity,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                              initialChildSize: 0.22,
+                              minChildSize: 0.2,
+                              maxChildSize: 1.0,
+                              builder: (context, scrollController) {
+                                return Container(
+                                  padding: EdgeInsets.all(12),
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Yakin ingin mengirim laporan?",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        "Pastikan informasi yang akan kamu laporkan sudah benar dan lengkap.",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelSmall,
+                                      ),
+                                      SizedBox(height: 30),
+                                      Row(
                                         children: [
-                                          Text(
-                                            "Yakin ingin mengirim laporan?",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                  fontSize: 22,
-                                                  fontWeight: FontWeight.bold,
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: 42,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border(
+                                                    left: BorderSide(
+                                                      width: 0.2,
+                                                      color:
+                                                          AppColors.secondary,
+                                                    ),
+                                                    right: BorderSide(
+                                                      width: 0.2,
+                                                      color:
+                                                          AppColors.secondary,
+                                                    ),
+                                                    bottom: BorderSide(
+                                                      width: 0.2,
+                                                      color:
+                                                          AppColors.secondary,
+                                                    ),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
                                                 ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Text(
-                                            "Pastikan informasi yang akan kamu laporkan sudah benar dan lengkap.",
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.labelSmall,
-                                          ),
-                                          SizedBox(height: 30),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: SizedBox(
-                                                  height: 42,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      border: Border(
-                                                        left: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.secondary,
-                                                        ),
-                                                        right: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.secondary,
-                                                        ),
-                                                        bottom: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.secondary,
-                                                        ),
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: AppColors
+                                                        .secondary
+                                                        .withAlpha(40),
+                                                    foregroundColor: AppColors
+                                                        .secondary
+                                                        .withAlpha(40),
+                                                    elevation: 0,
+                                                    side: BorderSide.none,
+                                                    // shape: RoundedRectangleBorder(
+                                                    //   borderRadius:
+                                                    //       BorderRadius.circular(
+                                                    //         20,
+                                                    //       ),
+                                                    // ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "Tinjau Ulang",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                              color: AppColors
+                                                                  .secondary,
+                                                            ),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            20,
-                                                          ),
-                                                    ),
-                                                    child: ElevatedButton(
-                                                      onPressed: () {},
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            AppColors.secondary.withAlpha(40),
-                                                        foregroundColor:
-                                                      AppColors.secondary.withAlpha(40),
-                                                        elevation: 0,
-                                                        side: BorderSide.none,
-                                                        // shape: RoundedRectangleBorder(
-                                                        //   borderRadius:
-                                                        //       BorderRadius.circular(
-                                                        //         20,
-                                                        //       ),
-                                                        // ),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            "Tinjau Ulang",
-                                                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.secondary)
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 12),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
 
-                                              Expanded(
-                                                child: SizedBox(
-                                                  height: 42,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      border: Border(
-                                                        left: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.primary,
-                                                        ),
-                                                        right: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.primary,
-                                                        ),
-                                                        bottom: BorderSide(
-                                                          width: 0.2,
-                                                          color:
-                                                              AppColors.primary,
-                                                        ),
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            20,
-                                                          ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: 42,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border(
+                                                    left: BorderSide(
+                                                      width: 0.2,
+                                                      color: AppColors.primary,
                                                     ),
-                                                    child: ElevatedButton(
-                                                      onPressed: () {},
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            AppColors.primary,
-                                                        foregroundColor:
-                                                            AppColors.primary,
-                                                        elevation: 0,
-                                                        side: BorderSide.none,
-                                                        // shape: RoundedRectangleBorder(
-                                                        //   borderRadius:
-                                                        //       BorderRadius.circular(
-                                                        //         20,
-                                                        //       ),
-                                                        // ),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            "Ya, Kirim",
-                                                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white)
-                                                          ),
-                                                        ],
-                                                      ),
+                                                    right: BorderSide(
+                                                      width: 0.2,
+                                                      color: AppColors.primary,
                                                     ),
+                                                    bottom: BorderSide(
+                                                      width: 0.2,
+                                                      color: AppColors.primary,
+                                                    ),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        AppColors.primary,
+                                                    foregroundColor:
+                                                        AppColors.primary,
+                                                    elevation: 0,
+                                                    side: BorderSide.none,
+                                                    // shape: RoundedRectangleBorder(
+                                                    //   borderRadius:
+                                                    //       BorderRadius.circular(
+                                                    //         20,
+                                                    //       ),
+                                                    // ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "Ya, Kirim",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                          
                                         ],
                                       ),
-                                    );
-                                  },
+                                    ],
+                                  ),
                                 );
                               },
                             );
                           },
                         );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 12,
-                                                horizontal: 12
-                                              ),
-                                                minimumSize: const Size(double.infinity, 48),
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              foregroundColor:
-                                                  AppColors.primary,
-                                              elevation: 0,
-                                              side: BorderSide.none,
-                                              // shape: RoundedRectangleBorder(
-                                              //   borderRadius:
-                                              //       BorderRadius.circular(
-                                              //         20,
-                                              //       ),
-                                              // ),
-                                            ),
-                                            child: Text(
-                                                  "Kirim Laporan",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium!
-                                                      .copyWith(
-                                                        color: Colors.white,
-                                                      ),
-                                                ),
-                                          ),)
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                    minimumSize: const Size(double.infinity, 48),
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.primary,
+                    elevation: 0,
+                    side: BorderSide.none,
+                    // shape: RoundedRectangleBorder(
+                    //   borderRadius:
+                    //       BorderRadius.circular(
+                    //         20,
+                    //       ),
+                    // ),
+                  ),
+                  child: Text(
+                    "Kirim Laporan",
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium!.copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -1314,10 +1315,7 @@ class _SearchableWheel extends StatefulWidget {
   final WilayahSearchController controller;
   final int count;
 
-  const _SearchableWheel({
-    required this.controller,
-    required this.count,
-  });
+  const _SearchableWheel({required this.controller, required this.count});
 
   @override
   State<_SearchableWheel> createState() => _SearchableWheelState();

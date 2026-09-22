@@ -38,7 +38,7 @@ class _AduanScreenState extends State<AduanScreen> {
           ),
           const SizedBox(height: 5),
           Text(
-            "Sampaikan aduan seputar layanan atau fasilitas umum di Provinsi Jawa Tengah",
+            "Sampaikan aduan seputar layanan atau fasilitas umum di Desa",
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ],
@@ -268,7 +268,7 @@ class _AduanScreenState extends State<AduanScreen> {
                                                                     ),
 
                                                                     Text(
-                                                                      "Jenis aduan dapat kamu ubah menjadi publik jika kamu ingin aduan terlihat oleh pengguna aplikasi Ngopeni Nglakoni lainnya. Jika aduan Publik berisi data pribadi maka jenis akan diubah menjadi privat/rahasia.",
+                                                                      "Jenis aduan dapat kamu ubah menjadi publik jika kamu ingin aduan terlihat oleh pengguna aplikasi lainnya. Jika aduan Publik berisi data pribadi maka jenis akan diubah menjadi privat/rahasia.",
                                                                       style: Theme.of(
                                                                         context,
                                                                       ).textTheme.labelSmall,

@@ -1,3 +1,4 @@
+import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/features/profil/screens/change_password_screen.dart';
 import 'package:desa_digital/features/profil/screens/delete_account_screen.dart';
 import 'package:desa_digital/helpers/hex_color.dart';
@@ -22,9 +23,7 @@ class SettingProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
+                Row(
                     children: [
                       IconButton(
                         onPressed: () => Get.back(),
@@ -35,15 +34,14 @@ class SettingProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                SizedBox(height: 5),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     "Pengaturan Akun",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -52,124 +50,156 @@ class SettingProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () => Get.to(() => ChangePasswordScreen()),
-              child: Card(
-              color: Colors.white,
-              margin: EdgeInsets.all(12),
-              elevation: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
+      body: Column(
+        children: [
+          InkWell(
+            onTap: () => Get.to(() => ChangePasswordScreen()),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(40),
+                      blurRadius: 1,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Iconsax.key,
-                      size: 30,
-                      color: HexColor.fromHex("#4158D0").withAlpha(120),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        "Ubah Password",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
+                    Row(
+                      children: [
+                        Icon(
+                          Iconsax.key,
+                          size: 25,
+                          color: AppColors.primary.withAlpha(120),
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
+                        SizedBox(width: 12),
+                        Text(
+                          "Ubah Password",
+                          style: Theme.of(context).textTheme.titleMedium!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                      color: AppColors.grey,
+                    ),
                   ],
                 ),
               ),
             ),
-            ),
+          ),
 
-            InkWell(
-              onTap: () => Get.to(() => DeleteAccountScreen()),
-              child: Card(
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-              elevation: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
+          InkWell(
+            onTap: () => Get.to(() => DeleteAccountScreen()),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(40),
+                      blurRadius: 1,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Iconsax.trash,
-                      size: 30,
-                      color: HexColor.fromHex("#FE2D2D").withAlpha(190),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(width: 12),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+                      child: Row(
                         children: [
-                          Text(
-                            "Hapus Akun",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          Icon(
+                            Iconsax.trash,
+                            size: 25,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(height: 2),
-                          Text(
-                            "Kamu akan kehilangan semua data dan kemudahan dari aplikasi",
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 12,
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Hapus Akun",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "Kamu akan kehilangan semua data dan kemudahan dari aplikasi",
+                                  style: Theme.of(context).textTheme.labelSmall!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        color: const Color.fromARGB(
+                                          221,
+                                          69,
+                                          69,
+                                          69,
+                                        ),
+                                      ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                      color: AppColors.grey,
+                    ),
                   ],
                 ),
               ),
             ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: HexColor.fromHex("#FE2D2D").withAlpha(40),
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: HexColor.fromHex("#FFE5E3"),
+            foregroundColor: Colors.white,
+            padding: EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.logout, color: Colors.red),
+              SizedBox(width: 5),
+              Text(
+                "Logout",
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium!.copyWith(color: Colors.red),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.logout, color: HexColor.fromHex("#FE2D2D")),
-                Text(
-              "Logout",
-              style: TextStyle(fontSize: 14, color: HexColor.fromHex("#FE2D2D")),
-            ),
-              ],
-            )
+            ],
           ),
         ),
+      ),
     );
   }
 }

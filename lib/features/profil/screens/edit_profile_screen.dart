@@ -54,6 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     'CERAI MATI',
   ];
 
+  final Map<String, ValueNotifier<String?>> _dropdownValues = {};
+
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -158,6 +160,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     _fullNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    for (final notifier in _dropdownValues.values) {
+      notifier.dispose();
+    }
     super.dispose();
   }
 
@@ -244,6 +249,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   fullNameController: _fullNameController,
                   emailController: _emailController,
                   phoneController: _phoneController,
+                  dropdownValues: _dropdownValues,
                 ),
               ),
             ),
@@ -437,6 +443,7 @@ class PersonalDataForm extends StatelessWidget {
   final TextEditingController fullNameController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
+  final Map<String, ValueNotifier<String?>> dropdownValues;
 
   const PersonalDataForm({
     super.key,
@@ -449,6 +456,7 @@ class PersonalDataForm extends StatelessWidget {
     required this.fullNameController,
     required this.emailController,
     required this.phoneController,
+    required this.dropdownValues,
   });
 
   Widget _buildTextField({
@@ -503,15 +511,41 @@ class PersonalDataForm extends StatelessWidget {
     );
   }
 
+  ValueNotifier<String?> _dropdownValue(String label) {
+    return dropdownValues.putIfAbsent(label, () => ValueNotifier<String?>(null));
+  }
+
   Widget _buildDropdown({required String label, required List<String> items}) {
+    final value = _dropdownValue(label);
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: DropdownButtonFormField2<String>(
         isExpanded: true,
+        valueListenable: value,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: AppColors.primary, width: 1),
+          ),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: AppColors.primary, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: AppColors.primary, width: 1),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: AppColors.primary, width: 1),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: AppColors.primary, width: 1),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(color: AppColors.primary, width: 1),
           ),
@@ -525,7 +559,7 @@ class PersonalDataForm extends StatelessWidget {
               ),
             )
             .toList(),
-        onChanged: (value) {},
+        onChanged: (v) => value.value = v,
       ),
     );
   }

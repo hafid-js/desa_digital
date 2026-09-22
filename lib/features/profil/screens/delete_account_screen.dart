@@ -1,16 +1,38 @@
+import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:iconsax/iconsax.dart';
 
-class DeleteAccountScreen extends StatelessWidget {
+class DeleteAccountScreen extends StatefulWidget {
   const DeleteAccountScreen({super.key});
+
+  @override
+  State<DeleteAccountScreen> createState() => _DeleteAccountScreenState();
+}
+
+class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(150),
+        preferredSize: const Size.fromHeight(135),
         child: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
@@ -19,10 +41,7 @@ class DeleteAccountScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 20,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: Row(
                     children: [
                       IconButton(
@@ -35,24 +54,31 @@ class DeleteAccountScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Alasan Hapus Akun",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
+                const SizedBox(height: 5),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Alasan Hapus Akun",
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
-                      ),
-                      Text(
-                        "Masukkan alasan menghapus akun Jateng Ngopeni Ngapusi",
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                      ),
-                    ],
+                        Text(
+                          "Masukkan alasan menghapus akun Jateng Ngopeni Nglakoni",
+                          style: Theme.of(context).textTheme.labelSmall!
+                              .copyWith(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w300,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -60,58 +86,200 @@ class DeleteAccountScreen extends StatelessWidget {
           ),
         ),
       ),
-
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
-          child: TextFormField(
-            maxLines: null,
-            minLines: 8,
-            decoration: InputDecoration(
-              labelText: "Lanjut Hapus",
-              labelStyle: const TextStyle(fontSize: 14),
-              alignLabelWithHint: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+        child: TextFormField(
+          maxLines: 10,
+          minLines: 8,
+          focusNode: _focusNode,
+          decoration: InputDecoration(
+            hintText: "Lanjut hapus",
+            hintStyle: const TextStyle(color: Colors.black87),
+            alignLabelWithHint: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: AppColors.grey.withAlpha(120),
+                width: 2,
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 12,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: AppColors.grey.withAlpha(120),
+                width: 2,
               ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 12,
             ),
           ),
         ),
       ),
-
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
-        child: ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Akun Berhasil Dihapus!"),
-                duration: Duration(seconds: 1),
-              ),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: HexColor.fromHex("#FE2D2D"),
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 12,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Iconsax.trash, size: 20),
-              SizedBox(width: 6),
-              Text(
-                "Lanjut Hapus",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          child: UnconstrainedBox(
+            child: ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                  ),
+                  builder: (context) {
+                    return StatefulBuilder(
+                      builder: (context, setModalState) {
+                        return DraggableScrollableSheet(
+                          expand: false,
+
+                          initialChildSize: 0.25,
+                          minChildSize: 0.2,
+                          maxChildSize: 1.0,
+                          builder: (context, scrollController) {
+                            return Container(
+                              padding: EdgeInsets.only(
+                                top: 16,
+                                left: 16,
+                                right: 16,
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom +
+                                    12,
+                              ),
+                              width: double.infinity,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Konfirmasi Hapus Akun",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "Setelah ini akun akan dihapus secara permanen. Jika kamu ingin mengakses aplikasi ini kembali, lakukan registrasi akun sebagai pengguna baru.",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall!
+                                        .copyWith(
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
+                                  SizedBox(height: 30),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: HexColor.fromHex(
+                                              "#FFE5E3",
+                                            ),
+                                            foregroundColor: HexColor.fromHex(
+                                              "#FFE5E3",
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Batal",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColors.primary,
+                                            foregroundColor: AppColors.primary,
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Hapus",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 14,
+                ),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
-            ],
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Iconsax.trash, size: 25, color: Colors.white),
+                  SizedBox(width: 6),
+                  Text(
+                    "Lanjut Hapus",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
