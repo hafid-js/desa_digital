@@ -52,7 +52,7 @@ class SettingProfileScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          InkWell(
+          GestureDetector(
             onTap: () => Get.to(() => ChangePasswordScreen()),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -100,7 +100,7 @@ class SettingProfileScreen extends StatelessWidget {
             ),
           ),
 
-          InkWell(
+          GestureDetector(
             onTap: () => Get.to(() => DeleteAccountScreen()),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

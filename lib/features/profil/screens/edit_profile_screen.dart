@@ -4,7 +4,6 @@ import 'package:desa_digital/core/utils/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/ucircular_image.dart';
 import 'package:desa_digital/features/profil/screens/edit_email_screen.dart';
 import 'package:desa_digital/features/profil/screens/edit_phone_screen.dart';
-import 'package:desa_digital/helpers/hex_color.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +32,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     text: '082322875277',
   );
   late TabController _tabController;
-  final ScrollController _scrollControllerTab2 = ScrollController();
   bool _showButton = true;
   File? _profileImage;
   Groceries? _selectedGender;
@@ -52,6 +50,30 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     'KAWIN',
     'CERAI HIDUP',
     'CERAI MATI',
+  ];
+  final List<String> provinsiItems = [
+    'DKI JAKARTA',
+    'JAWA TENGAH',
+    'JAWA BARAT',
+    'DIY YOGYAKARTA',
+  ];
+  final List<String> kabupatenItems = [
+    'PURWOREJO',
+    'KEBUMEN',
+    'WONOSOBO',
+    'MAGELANG',
+  ];
+  final List<String> kecamatanItems = [
+    'BRUNO',
+    'KEMIRI',
+    'PITURUH',
+    'KUTOARJO',
+  ];
+  final List<String> kelurahanItems = [
+    'GUNUNG CONDONG',
+    'CEPEDAK',
+    'BRUNOREJO',
+    'KEMRANGGEN',
   ];
 
   final Map<String, ValueNotifier<String?>> _dropdownValues = {};
@@ -102,60 +124,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
 
-    // Listener perpindahan Tab
     _tabController.addListener(_onTabChanged);
-
-    // Listener scroll khusus Tab 2
-    _scrollControllerTab2.addListener(_onScrollTab2);
   }
 
   void _onTabChanged() {
     if (_tabController.indexIsChanging) return;
-
-    if (_tabController.index == 0) {
-      // Tab 1: Selalu tampilkan tombol
-      setState(() {
-        _showButton = true;
-      });
-    } else {
-      // Tab 2: Cek dulu posisi scroll-nya saat ini
-      _checkScrollTab2();
-    }
-  }
-
-  void _onScrollTab2() {
-    if (_tabController.index == 1) {
-      _checkScrollTab2();
-    }
-  }
-
-  void _checkScrollTab2() {
-    if (!_scrollControllerTab2.hasClients) return;
-
-    final maxScroll = _scrollControllerTab2.position.maxScrollExtent;
-    final currentScroll = _scrollControllerTab2.position.pixels;
-
-    // Toleransi 30px sebelum posisi paling bawah
-    if (currentScroll >= (maxScroll - 30)) {
-      if (!_showButton) {
-        setState(() {
-          _showButton = true;
-        });
-      }
-    } else {
-      if (_showButton) {
-        setState(() {
-          _showButton = false;
-        });
-      }
-    }
   }
 
   @override
   void dispose() {
     _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
-    _scrollControllerTab2.dispose();
     _dateController.dispose();
     _fullNameController.dispose();
     _emailController.dispose();
@@ -232,7 +211,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
             ),
             SingleChildScrollView(
-              controller: _scrollControllerTab2,
+              // controller: _scrollControllerTab2,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: PersonalDataForm(
@@ -246,6 +225,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   },
                   religionItems: religionItems,
                   marriedStatus: marriedStatus,
+                  provinsiItems: provinsiItems,
+                  kabupatenItems: kabupatenItems,
+                  kecamatanItems: kecamatanItems,
+                  kelurahanItems: kelurahanItems,
                   fullNameController: _fullNameController,
                   emailController: _emailController,
                   phoneController: _phoneController,
@@ -255,36 +238,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             ),
           ],
         ),
-        bottomNavigationBar: _showButton
-            ? SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom + 12,
-                    right: 16,
-                    left: 16,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () => Get.to(() => EditProfileScreen()),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.primary,
-                      elevation: 0,
-                      side: BorderSide.none,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: Text(
-                      "Simpan",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium!.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              )
-            : SizedBox.shrink(),
       ),
     );
   }
@@ -360,14 +313,14 @@ class MainInfoForm extends StatelessWidget {
         controller: controller,
         readOnly: !editable,
         onTap: editable
-      ? null
-      : () {
-          if (label == "Email") {
-            Get.to(() => EditEmailScreen());
-          } else if (label == "Nomor Whatsapp") {
-            Get.to(() => EditPhoneScreen());
-          }
-        },
+            ? null
+            : () {
+                if (label == "Email") {
+                  Get.to(() => EditEmailScreen());
+                } else if (label == "Nomor Whatsapp") {
+                  Get.to(() => EditPhoneScreen());
+                }
+              },
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelText: label,
@@ -440,6 +393,10 @@ class PersonalDataForm extends StatelessWidget {
   final ValueChanged<Groceries?> onGenderChanged;
   final List<String> religionItems;
   final List<String> marriedStatus;
+  final List<String> provinsiItems;
+  final List<String> kabupatenItems;
+  final List<String> kecamatanItems;
+  final List<String> kelurahanItems;
   final TextEditingController fullNameController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
@@ -453,6 +410,10 @@ class PersonalDataForm extends StatelessWidget {
     required this.onGenderChanged,
     required this.religionItems,
     required this.marriedStatus,
+    required this.provinsiItems,
+    required this.kabupatenItems,
+    required this.kecamatanItems,
+    required this.kelurahanItems,
     required this.fullNameController,
     required this.emailController,
     required this.phoneController,
@@ -486,9 +447,9 @@ class PersonalDataForm extends StatelessWidget {
           labelText: label,
           labelStyle: TextStyle(fontSize: 14, color: Colors.grey),
           floatingLabelStyle: TextStyle(color: Colors.black54, fontSize: 12),
+
           // fillColor: isReadOnly ? AppColors.grey.withAlpha(30) : null,
           // filled: isReadOnly,
-
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(color: Colors.black54, width: 1),
@@ -512,17 +473,21 @@ class PersonalDataForm extends StatelessWidget {
   }
 
   ValueNotifier<String?> _dropdownValue(String label) {
-    return dropdownValues.putIfAbsent(label, () => ValueNotifier<String?>(null));
+    return dropdownValues.putIfAbsent(
+      label,
+      () => ValueNotifier<String?>(null),
+    );
   }
 
   Widget _buildDropdown({required String label, required List<String> items}) {
     final value = _dropdownValue(label);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.only(bottom: 16),
       child: DropdownButtonFormField2<String>(
         isExpanded: true,
         valueListenable: value,
         decoration: InputDecoration(
+          labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           labelText: label,
           border: OutlineInputBorder(
@@ -550,12 +515,22 @@ class PersonalDataForm extends StatelessWidget {
             borderSide: BorderSide(color: AppColors.primary, width: 1),
           ),
         ),
-        hint: Text('Pilih $label', style: TextStyle(fontSize: 14)),
+        hint: Text(
+          'Pilih $label',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.black54,
+          ),
+        ),
         items: items
             .map(
               (item) => DropdownItem(
                 value: item,
-                child: Text(item, style: TextStyle(fontSize: 14)),
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
               ),
             )
             .toList(),
@@ -601,11 +576,11 @@ class PersonalDataForm extends StatelessWidget {
             fillColor: MaterialStateProperty.resolveWith(
               (states) => states.contains(MaterialState.selected)
                   ? AppColors.primary
-                  : Colors.grey,
+                  : Colors.black54,
             ),
           ),
           SizedBox(width: 4),
-          Text(label, style: TextStyle(fontSize: 14)),
+          Text(label, style: TextStyle(fontSize: 14, color: Colors.black87)),
         ],
       ),
     );
@@ -634,7 +609,17 @@ class PersonalDataForm extends StatelessWidget {
           controller: phoneController,
         ),
         _buildTextField(label: "NIK", isNumber: true, maxLength: 16),
-        _buildTextField(label: "Tempat Lahir"),
+        Text(
+          "Tempat Lahir",
+          style: TextStyle(fontSize: 12, color: Colors.black),
+        ),
+        SizedBox(height: 8),
+        _buildTextField(label: ""),
+        Text(
+          "Tanggal Lahir",
+          style: TextStyle(fontSize: 12, color: Colors.black),
+        ),
+        SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.only(bottom: 14),
           child: TextFormField(
@@ -642,7 +627,7 @@ class PersonalDataForm extends StatelessWidget {
             readOnly: true,
             onTap: pickDate,
             decoration: InputDecoration(
-              labelText: "Tanggal Lahir",
+              labelText: "-",
               labelStyle: TextStyle(fontSize: 14),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -658,10 +643,56 @@ class PersonalDataForm extends StatelessWidget {
         _buildGenderSelector(),
         _buildDropdown(label: "Agama", items: religionItems),
         _buildDropdown(label: "Status Perkawinan", items: marriedStatus),
-        _buildDropdown(label: "Provinsi", items: marriedStatus),
-        _buildDropdown(label: "Kabupaten/Kota", items: marriedStatus),
-        _buildDropdown(label: "Kecamatan", items: marriedStatus),
-        _buildDropdown(label: "Kelurahan", items: marriedStatus),
+        Text("Alamat", style: Theme.of(context).textTheme.titleMedium),
+        SizedBox(height: 10),
+        _buildDropdown(label: "Provinsi", items: provinsiItems),
+        _buildDropdown(label: "Kabupaten/Kota", items: kabupatenItems),
+        _buildDropdown(label: "Kecamatan", items: kecamatanItems),
+        _buildDropdown(label: "Kelurahan/Desa", items: kelurahanItems),
+        TextFormField(
+          maxLines: 10,
+          minLines: 8,
+          decoration: InputDecoration(
+            labelText: "Alamat Lengkap",
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
+            hintText: "Masukkan alamat lengkap, contoh : Jl. Wangsajaya No.9",
+            hintStyle: const TextStyle(fontSize: 14, color: Colors.black54),
+            alignLabelWithHint: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: AppColors.primary, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: AppColors.primary, width: 2),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 12,
+            ),
+          ),
+        ),
+        SizedBox(height: 12),
+        ElevatedButton(
+          onPressed: () => Get.to(() => EditProfileScreen()),
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.primary,
+            elevation: 0,
+            side: BorderSide.none,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          child: Text(
+            "Simpan",
+            style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
       ],
     );
   }

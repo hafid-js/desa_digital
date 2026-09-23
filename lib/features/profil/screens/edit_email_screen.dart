@@ -17,30 +17,54 @@ class EditEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.light,
-        surfaceTintColor: AppColors.light,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            color: AppColors.light,
+       appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(118),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          flexibleSpace: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Edit Alamat Email",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Get.back(),
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  "Pastikan email aktif untuk menerima kode keamanan",
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Edit Alamat Email",
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        Text(
+                          "Pastikan email aktif untuk menerima kode keamanan",
+                          style: Theme.of(context).textTheme.labelSmall!
+                              .copyWith(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w300,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -49,7 +73,7 @@ class EditEmailScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: TextFormField(
           controller: _emailController,
           autofocus: true,

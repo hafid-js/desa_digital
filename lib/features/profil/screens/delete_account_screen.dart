@@ -65,7 +65,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                           "Alasan Hapus Akun",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
-                                fontSize: 24,
+                                fontSize: 22,
                                 fontWeight: FontWeight.w700,
                               ),
                         ),
@@ -156,9 +156,11 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                                     12,
                               ),
                               width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                              child: SingleChildScrollView(
+                                controller: scrollController,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
                                   Text(
                                     "Konfirmasi Hapus Akun",
                                     style: Theme.of(context)
@@ -244,6 +246,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                                     ],
                                   ),
                                 ],
+                                ),
                               ),
                             );
                           },
