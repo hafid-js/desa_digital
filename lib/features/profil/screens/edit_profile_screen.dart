@@ -655,16 +655,17 @@ class PersonalDataForm extends StatelessWidget {
           decoration: InputDecoration(
             labelText: "Alamat Lengkap",
             labelStyle: TextStyle(fontSize: 14, color: Colors.black),
+            floatingLabelAlignment: FloatingLabelAlignment.start,
             hintText: "Masukkan alamat lengkap, contoh : Jl. Wangsajaya No.9",
             hintStyle: const TextStyle(fontSize: 14, color: Colors.black54),
-            alignLabelWithHint: true,
+            alignLabelWithHint: false,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide(color: AppColors.primary, width: 1),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: AppColors.primary, width: 2),
+              borderSide: BorderSide(color: AppColors.primary, width: 1),
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,

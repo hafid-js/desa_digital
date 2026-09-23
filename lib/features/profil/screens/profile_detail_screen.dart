@@ -32,10 +32,11 @@ class ProfileDataScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 Center(
                   child: CircleAvatar(
                     backgroundColor: AppColors.primary.withAlpha(40),
@@ -75,12 +76,13 @@ class ProfileDataScreen extends StatelessWidget {
                       context,
                     ).textTheme.labelMedium!.copyWith(color: Colors.white),
                   ),
-                ),)
-              ],
+                ),
+              ),
+                ]
             ),
           ),
         ),
-      ),
+      ),)
     );
   }
 }
