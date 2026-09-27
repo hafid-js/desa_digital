@@ -55,6 +55,8 @@ dependencies:
   table_calendar: ^3.2.1
   url_launcher: ^6.3.2
   dropdown_button2: ^3.1.0
+  flutter_pdfview: ^1.4.5
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +89,7 @@ flutter:
     - assets/images/events/
     - assets/fonts/
     - assets/icons/
+    - assets/pdf/
     - data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
