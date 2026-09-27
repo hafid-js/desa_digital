@@ -3,14 +3,12 @@ import 'package:desa_digital/features/artikel/screens/artikel_screen.dart';
 import 'package:desa_digital/features/home/data/datasources/article.dart';
 import 'package:desa_digital/features/home/data/datasources/events.dart';
 import 'package:desa_digital/features/home/data/datasources/menu_items.dart';
+import 'package:desa_digital/features/home/screens/widgets/apbdes_card.dart';
 import 'package:desa_digital/features/home/screens/widgets/call_center_card.dart';
 import 'package:desa_digital/features/home/screens/widgets/content_section.dart';
 import 'package:desa_digital/features/home/screens/widgets/footer.dart';
 import 'package:desa_digital/features/home/screens/widgets/home_app_bar.dart';
-import 'package:desa_digital/features/home/screens/widgets/promo_card.dart';
 import 'package:desa_digital/helpers/responsive_helper.dart';
-import 'package:desa_digital/shared/widgets/rounded_image.dart';
-import 'package:desa_digital/shared/widgets/texts/section_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -77,6 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onButtonPressed: () => Get.to(()=> BeritaScreen()),
               onTap: (item) {},
             ),
+                        SizedBox(height: 20),
+            APBDeSection(),
+
             Footer()
           ],
         ),
@@ -184,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               menu["title"],
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 13),
             ),
           ),
         ],

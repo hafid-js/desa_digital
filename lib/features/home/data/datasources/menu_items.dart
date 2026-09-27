@@ -1,5 +1,7 @@
 import 'package:desa_digital/features/acara/screens/event_screen.dart';
 import 'package:desa_digital/features/aduan/screens/aduan_screen.dart';
+import 'package:desa_digital/features/pengajuan_surat/screens/pengajuan_surat_screen.dart';
+import 'package:desa_digital/features/peraturan_desa/screens/peraturan_desa_screen.dart';
 
 final List<Map<String, dynamic>> menuItems = [
   {
@@ -18,15 +20,20 @@ final List<Map<String, dynamic>> menuItems = [
     "page": () => const EventScreen(),
   },
   {
-    "title": "PPID",
+    "title": "Peraturan Desa",
     "icon": "assets/icons/informasi-publik.png",
-    "page": () => const AduanScreen(),
+    "page": () => const PeraturanDesaScreen(),
   },
-    {
-    "title": "Bursa Kerja",
-    "icon": "assets/icons/bursa-kerja.png",
-    "page": () => const AduanScreen(),
+   {
+    "title": "Pengajuan Surat",
+    "icon": "assets/icons/perizinan-ptsp.png",
+    "page": () => const PengajuanSuratScreen(),
   },
+  //   {
+  //   "title": "Bursa Kerja",
+  //   "icon": "assets/icons/bursa-kerja.png",
+  //   "page": () => const AduanScreen(),
+  // },
   // {
   //   "title": "Trans Jateng",
   //   "icon": "assets/icons/trans-jateng.png",
