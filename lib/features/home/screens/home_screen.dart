@@ -1,16 +1,18 @@
-import 'package:desa_digital/core/widgets/search_bar.dart';
-import 'package:desa_digital/features/artikel/screens/artikel_screen.dart';
-import 'package:desa_digital/features/home/data/datasources/article.dart';
-import 'package:desa_digital/features/home/data/datasources/events.dart';
-import 'package:desa_digital/features/home/data/datasources/menu_items.dart';
-import 'package:desa_digital/features/home/screens/widgets/apbdes_card.dart';
-import 'package:desa_digital/features/home/screens/widgets/call_center_card.dart';
-import 'package:desa_digital/features/home/screens/widgets/content_section.dart';
-import 'package:desa_digital/features/home/screens/widgets/footer.dart';
-import 'package:desa_digital/features/home/screens/widgets/home_app_bar.dart';
-import 'package:desa_digital/helpers/responsive_helper.dart';
+import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/core/widgets/app_search_bar.dart';
+import 'package:desa_digital/features/artikel/screens/daftar_artikel_screen.dart';
+import 'package:desa_digital/features/home/data/item_artikel.dart';
+import 'package:desa_digital/features/home/data/item_agenda.dart';
+import 'package:desa_digital/features/home/data/menu_items.dart';
+import 'package:desa_digital/features/home/data/models/home_menu_item.dart';
+import 'package:desa_digital/features/home/widgets/apbdes_section.dart';
+import 'package:desa_digital/features/home/widgets/call_center_card.dart';
+import 'package:desa_digital/features/home/widgets/content_section.dart';
+import 'package:desa_digital/features/home/widgets/footer.dart';
+import 'package:desa_digital/features/home/widgets/home_app_bar.dart';
+import 'package:desa_digital/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,19 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 20),
                         _buildMenuSection(context),
                         SizedBox(height: 20),
-                        // PromoCard(),
-                        // Column(
-                        //   children: [
-                        //     USectionHeading(
-                        //       title: "Beasiswa Santri dan Pengasuh",
-                        //       buttonTitle: '',
-                        //     ),
-                        //     URoundedImage(
-                        //       imageUrl: "assets/images/banners/banner-4.png",
-                        //       isNetworkImage: false,
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -62,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ContentSection(
               title: "Agenda Hari Ini",
-              items: events,
+              items: daftarAgenda,
               padding: const EdgeInsets.only(left: 15, top: 5, bottom: 8),
               onButtonPressed: () {},
               onTap: (item) {},
@@ -70,15 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 20),
             ContentSection(
               title: "Artikel Terbaru",
-              items: articles,
+              items: daftarArtikel,
               padding: const EdgeInsets.only(left: 15, top: 5, bottom: 20),
-              onButtonPressed: () => Get.to(()=> BeritaScreen()),
+              onButtonPressed: () => Get.to(() => DaftarArtikelScreen()),
               onTap: (item) {},
             ),
-                        SizedBox(height: 20),
-            APBDeSection(),
+            SizedBox(height: 20),
+            ApbdesSection(),
 
-            Footer()
+            Footer(),
           ],
         ),
       ),
@@ -87,19 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBannerSection(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        top: 16,
-        right: 16,
-        left: 16,
-        bottom: 20,
-      ),
+      padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         image: DecorationImage(
           opacity: 0.5,
-          image: AssetImage(
-            "assets/images/banners/banner-background.png",
-          ),
+          image: AssetImage(AppAssets.bannerBackground),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -110,16 +92,12 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: AppSearchBar(
-                  hintText: "Sedang butuh layanan apa?",
-                ),
+                child: AppSearchBar(hintText: "Sedang butuh layanan apa?"),
               ),
               SizedBox(width: 15),
               CircleAvatar(
                 radius: 25,
-                backgroundImage: AssetImage(
-                  "assets/icons/tanya.jpg",
-                ),
+                backgroundImage: AssetImage(AppAssets.iconTanya),
               ),
             ],
           ),
@@ -152,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               tablet: 1.0,
             ),
             padding: EdgeInsets.zero,
-            children: menuItems
+            children: homeMenuItems
                 .map((menu) => _buildMenuItem(context, menu))
                 .toList(),
           ),
@@ -161,31 +139,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, Map menu) {
+  Widget _buildMenuItem(BuildContext context, HomeMenuItem menu) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () {
-        if (menu["page"] != null) {
-          final binding = menu["binding"];
-
-          if (binding != null) {
-            Get.to(menu["page"], binding: binding);
-          } else {
-            Get.to(menu["page"]);
-          }
-        }
-      },
+      onTap: () => Get.to(menu.pageBuilder),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(menu["icon"], height: 40, width: 40),
+          Image.asset(menu.icon, height: 40, width: 40),
           SizedBox(height: 10),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text(
-              menu["title"],
+              menu.title,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 13),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall!.copyWith(fontSize: 13),
             ),
           ),
         ],

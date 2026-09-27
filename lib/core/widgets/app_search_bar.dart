@@ -1,0 +1,42 @@
+import 'package:desa_digital/core/utils/color_utils.dart';
+import 'package:flutter/material.dart';
+
+class AppSearchBar extends StatelessWidget {
+  // final ValueChanged<String> onChanged;
+  final String hintText;
+
+  const AppSearchBar({
+    super.key,
+    // required this.onChanged,
+    this.hintText = "Cari...",
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 55,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Theme.of(context).cardColor,
+        // boxShadow: context.shadow.small,
+      ),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: TextField(
+          // onChanged: onChanged,
+          style: const TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            icon: Icon(Icons.search, color: HexColor.fromHex("#7c97a6")),
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: HexColor.fromHex("#7c97a6"),
+              fontSize: 14,
+            ),
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    );
+  }
+}

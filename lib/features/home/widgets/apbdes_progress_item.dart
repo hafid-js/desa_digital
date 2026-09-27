@@ -1,0 +1,82 @@
+import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:flutter/material.dart';
+
+class ApbdesProgressItem extends StatelessWidget {
+  const ApbdesProgressItem({
+    super.key,
+    required this.title,
+    required this.realAmount,
+    required this.targetAmount,
+    required this.progress,
+    required this.percentageText,
+    this.stackAlignment = Alignment.centerLeft,
+  });
+
+  final String title;
+  final String realAmount;
+  final String targetAmount;
+  final double progress;
+  final String percentageText;
+  final Alignment stackAlignment;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              realAmount,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            Text(
+              targetAmount,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Stack(
+          alignment: stackAlignment,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 15,
+                backgroundColor: Colors.grey[200],
+                color: AppColors.secondary,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 6),
+              child: Text(
+                percentageText,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

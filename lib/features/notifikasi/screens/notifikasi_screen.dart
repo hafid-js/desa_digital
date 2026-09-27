@@ -1,6 +1,6 @@
-import 'package:desa_digital/core/utils/constants/app_colors.dart';
-import 'package:desa_digital/features/notifikasi/screens/widgets/notif_list_tile.dart';
-import 'package:desa_digital/features/notifikasi/screens/widgets/notifikasi_kosong_screen.dart';
+import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/notifikasi/widgets/tile_daftar_notifikasi.dart';
+import 'package:desa_digital/features/notifikasi/widgets/tampilan_kosong_notifikasi.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -56,7 +56,7 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                                     fontWeight: FontWeight.w300,
                                   ),
                             ),
-                            NotifListTile(
+                            TileDaftarNotifikasi(
                               icon: Iconsax.book,
                               title: "Berita Terkini",
                               subtitle: "Informasi terbaru seputar Desa",
@@ -67,7 +67,7 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                                 });
                               },
                             ),
-                            NotifListTile(
+                            TileDaftarNotifikasi(
                               icon: Iconsax.cloud_drizzle,
                               title: "Peringatan Dini Cuaca",
                               subtitle:
@@ -79,7 +79,7 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                                 });
                               },
                             ),
-                            NotifListTile(
+                            TileDaftarNotifikasi(
                               icon: Iconsax.calendar_1,
                               title: "Event Desa Hari Ini",
                               subtitle: "Informasi acara di Desa hari ini",
@@ -341,13 +341,12 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                               ),
                             ),
 
-                            // Garis bawah yang dipendekkan (tidak full)
                             Divider(
                               color: AppColors.grey.withAlpha(180),
                               thickness: 0.5,
                               height: 1,
-                              indent: 16, // Jarak dari batas kiri
-                              endIndent: 16, // Jarak dari batas kanan
+                              indent: 16,
+                              endIndent: 16,
                             ),
                             InkWell(
                               onTap: () {
@@ -419,9 +418,9 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                           ],
                         ),
                       ),
-                      NotifikasiKosongScreen(),
-                      NotifikasiKosongScreen(),
-                      NotifikasiKosongScreen(),
+                      TampilanKosongNotifikasi(),
+                      TampilanKosongNotifikasi(),
+                      TampilanKosongNotifikasi(),
                     ],
                   ),
                 ),

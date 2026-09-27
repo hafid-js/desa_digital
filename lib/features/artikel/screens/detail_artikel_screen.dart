@@ -1,5 +1,6 @@
-import 'package:desa_digital/core/utils/constants/app_colors.dart';
-import 'package:desa_digital/shared/widgets/rounded_image.dart';
+import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/core/widgets/rounded_image.dart';
 import 'package:flutter/material.dart';
 
 class DetailArtikelScreen extends StatelessWidget {
@@ -34,14 +35,15 @@ class DetailArtikelScreen extends StatelessWidget {
                 ).textTheme.labelSmall!.copyWith(color: Colors.black),
               ),
               SizedBox(height: 15),
-              URoundedImage(
-                imageUrl: "assets/images/artikel/artikel-11.jpg",
-                borderRadius: 12,
-              ),
+              AppRoundedImage(imageUrl: AppAssets.article11, borderRadius: 12),
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerRight,
-                child: Icon(Icons.bookmark_rounded, size: 30, color: AppColors.grey),
+                child: Icon(
+                  Icons.bookmark_rounded,
+                  size: 30,
+                  color: AppColors.grey,
+                ),
               ),
               SizedBox(height: 10),
               RichText(
@@ -67,13 +69,13 @@ class DetailArtikelScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              URoundedImage(imageUrl: "assets/images/artikel/artikel-2.jpg"),
+              AppRoundedImage(imageUrl: AppAssets.article2),
               SizedBox(height: 10),
-              URoundedImage(imageUrl: "assets/images/artikel/artikel-3.jpg"),
+              AppRoundedImage(imageUrl: AppAssets.article3),
               SizedBox(height: 10),
-              URoundedImage(imageUrl: "assets/images/artikel/artikel-4.jpg"),
+              AppRoundedImage(imageUrl: AppAssets.article4),
               SizedBox(height: 10),
-              URoundedImage(imageUrl: "assets/images/artikel/artikel-5.jpg"),
+              AppRoundedImage(imageUrl: AppAssets.article5),
               SizedBox(height: 10),
             ],
           ),

@@ -5,12 +5,7 @@ PODS:
   - Flutter (1.0.0)
   - flutter_pdfview (1.0.2):
     - Flutter
-  - geocoding_darwin (0.0.1):
-    - Flutter
-    - FlutterMacOS
   - image_picker_ios (0.0.1):
-    - Flutter
-  - open_filex (0.0.2):
     - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
@@ -22,9 +17,7 @@ DEPENDENCIES:
   - file_picker_darwin (from `.symlinks/plugins/file_picker_darwin/darwin`)
   - Flutter (from `Flutter`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
-  - geocoding_darwin (from `.symlinks/plugins/geocoding_darwin/darwin`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
-  - open_filex (from `.symlinks/plugins/open_filex/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
@@ -35,12 +28,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
-  geocoding_darwin:
-    :path: ".symlinks/plugins/geocoding_darwin/darwin"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
-  open_filex:
-    :path: ".symlinks/plugins/open_filex/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   url_launcher_ios:
@@ -50,9 +39,7 @@ SPEC CHECKSUMS:
   file_picker_darwin: 4c2b9a50ea44cb3b071381ea0cf48591bdd80251
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_pdfview: 4fbfbd0590f63153fbd492a54997c5e5be010458
-  geocoding_darwin: 968545604e6896deeef55517d53a81b3b9801971
   image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
-  open_filex: 432f3cd11432da3e39f47fcc0df2b1603854eff1
   path_provider_foundation: bb55f6dbba17d0dccd6737fe6f7f34fbd0376880
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
 

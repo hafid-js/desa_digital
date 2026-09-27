@@ -1,0 +1,72 @@
+import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/core/widgets/label_pill.dart';
+import 'package:desa_digital/features/activity/data/activity_items.dart';
+import 'package:desa_digital/features/activity/widgets/activity_item_card.dart';
+import 'package:desa_digital/features/activity/widgets/activity_list.dart';
+import 'package:desa_digital/features/activity/widgets/activity_meta.dart';
+import 'package:desa_digital/features/activity/widgets/activity_tab_section.dart';
+import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class MyReportsSection extends StatelessWidget {
+  const MyReportsSection({super.key});
+
+  void _openDetail() => Get.to(() => DetailPengaduanScreen());
+
+  @override
+  Widget build(BuildContext context) {
+    return ActivityTabSection(
+      labels: const ["Proses", "Selesai"],
+      tabs: [
+        ActivityList(
+          items: inProgressReports,
+          itemBuilder: (item) => ActivityItemCard(
+            item: item,
+            cardPadding: activityReportCardPadding,
+            meta: BulletMeta(text: item.meta),
+            footer: _pillRow(
+              LabelPill(
+                label: "Progress",
+                color: AppColors.secondary,
+                backgroundColor: AppColors.secondary.withAlpha(40),
+              ),
+            ),
+            onTap: _openDetail,
+          ),
+        ),
+        ActivityList(
+          items: finishedReports,
+          itemBuilder: (item) => ActivityItemCard(
+            item: item,
+            meta: DateMeta(text: item.meta),
+            footer: _pillRow(
+              LabelPill(
+                label: "Selesai",
+                color: AppColors.quartenary,
+                backgroundColor: AppColors.quartenary.withAlpha(40),
+              ),
+            ),
+            onTap: _openDetail,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _pillRow(Widget statusPill) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        statusPill,
+        SizedBox(width: 5),
+        LabelPill(
+          label: "Publik",
+          color: AppColors.textPrimaryLight,
+          backgroundColor: Colors.black.withAlpha(30),
+          icon: Icons.lock_open_rounded,
+        ),
+      ],
+    );
+  }
+}

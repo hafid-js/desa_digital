@@ -1,5 +1,6 @@
-import 'package:desa_digital/core/utils/constants/app_colors.dart';
-import 'package:desa_digital/features/peraturan_desa/screens/widgets/pdf_view_screen.dart';
+import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/core/widgets/pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -31,8 +32,8 @@ class PeraturanDesaScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PdfViewerScreen(
-                      pdfPath: 'assets/pdf/PERDES-LKD-CEPEDAK-2021.pdf',
+                    builder: (context) => const PdfViewer(
+                      pdfPath: AppAssets.villageRegulationLkdCepedak2021,
                     ),
                   ),
                 );
@@ -54,7 +55,7 @@ class PeraturanDesaScreen extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        "assets/images/aduan/aduan.png",
+                        AppAssets.complaintThumbnail,
                         height: 70,
                         width: 70,
                         fit: BoxFit.cover,
@@ -142,7 +143,7 @@ class PeraturanDesaScreen extends StatelessWidget {
                                 color: AppColors.primary,
                                 size: 15,
                               ),
-                                    SizedBox(width: 4),
+                              SizedBox(width: 4),
                               Text(
                                 "Peraturan Desa Gunung Condong",
                                 style: Theme.of(context).textTheme.labelSmall!
