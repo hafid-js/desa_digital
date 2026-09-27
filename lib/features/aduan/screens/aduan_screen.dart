@@ -586,7 +586,7 @@ class _AduanScreenState extends State<AduanScreen> {
                                       const SizedBox(height: 5),
 
                                       Text(
-                                        "Telepon bebas pulsa ke CS Jateng Ngopeni Nglakoni",
+                                        "Telepon bebas pulsa ke CS Desa Ngopeni Nglakoni",
                                         style: Theme.of(
                                           context,
                                         ).textTheme.labelSmall,

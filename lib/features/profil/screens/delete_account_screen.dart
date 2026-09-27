@@ -70,7 +70,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                               ),
                         ),
                         Text(
-                          "Masukkan alasan menghapus akun Jateng Ngopeni Nglakoni",
+                          "Masukkan alasan menghapus akun Desa Ngopeni Nglakoni",
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: Colors.black87,

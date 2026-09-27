@@ -20,12 +20,12 @@ class Footer extends StatelessWidget {
               style: TextStyle(fontSize: 11, color: Colors.black),
               children: [
                 TextSpan(
-                  text: "Jateng Ngopeni Nglakoni. ",
+                  text: "Desa Ngopeni Nglakoni. ",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
                   text:
-                      "Platform layanan digital Pemerintah Provinsi Jawa Tengah",
+                      "Platform layanan digital Pemerintah Desa Gunung Condong",
                 ),
               ],
             ),
