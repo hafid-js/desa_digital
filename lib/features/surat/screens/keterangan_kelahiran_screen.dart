@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/surat/data/surat_mandiri_repository.dart';
 import 'package:desa_digital/features/surat/controllers/pengunggah_lampiran.dart';
 import 'package:desa_digital/features/surat/utils/validasi_lampiran.dart';
 import 'package:desa_digital/features/surat/models/permohonan_surat.dart';
@@ -31,7 +32,7 @@ class _KeteranganKelahiranScreenState extends State<KeteranganKelahiranScreen> {
   final _baby = DataOrangForm(
     requireNik: false,
     requireBirthDate: false,
-    withGender: true,
+    withDataLanjut: false,
   );
   final _mother = DataOrangForm();
   final _father = DataOrangForm();
@@ -64,7 +65,7 @@ class _KeteranganKelahiranScreenState extends State<KeteranganKelahiranScreen> {
     return null;
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
     final belumLengkap = cariLampiranWajibYangBelumDiunggah(
@@ -96,7 +97,7 @@ class _KeteranganKelahiranScreenState extends State<KeteranganKelahiranScreen> {
       witnesses: [_witnessOne.keDataPenduduk(), _witnessTwo.keDataPenduduk()],
     );
 
-    debugPrint('Data ${_type.code}: ${request.toMap()}');
+    await buildSuratMandiriRepository().kirim(request.toMap());
     _showSuccessDialog();
   }
 

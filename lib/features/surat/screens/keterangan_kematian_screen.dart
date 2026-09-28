@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/surat/data/surat_mandiri_repository.dart';
 import 'package:desa_digital/features/surat/controllers/pengunggah_lampiran.dart';
 import 'package:desa_digital/features/surat/utils/validasi_lampiran.dart';
 import 'package:desa_digital/features/surat/models/permohonan_surat.dart';
@@ -28,7 +29,7 @@ class KeteranganKematianScreen extends StatefulWidget {
 class _KeteranganKematianScreenState extends State<KeteranganKematianScreen> {
   static const _type = JenisSurat.death;
 
-  final _deceased = DataOrangForm(withGender: true);
+  final _deceased = DataOrangForm();
   final _reporter = DataOrangForm();
   final _witnessOne = DataOrangForm(requireNik: false);
   final _witnessTwo = DataOrangForm(requireNik: false);
@@ -74,7 +75,7 @@ class _KeteranganKematianScreenState extends State<KeteranganKematianScreen> {
     return DateTime(year, month, day);
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
     final belumLengkap = cariLampiranWajibYangBelumDiunggah(
@@ -104,7 +105,7 @@ class _KeteranganKematianScreenState extends State<KeteranganKematianScreen> {
       witnesses: [_witnessOne.keDataPenduduk(), _witnessTwo.keDataPenduduk()],
     );
 
-    debugPrint('Data ${_type.code}: ${request.toMap()}');
+    await buildSuratMandiriRepository().kirim(request.toMap());
     _showSuccessDialog();
   }
 

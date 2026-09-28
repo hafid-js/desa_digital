@@ -1,101 +1,157 @@
+import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
+import 'package:desa_digital/features/surat/screens/formulir_surat_mandiri_screen.dart';
 import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
 import 'package:desa_digital/features/surat/screens/keterangan_kematian_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_domisili_screen.dart';
+import 'package:desa_digital/features/surat/widgets/field_label.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class DaftarSuratScreen extends StatelessWidget {
-  const DaftarSuratScreen({super.key});
+  const DaftarSuratScreen({super.key})
+    : tampilMandiri = true,
+      tampilPerluProses = true;
+
+  const DaftarSuratScreen.mandiri({super.key})
+    : tampilMandiri = true,
+      tampilPerluProses = false;
+
+  const DaftarSuratScreen.perluProses({super.key})
+    : tampilMandiri = false,
+      tampilPerluProses = true;
+
+  final bool tampilMandiri;
+  final bool tampilPerluProses;
+
+  void _bukaMandiri(BuildContext context, SuratMandiri surat) {
+    Get.to(
+      () => FormulirSuratMandiriScreen(key: ValueKey(surat.code), surat: surat),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final mandiri = suratMandiriSiap;
+    final perluProses = suratPerluProses;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Surat Keterangan",
+          "Layanan Mandiri",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: false,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(12),
-        child: Column(
-          children: [
-            _buildKeteranganCard(
-              context,
-              title: "Surat Keterangan Domisili",
-              subtitle:
-                  "Surat untuk menunjukkan alamat tempat tinggal resmi seseorang",
-              action: () {
-                Get.to(() => KeteranganDomisiliScreen());
-              },
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          if (tampilMandiri) ...[
+            FieldLabel("Surat Mandiri (${mandiri.length})"),
+            Text(
+              "Warga bisa mengisi dan menghasilkan surat ini sendiri tanpa "
+              "diproses perangkat desa.",
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontSize: 11,
+                color: Colors.black87,
+                fontWeight: FontWeight.w300,
+              ),
             ),
-            SizedBox(height: 12),
-            _buildKeteranganCard(
-              context,
-              title: "Surat Keterangan Kelahiran",
-              subtitle:
-                  "Surat yang menyatakan kelahiran seseorang diperlukan untuk proses pembuatan akta kelahiran",
-              action: () {
-                Get.to(() => KeteranganKelahiranScreen());
-              },
-            ),
-            SizedBox(height: 12),
-            _buildKeteranganCard(
-              context,
-              title: "Surat Keterangan Kematian",
-              subtitle:
-                  "Surat bukti resmi bahwa seseorang telah meninggal dunia",
-              action: () {
-                Get.to(() => KeteranganKematianScreen());
-              },
-            ),
+            const SizedBox(height: 10),
+            for (var i = 0; i < mandiri.length; i++) ...[
+              if (i > 0) const SizedBox(height: 12),
+              _KartuSurat(
+                kode: mandiri[i].code,
+                judul: mandiri[i].title,
+                ringkasan: mandiri[i].ringkasan,
+                onTap: () => _bukaMandiri(context, mandiri[i]),
+              ),
+            ],
           ],
-        ),
+          if (tampilMandiri && tampilPerluProses) const SizedBox(height: 24),
+          if (tampilPerluProses) ...[
+            FieldLabel("Perlu Proses Desa (${perluProses.length})"),
+            Text(
+              "Warga boleh mengajukan, tetapi surat tetap diverifikasi petugas "
+              "desa sebelum diterbitkan.",
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontSize: 11,
+                color: Colors.black87,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            const SizedBox(height: 10),
+            for (var i = 0; i < perluProses.length; i++) ...[
+              if (i > 0) const SizedBox(height: 12),
+              _KartuSurat(
+                kode: perluProses[i].code,
+                judul: perluProses[i].title,
+                ringkasan: perluProses[i].ringkasan,
+                onTap: () {
+                  if (perluProses[i].code == 'S-17') {
+                    Get.to(() => KeteranganKelahiranScreen());
+                  } else {
+                    Get.to(() => KeteranganKematianScreen());
+                  }
+                },
+              ),
+            ],
+          ],
+        ],
       ),
     );
   }
 }
 
-Widget _buildKeteranganCard(
-  BuildContext context, {
-  required String title,
-  required String subtitle,
-  required VoidCallback action,
-}) {
-  return GestureDetector(
-    onTap: action,
-    child: Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(title, style: Theme.of(context).textTheme.titleSmall),
-              const Icon(
-                Iconsax.arrow_right_3,
-                size: 15,
-                color: Colors.black54,
+class _KartuSurat extends StatelessWidget {
+  const _KartuSurat({
+    required this.kode,
+    required this.judul,
+    required this.ringkasan,
+    required this.onTap,
+  });
+
+  final String kode;
+  final String judul;
+  final String ringkasan;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "$kode · $judul",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    ringkasan,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      fontSize: 11,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              fontSize: 11,
-              color: Colors.black87,
-              fontWeight: FontWeight.w300,
             ),
-          ),
-        ],
+            const Icon(Iconsax.arrow_right_3, size: 15, color: Colors.black54),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -23,7 +23,7 @@ final List<HomeMenuItem> homeMenuItems = [
     pageBuilder: () => const PeraturanDesaScreen(),
   ),
   HomeMenuItem(
-    title: 'Pengajuan Surat',
+    title: 'Layanan Mandiri',
     icon: AppAssets.menuLetterRequest,
     pageBuilder: () => const PermohonanSuratScreen(),
   ),

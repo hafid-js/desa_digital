@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
 import 'package:desa_digital/features/surat/screens/daftar_surat_screen.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class PermohonanSuratScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Pengajuan Surat",
+          "Layanan Mandiri",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
@@ -30,76 +31,32 @@ class PermohonanSuratScreen extends StatelessWidget {
                 buttonTitle: "Lihat Semua",
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 28, horizontal: 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Surat Keterangan Usaha",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.quartenary.withAlpha(40),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            "Selesai",
-                            style: TextStyle(
-                              color: AppColors.quartenary,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
+                    Icon(
+                      Icons.inbox_rounded,
+                      size: 40,
+                      color: AppColors.quartenary.withAlpha(120),
                     ),
+                    SizedBox(height: 10),
                     Text(
-                      "Diajukan: 02 September 2025",
+                      "Belum ada surat",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Surat yang Anda ajukan akan tampil di sini",
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         fontSize: 11,
                         color: Colors.black87,
                         fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 40),
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: AppColors.primary,
-                        elevation: 0,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.download_rounded, color: Colors.white),
-                          SizedBox(width: 5),
-                          Text(
-                            "Download PDF",
-                            style: Theme.of(context).textTheme.labelMedium!
-                                .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -110,7 +67,7 @@ class PermohonanSuratScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pengajuan Surat",
+                    "Layanan Mandiri",
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
@@ -128,33 +85,18 @@ class PermohonanSuratScreen extends StatelessWidget {
                       Expanded(
                         child: _buildSuratCard(
                           context,
-                          title: "Surat Keterangan",
-                          countText: "3 Jenis Surat",
+                          title: "Surat Mandiri",
+                          countText: "${suratMandiriSiap.length} Jenis Surat",
                         ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: _buildSuratCard(
                           context,
-                          title: "Surat Pengantar",
-                          countText: "2 Jenis Surat",
+                          title: "Perlu Proses Desa",
+                          countText: "${suratPerluProses.length} Jenis Surat",
                         ),
                       ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildSuratCard(
-                          context,
-                          title: "Surat Pernyataan",
-                          countText: "4 Jenis Surat",
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      const Expanded(child: SizedBox()),
                     ],
                   ),
                 ],
@@ -174,12 +116,10 @@ Widget _buildSuratCard(
 }) {
   return GestureDetector(
     onTap: () {
-      if (title == "Surat Keterangan") {
-        Get.to(() => DaftarSuratScreen());
-      } else if (title == "Surat Pengantar") {
-        Get.to(() => DaftarSuratScreen());
+      if (title == "Surat Mandiri") {
+        Get.to(() => const DaftarSuratScreen.mandiri());
       } else {
-        Get.to(() => DaftarSuratScreen());
+        Get.to(() => const DaftarSuratScreen.perluProses());
       }
     },
     child: Container(

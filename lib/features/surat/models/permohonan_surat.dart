@@ -1,55 +1,8 @@
 import 'package:desa_digital/features/surat/models/jenis_surat.dart';
-import 'package:desa_digital/features/surat/models/warga_negara.dart';
 import 'package:desa_digital/features/surat/models/sebab_kematian.dart';
 import 'package:desa_digital/features/surat/models/yang_menerangkan.dart';
-import 'package:desa_digital/features/surat/models/pendidikan.dart';
 import 'package:desa_digital/features/surat/models/hubungan_keluarga.dart';
-import 'package:desa_digital/features/surat/models/status_perkawinan.dart';
-import 'package:desa_digital/features/surat/models/pekerjaan.dart';
 import 'package:desa_digital/features/surat/models/data_penduduk.dart';
-import 'package:desa_digital/features/surat/models/agama.dart';
-
-class PermohonanDomisili {
-  const PermohonanDomisili({
-    required this.citizen,
-    required this.religion,
-    required this.maritalStatus,
-    required this.education,
-    required this.occupation,
-    required this.citizenship,
-    required this.familyCardNumber,
-    required this.familyHeadName,
-    required this.purpose,
-  });
-
-  final DataPenduduk citizen;
-  final Agama religion;
-  final StatusPerkawinan maritalStatus;
-  final Pendidikan education;
-  final Pekerjaan occupation;
-  final WargaNegara citizenship;
-  final String familyCardNumber;
-  final String familyHeadName;
-  final String purpose;
-
-  JenisSurat get type => JenisSurat.domicile;
-
-  Map<String, dynamic> toMap() => {
-    'kode_surat': type.code,
-    ...citizen.toMap(),
-    'agama': religion.label,
-    'agama_id': religion.name,
-    'status_perkawinan': maritalStatus.label,
-    'status_perkawinan_id': maritalStatus.code,
-    'pendidikan': education.label,
-    'pendidikan_id': education.code,
-    'pekerjaan': occupation.label,
-    'warga_negara': citizenship.label,
-    'no_kk': familyCardNumber,
-    'kepala_kk': familyHeadName,
-    'keperluan': purpose,
-  };
-}
 
 class PermohonanKematian {
   const PermohonanKematian({

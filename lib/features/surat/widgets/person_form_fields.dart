@@ -1,6 +1,10 @@
+import 'package:desa_digital/features/surat/models/agama.dart';
+import 'package:desa_digital/features/surat/models/data_penduduk.dart';
 import 'package:desa_digital/features/surat/models/jenis_kelamin.dart';
 import 'package:desa_digital/features/surat/models/pekerjaan.dart';
-import 'package:desa_digital/features/surat/models/data_penduduk.dart';
+import 'package:desa_digital/features/surat/models/pendidikan.dart';
+import 'package:desa_digital/features/surat/models/status_perkawinan.dart';
+import 'package:desa_digital/features/surat/models/warga_negara.dart';
 import 'package:desa_digital/features/surat/utils/hitung_umur.dart';
 import 'package:desa_digital/features/surat/utils/validasi_nik.dart';
 import 'package:desa_digital/features/surat/widgets/address_text_field.dart';
@@ -14,12 +18,12 @@ class DataOrangForm {
   DataOrangForm({
     this.requireNik = true,
     this.requireBirthDate = true,
-    this.withGender = false,
+    this.withDataLanjut = true,
   });
 
   final bool requireNik;
   final bool requireBirthDate;
-  final bool withGender;
+  final bool withDataLanjut;
 
   final nik = TextEditingController();
   final name = TextEditingController();
@@ -28,7 +32,11 @@ class DataOrangForm {
   final address = TextEditingController();
 
   final gender = ValueNotifier<JenisKelamin?>(null);
+  final religion = ValueNotifier<Agama?>(null);
+  final maritalStatus = ValueNotifier<StatusPerkawinan?>(null);
+  final education = ValueNotifier<Pendidikan?>(null);
   final occupation = ValueNotifier<Pekerjaan?>(null);
+  final citizenship = ValueNotifier<WargaNegara?>(null);
   final age = ValueNotifier<String?>(null);
 
   DateTime? birthDateValue;
@@ -64,8 +72,33 @@ class DataOrangForm {
     return null;
   }
 
+  String? validateGender(JenisKelamin? value) {
+    if (value == null) return 'Jenis kelamin wajib dipilih';
+    return null;
+  }
+
+  String? validateReligion(Agama? value) {
+    if (value == null) return 'Agama wajib dipilih';
+    return null;
+  }
+
+  String? validateMaritalStatus(StatusPerkawinan? value) {
+    if (value == null) return 'Status perkawinan wajib dipilih';
+    return null;
+  }
+
+  String? validateEducation(Pendidikan? value) {
+    if (value == null) return 'Pendidikan wajib dipilih';
+    return null;
+  }
+
   String? validateOccupation(Pekerjaan? value) {
     if (value == null) return 'Pekerjaan wajib dipilih';
+    return null;
+  }
+
+  String? validateCitizenship(WargaNegara? value) {
+    if (value == null) return 'Kewarganegaraan wajib dipilih';
     return null;
   }
 
@@ -84,6 +117,14 @@ class DataOrangForm {
     address: address.text.trim().isEmpty ? null : address.text.trim(),
   );
 
+  Map<String, dynamic> keMap() => {
+    ...keDataPenduduk().toMap(),
+    'agama': religion.value?.label,
+    'status_perkawinan': maritalStatus.value?.label,
+    'pendidikan': education.value?.label,
+    'kewarganegaraan': citizenship.value?.label,
+  };
+
   void dispose() {
     nik.dispose();
     name.dispose();
@@ -91,7 +132,11 @@ class DataOrangForm {
     birthDate.dispose();
     address.dispose();
     gender.dispose();
+    religion.dispose();
+    maritalStatus.dispose();
+    education.dispose();
     occupation.dispose();
+    citizenship.dispose();
     age.dispose();
   }
 }
@@ -129,20 +174,7 @@ class KolomDataOrang extends StatelessWidget {
           controller: state.name,
           validator: state.validateName,
         ),
-        if (state.withGender) ...[
-          const FieldLabel("Jenis Kelamin"),
-          KolomDropdownSurat<JenisKelamin>(
-            label: "Jenis Kelamin",
-            items: JenisKelamin.values,
-            value: state.gender,
-            validator: (v) => v == null ? 'Jenis kelamin wajib dipilih' : null,
-            itemBuilder: (_, item) => Text(
-              item.label,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-            ),
-          ),
-        ],
-        if (showBirthPlace) ...[
+        if (showBirthPlace)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -179,7 +211,6 @@ class KolomDataOrang extends StatelessWidget {
               ),
             ],
           ),
-        ],
         if (state.requireBirthDate)
           ValueListenableBuilder<String?>(
             valueListenable: state.age,
@@ -194,6 +225,52 @@ class KolomDataOrang extends StatelessWidget {
               ),
             ),
           ),
+        const FieldLabel("Jenis Kelamin"),
+        KolomDropdownSurat<JenisKelamin>(
+          label: "Jenis Kelamin",
+          items: JenisKelamin.values,
+          value: state.gender,
+          validator: state.validateGender,
+          itemBuilder: (_, item) => Text(
+            item.label,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          ),
+        ),
+        const FieldLabel("Agama"),
+        KolomDropdownSurat<Agama>(
+          label: "Agama",
+          items: Agama.values,
+          value: state.religion,
+          validator: state.validateReligion,
+          itemBuilder: (_, item) => Text(
+            item.label,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          ),
+        ),
+        if (state.withDataLanjut) ...[
+          const FieldLabel("Status Perkawinan"),
+          KolomDropdownSurat<StatusPerkawinan>(
+            label: "Status Perkawinan",
+            items: StatusPerkawinan.values,
+            value: state.maritalStatus,
+            validator: state.validateMaritalStatus,
+            itemBuilder: (_, item) => Text(
+              item.label,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            ),
+          ),
+          const FieldLabel("Pendidikan Terakhir"),
+          KolomDropdownSurat<Pendidikan>(
+            label: "Pendidikan",
+            items: Pendidikan.values,
+            value: state.education,
+            validator: state.validateEducation,
+            itemBuilder: (_, item) => Text(
+              item.label,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
         const FieldLabel("Pekerjaan"),
         KolomDropdownSurat<Pekerjaan>(
           label: "Pekerjaan",
@@ -205,8 +282,19 @@ class KolomDataOrang extends StatelessWidget {
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
           ),
         ),
+        const FieldLabel("Kewarganegaraan"),
+        KolomDropdownSurat<WargaNegara>(
+          label: "Kewarganegaraan",
+          items: WargaNegara.values,
+          value: state.citizenship,
+          validator: state.validateCitizenship,
+          itemBuilder: (_, item) => Text(
+            item.label,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          ),
+        ),
         if (showAddress) ...[
-          const FieldLabel("Alamat"),
+          const FieldLabel("Alamat / Tempat Tinggal"),
           AddressTextField(
             hint:
                 "Contoh: Dukuh Krajan RT003 RW001, "
