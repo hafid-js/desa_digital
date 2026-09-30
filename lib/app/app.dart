@@ -1,5 +1,7 @@
+
 import 'package:desa_digital/app/main_shell.dart';
 import 'package:desa_digital/core/theme/app_theme.dart';
+import 'package:desa_digital/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +30,7 @@ class DesaDigitalApp extends StatelessWidget {
         );
       },
 
-      home: const MainShell(),
+      home: MainShell(),
     );
   }
 }

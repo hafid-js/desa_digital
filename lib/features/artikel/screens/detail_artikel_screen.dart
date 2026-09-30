@@ -29,10 +29,10 @@ class DetailArtikelScreen extends StatelessWidget {
               ),
               SizedBox(height: 5),
               Text(
-                "19 September 2926",
+                "19 September 2026",
                 style: Theme.of(
                   context,
-                ).textTheme.labelSmall!.copyWith(color: Colors.black),
+                ).textTheme.labelSmall,
               ),
               SizedBox(height: 15),
               AppRoundedImage(imageUrl: AppAssets.article11, borderRadius: 12),

@@ -34,25 +34,25 @@ class AppTextTheme {
     /// BODY
     bodyLarge: TextStyle(fontSize: 16, color: AppColors.dark),
 
-    bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondaryLight),
+    bodyMedium: TextStyle(fontSize: 14, color: AppColors.textPrimaryLight),
 
     labelSmall: TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
-      color: AppColors.textSecondaryLight,
+      color: AppColors.textPrimaryLight,
     ),
 
     labelMedium: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: AppColors.textSecondaryLight,
+      color: AppColors.textPrimaryLight,
     ),
 
     /// LABEL
     labelLarge: TextStyle(
       fontSize: 16,
       // fontWeight: FontWeight.bold,
-      color: AppColors.textSecondaryLight,
+      color: AppColors.textPrimaryLight,
     ),
   );
 

@@ -64,9 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onButtonPressed: () => Get.to(() => DaftarArtikelScreen()),
               onTap: (item) {},
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 8),
             ApbdesSection(),
-
             Footer(),
           ],
         ),

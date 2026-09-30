@@ -5,10 +5,7 @@ import 'package:desa_digital/features/notifikasi/screens/notifikasi_screen.dart'
 import 'package:desa_digital/features/profil/screens/profil_screen.dart';
 import 'package:flutter/material.dart';
 
-/// Kerangka utama aplikasi:empat tab yang selalu terlihat di bagian bawah.
-///
-/// Tiap tab adalah satu `feature`, sehingga menambah tab baru cukup
-/// menambah satu entri ke [_tabs].
+
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
@@ -66,7 +63,6 @@ class _MainShellState extends State<MainShell> {
   }
 }
 
-/// Deskripsi satu tab pada [MainShell].
 class _ShellTab {
   const _ShellTab({required this.label, required this.icon});
 

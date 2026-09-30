@@ -75,7 +75,7 @@ class PersonalDataForm extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
-              color: isReadOnly ? Colors.black54 : AppColors.primary,
+              color: isReadOnly ? Colors.black54 : AppColors.grey,
               width: 1,
             ),
           ),
@@ -114,7 +114,7 @@ class PersonalDataForm extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors.primary, width: 1),
+            borderSide: BorderSide(color: AppColors.grey, width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -156,55 +156,86 @@ class PersonalDataForm extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildGenderSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Jenis Kelamin",
-          style: TextStyle(fontSize: 12, color: Colors.black),
-        ),
-        SizedBox(height: 8),
-        RadioGroup<JenisKelamin>(
-          groupValue: selectedGender,
-          onChanged: onGenderChanged,
-          child: Row(
-            children: [
-              Expanded(child: _genderRadio("Laki-Laki", JenisKelamin.male)),
-              SizedBox(width: 12),
-              Expanded(child: _genderRadio("Perempuan", JenisKelamin.female)),
-            ],
-          ),
-        ),
-        SizedBox(height: 20),
-      ],
-    );
-  }
-
-  Widget _genderRadio(String label, JenisKelamin value) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.primary, width: 1),
+Widget _buildGenderSelector() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        "Jenis Kelamin",
+        style: TextStyle(fontSize: 12, color: Colors.black),
       ),
-      child: Row(
+      const SizedBox(height: 8),
+      Row(
         children: [
-          Radio<JenisKelamin>(
-            value: value,
-            fillColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? AppColors.primary
-                  : Colors.black54,
+          Expanded(
+            child: _genderRadio(
+              label: "Laki-Laki",
+              value: JenisKelamin.male,
+              groupValue: selectedGender,
+              onChanged: onGenderChanged,
             ),
           ),
-          SizedBox(width: 4),
-          Text(label, style: TextStyle(fontSize: 14, color: Colors.black87)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _genderRadio(
+              label: "Perempuan",
+              value: JenisKelamin.female,
+              groupValue: selectedGender,
+              onChanged: onGenderChanged,
+            ),
+          ),
         ],
       ),
-    );
-  }
+      const SizedBox(height: 20),
+    ],
+  );
+}
+  Widget _genderRadio({
+  required String label,
+  required JenisKelamin value,
+  required JenisKelamin? groupValue,
+  required ValueChanged<JenisKelamin?> onChanged,
+}) {
+  final isSelected = value == groupValue;
+
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+        color: isSelected ? AppColors.primary : AppColors.grey,
+        width: 1,
+      ),
+    ),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: () => onChanged(value), // Supaya area container bisa diklik
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16), // Padding kanan agar rapi
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Radio<JenisKelamin>(
+              value: value,
+              groupValue: groupValue,
+              onChanged: onChanged,
+              fillColor: WidgetStateProperty.resolveWith(
+                (states) => states.contains(WidgetState.selected)
+                    ? AppColors.primary
+                    : Colors.black54,
+              ),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: const TextStyle(fontSize: 14, color: Colors.black87),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +282,7 @@ class PersonalDataForm extends StatelessWidget {
               labelStyle: TextStyle(fontSize: 14),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: AppColors.primary, width: 1),
+                borderSide: BorderSide(color: AppColors.grey, width: 1),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -285,7 +316,7 @@ class PersonalDataForm extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: AppColors.primary, width: 1),
+              borderSide: BorderSide(color: AppColors.grey, width: 1),
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,

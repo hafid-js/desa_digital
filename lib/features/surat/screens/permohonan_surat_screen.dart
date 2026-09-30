@@ -42,7 +42,7 @@ class PermohonanSuratScreen extends StatelessWidget {
                     Icon(
                       Icons.inbox_rounded,
                       size: 40,
-                      color: AppColors.quartenary.withAlpha(120),
+                      color: AppColors.quartenary.withAlpha(160),
                     ),
                     SizedBox(height: 10),
                     Text(

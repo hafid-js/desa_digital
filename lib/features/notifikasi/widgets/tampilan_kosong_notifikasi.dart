@@ -18,10 +18,7 @@ class TampilanKosongNotifikasi extends StatelessWidget {
         SizedBox(height: 5),
         Text(
           "Belum ada pengumumuman buat kamu",
-          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: Colors.black,
-            fontWeight: FontWeight.w300,
-          ),
+          style: Theme.of(context).textTheme.labelSmall
         ),
       ],
     );

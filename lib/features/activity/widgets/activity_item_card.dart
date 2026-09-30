@@ -81,7 +81,7 @@ class ActivityItemCard extends StatelessWidget {
                       activityDescription,
                       style: Theme.of(
                         context,
-                      ).textTheme.labelSmall!.copyWith(color: Colors.black),
+                      ).textTheme.labelSmall,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

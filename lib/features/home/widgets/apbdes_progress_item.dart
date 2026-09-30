@@ -36,17 +36,11 @@ class ApbdesProgressItem extends StatelessWidget {
           children: [
             Text(
               realAmount,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
+              style: Theme.of(context).textTheme.labelSmall
             ),
             Text(
               targetAmount,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
+              style: Theme.of(context).textTheme.labelSmall
             ),
           ],
         ),

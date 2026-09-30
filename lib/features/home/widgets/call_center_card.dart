@@ -14,7 +14,7 @@ class CallCenterCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(12),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         leading: Image.asset(AppAssets.iconCsSupport, height: 50, width: 50),
         title: Text(
           "Call Center Ngopeni Nglakoni",

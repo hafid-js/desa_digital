@@ -2,6 +2,7 @@ import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/bordered_card.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
+import 'package:desa_digital/features/activity/screens/activity_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/daftar_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/widgets/panduan_pengaduan.dart';
 import 'package:desa_digital/features/pengaduan/widgets/baris_pengaduan.dart';
@@ -64,12 +65,16 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
               children: [
                 Text(
                   "Aduan Masyarakat",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                   style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
                 const SizedBox(height: 5),
                 Text(
                   "Sampaikan aduan seputar layanan atau fasilitas umum di Desa",
-                  style: Theme.of(context).textTheme.labelSmall,
+                 style: Theme.of(context).textTheme.labelSmall
                 ),
               ],
             ),
@@ -120,12 +125,15 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      BorderedCard(
+                      GestureDetector(
+                        onTap: () => Get.to(() => ActivityScreen()),
+                        child: BorderedCard(
                         child: BarisMenu(
                           image: AssetImage(AppAssets.iconList),
                           title: "Laporan Saya",
                         ),
                       ),
+                      )
                     ],
                   ),
                 ),

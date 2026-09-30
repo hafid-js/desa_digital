@@ -394,19 +394,14 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
                                             "Husabaqah Tilawatil Qur'an (MTq) Tingkat Nasional XXI Tahun 2026 Berlangsung Di Kota Semarang",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .labelSmall!
-                                                .copyWith(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
+                                                .labelSmall
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
                                             "13 jam yang lalu",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .labelSmall!
-                                                .copyWith(fontSize: 11),
+                                                .labelSmall
                                           ),
                                         ],
                                       ),

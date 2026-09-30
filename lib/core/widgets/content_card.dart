@@ -34,10 +34,7 @@ class ContentCard extends StatelessWidget {
             SizedBox(height: 4),
             Text(
               item.date,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Colors.black54,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.labelSmall,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
