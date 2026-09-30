@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/autentikasi/screens/login_screen.dart';
 import 'package:desa_digital/features/profil/screens/ubah_kata_sandi_screen.dart';
 import 'package:desa_digital/features/profil/screens/hapus_akun_screen.dart';
 import 'package:desa_digital/core/utils/color_utils.dart';
@@ -174,30 +175,57 @@ class PengaturanAkunScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: HexColor.fromHex("#FFE5E3"),
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          child: Row(
+        child: 
+        ElevatedButton(
+                      onPressed: () => Get.to(() => LoginScreen()),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.red,
+                        elevation: 0,
+                        side: BorderSide.none,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.logout, color: Colors.red),
+              Icon(Icons.logout, color: Colors.white),
               SizedBox(width: 5),
               Text(
                 "Logout",
                 style: Theme.of(
                   context,
-                ).textTheme.titleMedium!.copyWith(color: Colors.red),
+                ).textTheme.titleMedium!.copyWith(color: Colors.white),
               ),
             ],
           ),
-        ),
+                    ),
+        // ElevatedButton(
+        //   onPressed: () => Get.to(() => LoginScreen()),
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: HexColor.fromHex("#FFE5E3"),
+        //     foregroundColor: Colors.white,
+        //     padding: EdgeInsets.symmetric(vertical: 14),
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(20),
+        //     ),
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Icon(Icons.logout, color: Colors.red),
+        //       SizedBox(width: 5),
+        //       Text(
+        //         "Logout",
+        //         style: Theme.of(
+        //           context,
+        //         ).textTheme.titleMedium!.copyWith(color: Colors.red),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

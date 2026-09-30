@@ -1,22 +1,18 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
+import 'package:desa_digital/features/autentikasi/screens/register/register_step_2_screen.dart';
+import 'package:desa_digital/features/profil/screens/verifikasi_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
-class UbahKataSandiScreen extends StatefulWidget {
-  const UbahKataSandiScreen({super.key});
+class RegisterStep4Screen extends StatefulWidget {
+  const RegisterStep4Screen({super.key});
 
   @override
-  PasswordFieldState createState() => PasswordFieldState();
+  RegisterStep4ScreenFieldState createState() => RegisterStep4ScreenFieldState();
 }
 
-class PasswordFieldState extends State<UbahKataSandiScreen> {
-  bool _obsecureText = true;
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obsecureText = !_obsecureText;
-    });
-  }
+class RegisterStep4ScreenFieldState extends State<RegisterStep4Screen> {
 
   final FocusNode _focusNode = FocusNode();
 
@@ -68,7 +64,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Password Saat Ini",
+                          "Masukkan No. Whatsapp",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 fontSize: 22,
@@ -76,7 +72,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                               ),
                         ),
                         Text(
-                          "Masukkan password akun saat ini",
+                          "Pastikan whatsapp aktif untuk menerima kode verifikasi",
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: Colors.black87,
@@ -97,20 +93,14 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
         child: Column(
           children: [
             TextFormField(
-              obscureText: _obsecureText,
               focusNode: _focusNode,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                hintText: "Password",
+                hintText: "08XXXXXXXXXX",
                 hintStyle: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w300,
-                ),
-                suffixIcon: IconButton(
-                  onPressed: _togglePasswordVisibility,
-                  icon: Icon(
-                    _obsecureText ? Icons.visibility : Icons.visibility_off,
-                  ),
+                  fontSize: 14,
                   color: Colors.black87,
+                  fontWeight: FontWeight.w300,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -128,19 +118,70 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              "Minimal 8 karakter terdiri dari huruf besar, huruf kecil, dan angka",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: Colors.black54),
-            ),
           ],
         ),
       ),
+     
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Row(
+        child: Column(
+                    mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(Iconsax.info_circle5, color: AppColors.tertiary),
+                SizedBox(width: 9),
+                Expanded(child: Column(children: [
+                  RichText(
+                      textAlign: TextAlign.start,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:
+                                "Dengan klik Daftar & Kirim Kode, kamu menyetujui ",
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Syarat dan Ketentuan ",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.secondary,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "serta ",
+                            style: TextStyle(
+                                fontSize: 11,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Kebijakan Privasi ",
+                            style: TextStyle(
+                                fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.secondary,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "yang berlaku.",
+                            style: TextStyle(
+                             fontSize: 11,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],))
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -149,7 +190,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "1 dari 2",
+                  "4 dari 4",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
@@ -157,10 +198,10 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
 
                 Text(
-                  "Langkah Ubah Password",
+                  "Langkah Registrasi",
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall!.copyWith(color: Colors.black54),
+                  ).textTheme.labelSmall!.copyWith(color: Colors.black54, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -169,7 +210,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom + 12,
               ),
               child: ElevatedButton(
-                onPressed: () => Get.to(() => KataSandiBaruScreen()),
+                onPressed: () => Get.to(() => VerifikasiOtpScreen()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
@@ -182,7 +223,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Lanjut",
+                      "Daftar & Kirim Kode",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -194,6 +235,8 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
             ),
           ],
         ),
+          ],
+        )
       ),
     );
   }

@@ -1,16 +1,16 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
+import 'package:desa_digital/features/autentikasi/screens/register/register_step_4_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UbahKataSandiScreen extends StatefulWidget {
-  const UbahKataSandiScreen({super.key});
+class RegisterStep3Screen extends StatefulWidget {
+  const RegisterStep3Screen({super.key});
 
   @override
   PasswordFieldState createState() => PasswordFieldState();
 }
 
-class PasswordFieldState extends State<UbahKataSandiScreen> {
+class PasswordFieldState extends State<RegisterStep3Screen> {
   bool _obsecureText = true;
   void _togglePasswordVisibility() {
     setState(() {
@@ -68,7 +68,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Password Saat Ini",
+                          "Buat Password",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 fontSize: 22,
@@ -76,7 +76,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                               ),
                         ),
                         Text(
-                          "Masukkan password akun saat ini",
+                          "Agar akun Ngopeni Nglakoni kamu tetap aman",
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: Colors.black87,
@@ -99,12 +99,9 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
             TextFormField(
               obscureText: _obsecureText,
               focusNode: _focusNode,
+              keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w300,
-                ),
+                
                 suffixIcon: IconButton(
                   onPressed: _togglePasswordVisibility,
                   icon: Icon(
@@ -128,13 +125,6 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              "Minimal 8 karakter terdiri dari huruf besar, huruf kecil, dan angka",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: Colors.black54),
-            ),
           ],
         ),
       ),
@@ -149,7 +139,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "1 dari 2",
+                  "3 dari 4",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
@@ -157,7 +147,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
 
                 Text(
-                  "Langkah Ubah Password",
+                  "Langkah Registrasi",
                   style: Theme.of(
                     context,
                   ).textTheme.labelSmall!.copyWith(color: Colors.black54),
@@ -169,7 +159,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom + 12,
               ),
               child: ElevatedButton(
-                onPressed: () => Get.to(() => KataSandiBaruScreen()),
+                onPressed: () => Get.to(() => RegisterStep4Screen()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,

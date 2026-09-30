@@ -1,22 +1,17 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/autentikasi/screens/register/register_step_2_screen.dart';
 import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UbahKataSandiScreen extends StatefulWidget {
-  const UbahKataSandiScreen({super.key});
+class RegisterStep1Screen extends StatefulWidget {
+  const RegisterStep1Screen({super.key});
 
   @override
-  PasswordFieldState createState() => PasswordFieldState();
+  RegisterStep1ScreenFieldState createState() => RegisterStep1ScreenFieldState();
 }
 
-class PasswordFieldState extends State<UbahKataSandiScreen> {
-  bool _obsecureText = true;
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obsecureText = !_obsecureText;
-    });
-  }
+class RegisterStep1ScreenFieldState extends State<RegisterStep1Screen> {
 
   final FocusNode _focusNode = FocusNode();
 
@@ -68,7 +63,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Password Saat Ini",
+                          "Masukkan Alamat Email",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 fontSize: 22,
@@ -76,7 +71,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                               ),
                         ),
                         Text(
-                          "Masukkan password akun saat ini",
+                          "Pastikan email aktif jaga-jaga kalau kamu lupa password",
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: Colors.black87,
@@ -97,20 +92,14 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
         child: Column(
           children: [
             TextFormField(
-              obscureText: _obsecureText,
               focusNode: _focusNode,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: "Password",
+                hintText: "Contoh: hafid.tampan@gmail.com",
                 hintStyle: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w300,
-                ),
-                suffixIcon: IconButton(
-                  onPressed: _togglePasswordVisibility,
-                  icon: Icon(
-                    _obsecureText ? Icons.visibility : Icons.visibility_off,
-                  ),
+                  fontSize: 14,
                   color: Colors.black87,
+                  fontWeight: FontWeight.w300,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -128,13 +117,6 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              "Minimal 8 karakter terdiri dari huruf besar, huruf kecil, dan angka",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: Colors.black54),
-            ),
           ],
         ),
       ),
@@ -149,7 +131,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "1 dari 2",
+                  "1 dari 4",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
@@ -157,10 +139,10 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
 
                 Text(
-                  "Langkah Ubah Password",
+                  "Langkah Registrasi",
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall!.copyWith(color: Colors.black54),
+                  ).textTheme.labelSmall!.copyWith(color: Colors.black54, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -169,7 +151,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom + 12,
               ),
               child: ElevatedButton(
-                onPressed: () => Get.to(() => KataSandiBaruScreen()),
+                onPressed: () => Get.to(() => RegisterStep2Screen()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,

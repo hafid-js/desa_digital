@@ -46,30 +46,67 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
     String args = Get.arguments ?? '';
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+     appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(118),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          flexibleSpace: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Get.back(),
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Masukkan Kode Verifikasi",
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        Text(
+                          "Kami telah mengirim 4 digit kode verifikasi (OTP) melalui email ke hafid.tampan@gmail.com",
+                          style: Theme.of(context).textTheme.labelSmall!
+                              .copyWith(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w300,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Masukkan Kode Verifikasi",
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "Kami telah mengirim 4 digit kode verifikasi (OTP) melalui email ke $args ",
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            const SizedBox(height: 30),
+            
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
