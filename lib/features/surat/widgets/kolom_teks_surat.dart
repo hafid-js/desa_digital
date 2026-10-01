@@ -56,18 +56,18 @@ class KolomTeksSurat extends StatelessWidget {
               : FloatingLabelBehavior.auto,
           hintText: label,
           hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-          floatingLabelStyle: const TextStyle(
-            color: Colors.black54,
+          floatingLabelStyle: TextStyle(
+            color: AppColors.textSecondaryLight,
             fontSize: 14,
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.black54, width: 1),
+            borderSide:  BorderSide(color: AppColors.textSecondaryLight, width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
-              color: isReadOnly ? Colors.black54 : AppColors.primary,
+              color: isReadOnly ? AppColors.textSecondaryLight : AppColors.primary,
               width: 1,
             ),
           ),

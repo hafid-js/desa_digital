@@ -53,20 +53,19 @@ class _HomeAppBarState extends State<HomeAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 210,
-      child: Column(
+    return Column(
         children: [
           SizedBox(
-            height: 185,
+            height: 174,
             child: PageView.builder(
               controller: _pageController,
               itemCount: sliderItems.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  padding: EdgeInsets.zero,
                   child: AppRoundedImage(
-                    borderRadius: 22,
+                    borderRadius: 16,
+                    fit: BoxFit.cover,
                     imageUrl: sliderItems[index],
                     isNetworkImage: false,
                     onTap: () {},
@@ -89,7 +88,6 @@ class _HomeAppBarState extends State<HomeAppBar> {
             controller: _pageController,
           ),
         ],
-      ),
-    );
+      );
   }
 }

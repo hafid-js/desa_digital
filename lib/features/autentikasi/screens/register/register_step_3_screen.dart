@@ -150,7 +150,7 @@ class PasswordFieldState extends State<RegisterStep3Screen> {
                   "Langkah Registrasi",
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall!.copyWith(color: Colors.black54),
+                  ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
                 ),
               ],
             ),

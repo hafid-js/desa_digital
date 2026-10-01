@@ -141,7 +141,7 @@ class RegisterStep2ScreenFieldState extends State<RegisterStep2Screen> {
                   "Langkah Registrasi",
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall!.copyWith(color: Colors.black54, fontWeight: FontWeight.w400),
+                  ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

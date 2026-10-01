@@ -162,10 +162,10 @@ Widget _buildSuratCard(
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              const Icon(
+               Icon(
                 Iconsax.arrow_right_3,
                 size: 15,
-                color: Colors.black54,
+                color: AppColors.textSecondaryLight,
               ),
             ],
           ),

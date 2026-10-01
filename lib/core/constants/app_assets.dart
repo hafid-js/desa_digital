@@ -7,6 +7,7 @@ final class AppAssets {
   AppAssets._();
 
   static const String _images = 'assets/images';
+  static const String _lapak = 'assets/images/lapak_warga';
   static const String _icons = 'assets/icons';
   static const String _pdf = 'assets/pdf';
   static const String _data = 'data';
@@ -102,4 +103,8 @@ final class AppAssets {
   static const String dataKabupaten = '$_data/regencies.csv';
   static const String dataKecamatan = '$_data/districts.csv';
   static const String dataDesa = '$_data/villages.csv';
+
+
+  // LAPAK WARGA
+    static const String example1 = '$_lapak/handphone.png';
 }

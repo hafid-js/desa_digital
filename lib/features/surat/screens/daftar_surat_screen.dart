@@ -1,3 +1,4 @@
+import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
 import 'package:desa_digital/features/surat/screens/formulir_surat_mandiri_screen.dart';
 import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
@@ -148,7 +149,7 @@ class _KartuSurat extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Iconsax.arrow_right_3, size: 15, color: Colors.black54),
+            Icon(Iconsax.arrow_right_3, size: 15, color: AppColors.textSecondaryLight),
           ],
         ),
       ),

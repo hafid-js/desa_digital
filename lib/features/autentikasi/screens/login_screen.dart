@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Icon(
                             _obsecureText ? Iconsax.eye : Iconsax.eye_slash,
                           ),
-                          color: Colors.black54,
+                          color: AppColors.textSecondaryLight,
                         ),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         hintText: "Masukkan password",

@@ -24,7 +24,7 @@ class AddressTextField extends StatelessWidget {
         labelStyle: const TextStyle(fontSize: 14, color: Colors.black),
         floatingLabelAlignment: FloatingLabelAlignment.start,
         hintText: hint,
-        hintStyle: const TextStyle(fontSize: 14, color: Colors.black54),
+        hintStyle: TextStyle(fontSize: 14, color: AppColors.textSecondaryLight),
         alignLabelWithHint: false,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

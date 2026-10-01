@@ -54,7 +54,7 @@ class KartuMetaSurat extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 _labelMasaBerlaku,
-                style: const TextStyle(fontSize: 11, color: Colors.black54),
+                style: TextStyle(fontSize: 11, color: AppColors.textSecondaryLight),
               ),
             ],
           ),
@@ -73,7 +73,7 @@ class KartuMetaSurat extends StatelessWidget {
                   _mandiri
                       ? 'Surat ini bisa warga buat sendiri tanpa diproses perangkat desa'
                       : 'Surat ini diverifikasi petugas desa sebelum diterbitkan',
-                  style: const TextStyle(fontSize: 11, color: Colors.black54),
+                  style: TextStyle(fontSize: 11, color: AppColors.textSecondaryLight),
                 ),
               ),
             ],

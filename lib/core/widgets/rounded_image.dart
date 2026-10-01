@@ -38,7 +38,7 @@ class AppRoundedImage extends StatelessWidget {
         padding: padding,
         decoration: BoxDecoration(
           border: border,
-          color: backgroundColor,
+          color: Colors.pink,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: ClipRRect(

@@ -66,16 +66,16 @@ class PersonalDataForm extends StatelessWidget {
               : FloatingLabelBehavior.auto,
           labelText: label,
           labelStyle: TextStyle(fontSize: 14, color: Colors.grey),
-          floatingLabelStyle: TextStyle(color: Colors.black54, fontSize: 12),
+          floatingLabelStyle: TextStyle(color: AppColors.textSecondaryLight, fontSize: 12),
 
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: Colors.black54, width: 1),
+            borderSide: BorderSide(color: AppColors.textSecondaryLight, width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
-              color: isReadOnly ? Colors.black54 : AppColors.grey,
+              color: isReadOnly ? AppColors.textSecondaryLight : AppColors.grey,
               width: 1,
             ),
           ),
@@ -138,7 +138,7 @@ class PersonalDataForm extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: Colors.black54,
+            color: AppColors.textSecondaryLight,
           ),
         ),
         items: items
@@ -222,7 +222,7 @@ Widget _buildGenderSelector() {
               fillColor: WidgetStateProperty.resolveWith(
                 (states) => states.contains(WidgetState.selected)
                     ? AppColors.primary
-                    : Colors.black54,
+                    : AppColors.textSecondaryLight,
               ),
             ),
             const SizedBox(width: 4),
@@ -308,7 +308,7 @@ Widget _buildGenderSelector() {
             labelStyle: TextStyle(fontSize: 14, color: Colors.black),
             floatingLabelAlignment: FloatingLabelAlignment.start,
             hintText: "Masukkan alamat lengkap, contoh : Jl. Wangsajaya No.9",
-            hintStyle: const TextStyle(fontSize: 14, color: Colors.black54),
+            hintStyle: TextStyle(fontSize: 14, color: AppColors.textSecondaryLight),
             alignLabelWithHint: false,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),

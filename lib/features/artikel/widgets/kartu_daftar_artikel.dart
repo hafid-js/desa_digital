@@ -78,7 +78,7 @@ class KartuDaftarArtikel extends StatelessWidget {
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 fontSize: 11,
-                                color: Colors.black54,
+                                color: AppColors.textSecondaryLight,
                                 fontWeight: FontWeight.w500,
                               ),
                           maxLines: 2,
