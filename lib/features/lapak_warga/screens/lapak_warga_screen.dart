@@ -1,12 +1,39 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
+import 'package:desa_digital/features/lapak_warga/data/filter_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/screens/widgets/filter_lapak_sheet.dart';
 import 'package:desa_digital/features/lapak_warga/screens/widgets/lapak_detail_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:iconsax/iconsax.dart';
 
-class LapakWargaScreen extends StatelessWidget {
+class LapakWargaScreen extends StatefulWidget {
   const LapakWargaScreen({super.key});
+
+  @override
+  State<LapakWargaScreen> createState() => _LapakWargaScreenState();
+}
+
+class _LapakWargaScreenState extends State<LapakWargaScreen> {
+  static const List<String> _kategori = [
+    'Fashion & Pakaian',
+    'Kuliner & Olahan',
+    'Elektronik & Gadget',
+    'Hasil Bumi & Pertanian',
+    'Perlengkapan Rumah',
+    'Otomotif',
+    'Kerajinan & Souvenir',
+  ];
+
+  static const List<String> _lokasi = [
+    'Dusun Krajan',
+    'Dusun Kepudang',
+    'Dusun Karangsari',
+    'Dusun Kemplung',
+    'Dusun Brembet',
+  ];
+
+  FilterLapak _filter = const FilterLapak();
 
   void _showDetailModal(BuildContext context, Map<String, dynamic> product) {
     showModalBottomSheet(
@@ -42,20 +69,40 @@ class LapakWargaScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _bukaFilter() async {
+    final hasil = await showModalBottomSheet<FilterLapak>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) =>
+          FilterLapakSheet(kategori: _kategori, lokasi: _lokasi, awal: _filter),
+    );
+
+    if (hasil == null || !mounted) return;
+
+    setState(() => _filter = hasil);
+  }
+
+  void _urutkan(UrutanLapak urutan) {
+    setState(() => _filter = _filter.copyWith(urutan: urutan));
+  }
+
+  static final Map<String, dynamic> dummyProduct = {
+    "title": "Columbia Women's Castback TC PFG Shoes",
+    "price": "31.800",
+    "originalPrice": "150.000",
+    "discount": "-55%",
+    "seller": "Sumanto",
+    "location": "Dusun Karangsari",
+    "image": "assets/images/lapak_warga/handphone.png",
+    "userAvatar": "assets/images/lapak_warga/user_example.jpg",
+    "description":
+        "Sepatu berkualitas hasil karya warga lokal desa. Nyaman dipakai untuk aktivitas sehari-hari, awet, dan tahan lama.",
+  };
+
   @override
   Widget build(BuildContext context) {
-    final dummyProduct = {
-      "title": "Columbia Women's Castback TC PFG Shoes",
-      "price": "31.800",
-      "originalPrice": "150.000",
-      "discount": "-55%",
-      "seller": "Sumanto",
-      "location": "Dusun Karangsari",
-      "image": "assets/images/lapak_warga/handphone.png",
-      "userAvatar": "assets/images/lapak_warga/user_example.jpg",
-      "description":
-          "Sepatu berkualitas hasil karya warga lokal desa. Nyaman dipakai untuk beraktivitas sehari-hari, awet, dan tahan lama.",
-    };
+    final produk = List.generate(8, (_) => dummyProduct);
 
     return Scaffold(
       appBar: AppBar(
@@ -64,21 +111,180 @@ class LapakWargaScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: false,
+        actions: [
+          _TombolFilter(jumlah: _filter.jumlahFilterAktif, onTap: _bukaFilter),
+        ],
+        actionsPadding: EdgeInsets.only(right: 12),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: MasonryGridView.count(
-          itemCount: 8,
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          itemBuilder: (context, index) {
-            return _LapakItemCard(
-              product: dummyProduct,
-              onTap: () => _showDetailModal(context, dummyProduct),
-            );
-          },
+      body: Column(
+        children: [
+          _BarisFilter(
+            filter: _filter,
+            onFilter: _bukaFilter,
+            onUrutkan: _urutkan,
+          ),
+          Expanded(
+            child: produk.isEmpty
+                ? const _Kosong()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: MasonryGridView.count(
+                      itemCount: produk.length,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      itemBuilder: (context, index) {
+                        final item = produk[index];
+                        return _LapakItemCard(
+                          product: item,
+                          onTap: () => _showDetailModal(context, item),
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BarisFilter extends StatelessWidget {
+  const _BarisFilter({
+    required this.filter,
+    required this.onFilter,
+    required this.onUrutkan,
+  });
+
+  final FilterLapak filter;
+  final VoidCallback onFilter;
+  final ValueChanged<UrutanLapak> onUrutkan;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 46,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        children: [
+          for (final opsi in UrutanLapak.values)
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: _ChipUrutan(
+                label: opsi.label,
+                aktif: filter.urutan == opsi,
+                onTap: () => onUrutkan(opsi),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TombolFilter extends StatelessWidget {
+  const _TombolFilter({required this.jumlah, required this.onTap});
+
+  final int jumlah;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          const Icon(Iconsax.filter, size: 16),
+          const SizedBox(width: 6),
+          const Text(
+            "Filter",
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          ),
+          if (jumlah > 0) ...[
+            const SizedBox(width: 6),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                "$jumlah",
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ChipUrutan extends StatelessWidget {
+  const _ChipUrutan({
+    required this.label,
+    required this.aktif,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool aktif;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: aktif ? AppColors.primary : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: aktif ? AppColors.primary : AppColors.borderPrimary,
+          ),
         ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: aktif ? Colors.white : Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Kosong extends StatelessWidget {
+  const _Kosong();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Iconsax.box, size: 48, color: AppColors.grey),
+          const SizedBox(height: 12),
+          Text(
+            "Tidak ada produk yang cocok",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "Coba ubah filter atau urutanmu",
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: AppColors.textSecondaryLight,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -126,31 +332,33 @@ class _LapakItemCardState extends State<_LapakItemCard> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    // Positioned(
-                    //   top: 0,
-                    //   right: 0,
-                    //   child: Container(
-                    //     padding: const EdgeInsets.symmetric(
-                    //       horizontal: 6,
-                    //       vertical: 2,
-                    //     ),
-                    //     decoration: const BoxDecoration(
-                    //       color: Colors.red,
-                    //       borderRadius: BorderRadius.only(
-                    //         bottomLeft: Radius.circular(6),
-                    //         topRight: Radius.circular(6),
-                    //       ),
-                    //     ),
-                    //     child: Text(
-                    //       widget.product["discount"] ?? "-55%",
-                    //       style: const TextStyle(
-                    //         color: Colors.white,
-                    //         fontSize: 10,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    if ((widget.product["discount"] as String?)?.isNotEmpty ??
+                        false)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(6),
+                              topRight: Radius.circular(6),
+                            ),
+                          ),
+                          child: Text(
+                            widget.product["discount"],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -163,7 +371,9 @@ class _LapakItemCardState extends State<_LapakItemCard> {
                         widget.product["title"],
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(fontWeight: FontWeight.w500),
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 4),
@@ -175,7 +385,9 @@ class _LapakItemCardState extends State<_LapakItemCard> {
                       },
                       child: Icon(
                         isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                        color: isFavorite ? Colors.redAccent : AppColors.textSecondaryLight,
+                        color: isFavorite
+                            ? Colors.redAccent
+                            : AppColors.textSecondaryLight,
                         size: 18,
                       ),
                     ),
@@ -230,53 +442,56 @@ class _LapakItemCardState extends State<_LapakItemCard> {
                 ),
                 const SizedBox(height: 6),
 
-                // Row(
-                //   children: [
-                //     AppRoundedImage(
-                //       imageUrl: widget.product["userAvatar"],
-                //       height: 24,
-                //       width: 24,
-                //       fit: BoxFit.cover,
-                //     ),
-                //     const SizedBox(width: 6),
-                //     Expanded(
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             widget.product["seller"],
-                //             maxLines: 1,
-                //             overflow: TextOverflow.ellipsis,
-                //             style: Theme.of(context).textTheme.labelSmall!
-                //                 .copyWith(color: AppColors.textSecondaryLight, fontSize: 10),
-                //           ),
-                //           Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.location_on,
-                //                 size: 11,
-                //                 color: AppColors.primary,
-                //               ),
-                //               const SizedBox(width: 2),
-                //               Expanded(
-                //                 child: Text(
-                //                   widget.product["location"],
-                //                   maxLines: 1,
-                //                   overflow: TextOverflow.ellipsis,
-                //                   style: Theme.of(context).textTheme.labelSmall!
-                //                       .copyWith(
-                //                         fontSize: 10,
-                //                         color: AppColors.textSecondaryLight,
-                //                       ),
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    AppRoundedImage(
+                      imageUrl: widget.product["userAvatar"],
+                      height: 24,
+                      width: 24,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.product["seller"],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelSmall!
+                                .copyWith(
+                                  color: AppColors.textSecondaryLight,
+                                  fontSize: 10,
+                                ),
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                size: 11,
+                                color: AppColors.primary,
+                              ),
+                              const SizedBox(width: 2),
+                              Expanded(
+                                child: Text(
+                                  widget.product["location"],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.labelSmall!
+                                      .copyWith(
+                                        fontSize: 10,
+                                        color: AppColors.textSecondaryLight,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -285,4 +500,3 @@ class _LapakItemCardState extends State<_LapakItemCard> {
     );
   }
 }
-

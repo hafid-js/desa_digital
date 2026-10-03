@@ -77,13 +77,11 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
       ),
       body: Stack(
         children: [
-          // 1. AREA KONTEN (DIBUNGKUS SINGLECHILDSCROLLVIEW + SCROLLCONTROLLER)
           SingleChildScrollView(
-            controller: widget.scrollController, // <--- KUNCI UTAMA DI SINI
+            controller: widget.scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image Slider
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: ClipRRect(
@@ -107,7 +105,6 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                 ),
                 const SizedBox(height: 10),
 
-                // Indicator
                 Align(
                   alignment: Alignment.center,
                   child: SmoothPageIndicator(
@@ -124,7 +121,6 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                   ),
                 ),
 
-                // Detail Produk & Penjual
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -134,10 +130,12 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        Flexible(child:   Text(
-                            widget.product["title"] ?? "iPhone 17 Pro Max",
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),),
+                          Flexible(
+                            child: Text(
+                              widget.product["title"] ?? "iPhone 17 Pro Max",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
                           GestureDetector(
                             onTap: () {
                               setState(() {
@@ -146,62 +144,65 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                             },
                             child: Icon(
                               isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                              color: isFavorite ? Colors.redAccent : Colors.black87,
+                              color: isFavorite
+                                  ? Colors.redAccent
+                                  : Colors.black87,
                               size: 20,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 10),
-                      // Text(
-                      //   "Rp${widget.product['price'] ?? '17.999.000'}",
-                      //   style: Theme.of(context).textTheme.titleLarge,
-                      // ),
+
                       Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 11,
-                          color: Colors.black,
-                        ),
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const TextSpan(
-                            text: "Rp",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.red,
+                          RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                const TextSpan(
+                                  text: "Rp",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: widget.product["price"],
+                                  style: Theme.of(context).textTheme.titleLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.red,
+                                      ),
+                                ),
+                              ],
                             ),
                           ),
-                          TextSpan(
-                            text: widget.product["price"],
-                            style: Theme.of(context).textTheme.titleLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.red,
-                                ),
+                          const SizedBox(width: 4),
+                          const Icon(
+                            Iconsax.ticket,
+                            size: 14,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              "Rp${widget.product['originalPrice']}",
+                              style: Theme.of(context).textTheme.labelSmall!
+                                  .copyWith(
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    const Icon(Iconsax.ticket, size: 14, color: Colors.red),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        "Rp${widget.product['originalPrice']}",
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                        
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
                       const SizedBox(height: 15),
                       Text(
                         "Deskripsi",
@@ -211,13 +212,12 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                       Text(
                         "iPhone 17 memiliki kamera Utama Fusion 48 MP dengan 2x telefoto kualitas optik, dan kamera Ultra Wide Fusion 48 MP dengan 4x resolusi kamera Ultra Wide di iPhone 16. Dan kini foto Ultra Wide memiliki resolusi 24 MP secara default, ukuran file yang tepat untuk berbagi dan penyimpanan kualitas tinggi. Jadi, Anda akan mendapatkan foto memukau dengan resolusi super tinggi — dari jarak dekat maupun jauh, di dalam maupun di luar ruangan, dengan pencahayaan terang hingga rendah. Disertai kapasitas penyimpanan 256 GB, dua kali lipat kemampuan penyimpanan awal model sebelumnya. Jadi, Anda bisa berkreasi sesuka hati — dan banyak lagi.",
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                              color: AppColors.textSecondaryLight,
-                              height: 1.5,
-                            ),
+                          color: AppColors.textSecondaryLight,
+                          height: 1.5,
+                        ),
                       ),
                       const SizedBox(height: 20),
 
-                      // Info Penjual
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -252,7 +252,9 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelMedium!
-                                          .copyWith(fontWeight: FontWeight.w500),
+                                          .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                     Row(
                                       children: [
@@ -264,7 +266,8 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                         const SizedBox(width: 2),
                                         Expanded(
                                           child: Text(
-                                            widget.product["location"] ?? "Dusun Karangsari",
+                                            widget.product["location"] ??
+                                                "Dusun Karangsari",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)
@@ -272,7 +275,8 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                                 .labelMedium!
                                                 .copyWith(
                                                   fontSize: 12,
-                                                  color: AppColors.textSecondaryLight,
+                                                  color: AppColors
+                                                      .textSecondaryLight,
                                                 ),
                                           ),
                                         ),
@@ -286,7 +290,6 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                         ],
                       ),
 
-                      // Spacer bawah agar konten tidak tertutup tombol WhatsApp
                       const SizedBox(height: 100),
                     ],
                   ),
@@ -294,29 +297,23 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
               ],
             ),
           ),
-
-          // 2. STICKY BOTTOM BUTTON (WHATSAPP)
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                
-             
-              ),
+              decoration: BoxDecoration(color: Colors.white),
               child: SafeArea(
                 child: SizedBox(
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Action Direct WA
-                    },
+                    onPressed: () {},
                     icon: FaIcon(FontAwesomeIcons.whatsapp),
                     label: Text(
                       'Hubungi Penjual (WhatsApp)',
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleSmall!.copyWith(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
