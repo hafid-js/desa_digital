@@ -3,6 +3,8 @@ import 'package:desa_digital/core/widgets/rounded_image.dart';
 import 'package:desa_digital/features/lapak_warga/data/filter_lapak.dart';
 import 'package:desa_digital/features/lapak_warga/screens/widgets/filter_lapak_sheet.dart';
 import 'package:desa_digital/features/lapak_warga/screens/widgets/lapak_detail_modal.dart';
+import 'package:desa_digital/features/lapak_warga/screens/widgets/tombol_terapkan.dart';
+import 'package:desa_digital/features/notifikasi/widgets/tile_daftar_notifikasi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,6 +14,17 @@ class LapakWargaScreen extends StatefulWidget {
 
   @override
   State<LapakWargaScreen> createState() => _LapakWargaScreenState();
+}
+
+enum Urutkan {
+  palingSesuai('Paling Sesuai'),
+  terbaru('Terbaru'),
+  hargaTertinggi('Harga Tertinggi'),
+  hargaTerendah('Harga Terendah');
+
+  const Urutkan(this.label);
+
+  final String label;
 }
 
 class _LapakWargaScreenState extends State<LapakWargaScreen> {
@@ -32,6 +45,19 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
     'Dusun Kemplung',
     'Dusun Brembet',
   ];
+
+  static const List<String> _penawaran = ['COD', 'Harga Diskon'];
+
+  static const List<String> _kondisi = ['Bar', 'Bekas'];
+
+  static const List<String> _terakhirDitambahkan = [
+    '7 hari',
+    '14 hari',
+    '1 bulan',
+    '3 bulan',
+  ];
+
+  static const List<String> _ketersediaan = ['Stok Tersedia', 'Preorder'];
 
   FilterLapak _filter = const FilterLapak();
 
@@ -74,8 +100,15 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) =>
-          FilterLapakSheet(kategori: _kategori, lokasi: _lokasi, awal: _filter),
+      builder: (context) => FilterLapakSheet(
+        kategori: _kategori,
+        lokasi: _lokasi,
+        penawaran: _penawaran,
+        kondisi: _kondisi,
+        terakhirDitambahkan: _terakhirDitambahkan,
+        ketersediaan: _ketersediaan,
+        awal: _filter,
+      ),
     );
 
     if (hasil == null || !mounted) return;
@@ -83,8 +116,19 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
     setState(() => _filter = hasil);
   }
 
-  void _urutkan(UrutanLapak urutan) {
-    setState(() => _filter = _filter.copyWith(urutan: urutan));
+  Urutkan _urutan = Urutkan.palingSesuai;
+
+  Future<void> _bukaUrutkan() async {
+    final hasil = await showModalBottomSheet<Urutkan>(
+      context: context,
+      isScrollControlled: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _SheetUrutkan(awal: _urutan),
+    );
+
+    if (hasil == null || !mounted) return;
+
+    setState(() => _urutan = hasil);
   }
 
   static final Map<String, dynamic> dummyProduct = {
@@ -112,17 +156,25 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
         ),
         centerTitle: false,
         actions: [
+          IconButton(
+            onPressed: _bukaUrutkan,
+            icon: const Icon(Iconsax.filter),
+            tooltip: "Urutkan",
+          ),
+          SizedBox(width: 8),
           _TombolFilter(jumlah: _filter.jumlahFilterAktif, onTap: _bukaFilter),
         ],
         actionsPadding: EdgeInsets.only(right: 12),
       ),
       body: Column(
         children: [
-          _BarisFilter(
-            filter: _filter,
-            onFilter: _bukaFilter,
-            onUrutkan: _urutkan,
-          ),
+          // _BarisFilter(
+          //   urutan: _urutan,
+          //   onUrutkan: (opsi) {
+          //     setState(() => _urutan = opsi);
+          //   },
+          // ),
+
           Expanded(
             child: produk.isEmpty
                 ? const _Kosong()
@@ -149,16 +201,158 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
   }
 }
 
-class _BarisFilter extends StatelessWidget {
-  const _BarisFilter({
-    required this.filter,
-    required this.onFilter,
-    required this.onUrutkan,
+class _Header extends StatelessWidget {
+  const _Header({
+    required this.judul,
+    required this.onReset,
+    required this.onTutup,
+    required this.showReset
+
   });
 
-  final FilterLapak filter;
-  final VoidCallback onFilter;
-  final ValueChanged<UrutanLapak> onUrutkan;
+  final String judul;
+  final VoidCallback onReset;
+  final VoidCallback onTutup;
+  final bool showReset;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 12,right: 12),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: onTutup,
+            icon: const Icon(Icons.close_rounded, size: 30),
+          ),
+          Text(
+            judul,
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const Spacer(),
+          TextButton(onPressed: onReset, child: showReset ? const Text("Reset") : SizedBox.shrink()),
+        ],
+      ),
+    );
+  }
+}
+
+class _SheetUrutkan extends StatefulWidget {
+  const _SheetUrutkan({this.awal});
+
+  final Urutkan? awal;
+
+  @override
+  State<_SheetUrutkan> createState() => _SheetUrutkanState();
+}
+
+class _SheetUrutkanState extends State<_SheetUrutkan> {
+  late Urutkan? _terpilih;
+
+  @override
+  void initState() {
+    super.initState();
+    _terpilih = widget.awal;
+  }
+
+  void _terapkan() {
+    Navigator.pop(context, _terpilih ?? Urutkan.palingSesuai);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _Header(
+              judul: "Urutkan",
+              showReset: false,
+              onReset: () => setState(() => _terpilih = Urutkan.palingSesuai),
+              onTutup: () => Navigator.pop(context),
+            ),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                  child: RadioGroup<Urutkan>(
+                    groupValue: _terpilih,
+                    onChanged: (Urutkan? value) {
+                      setState(() => _terpilih = value);
+                    },
+                    child: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _BarisUrutkan(
+                          title: "Paling sesuai",
+                          nilai: Urutkan.palingSesuai,
+                        ),
+                        _BarisUrutkan(title: "Terbaru", nilai: Urutkan.terbaru),
+                        _BarisUrutkan(
+                          title: "Harga Tertinggi",
+                          nilai: Urutkan.hargaTertinggi,
+                        ),
+                        _BarisUrutkan(
+                          title: "Harga Terendah",
+                          nilai: Urutkan.hargaTerendah,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            TombolTerapkan(onTap: _terapkan, label: "Terapkan"),
+          ],
+        ),
+      );
+  }
+}
+
+class _BarisUrutkan extends StatelessWidget {
+  const _BarisUrutkan({required this.title, required this.nilai});
+
+  final String title;
+  final Urutkan nilai;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        final group = RadioGroup.maybeOf<Urutkan>(context);
+
+        group?.onChanged(nilai);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: Theme.of(
+                context,
+              ).textTheme.labelMedium!.copyWith(color: Colors.black),
+            ),
+            Radio<Urutkan>(value: nilai),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BarisFilter extends StatelessWidget {
+  const _BarisFilter({required this.urutan, required this.onUrutkan});
+
+  final Urutkan urutan;
+  final ValueChanged<Urutkan> onUrutkan;
 
   @override
   Widget build(BuildContext context) {
@@ -168,12 +362,12 @@ class _BarisFilter extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         children: [
-          for (final opsi in UrutanLapak.values)
+          for (final opsi in Urutkan.values)
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: _ChipUrutan(
                 label: opsi.label,
-                aktif: filter.urutan == opsi,
+                aktif: urutan == opsi,
                 onTap: () => onUrutkan(opsi),
               ),
             ),
@@ -195,12 +389,8 @@ class _TombolFilter extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          const Icon(Iconsax.filter, size: 16),
+          const Icon(Iconsax.setting_4),
           const SizedBox(width: 6),
-          const Text(
-            "Filter",
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          ),
           if (jumlah > 0) ...[
             const SizedBox(width: 6),
             Container(

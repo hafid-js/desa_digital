@@ -1,40 +1,29 @@
-enum UrutanLapak {
-  terbaru('terbaru', 'Paling Terbaru'),
-  termurah('termurah', 'Harga Terendah'),
-  termahal('termahal', 'Harga Tertinggi');
-
-  const UrutanLapak(this.value, this.label);
-
-  final String value;
-  final String label;
-}
-
-enum StatusBarang { semua, baru, used }
-
 class FilterLapak {
   const FilterLapak({
-    this.urutan = UrutanLapak.terbaru,
     this.kategori = const <String>{},
     this.hargaMinimum,
     this.hargaMaksimum,
     this.lokasi = const <String>{},
-    this.hanyaTersedia = true,
+    this.penawaran = const <String>{},
+    this.kondisi = const <String>{},
+    this.terakhirDitambahkan = const <String>{},
+    this.ketersediaan = const <String>{},
   });
 
-  final UrutanLapak urutan;
   final Set<String> kategori;
   final int? hargaMinimum;
   final int? hargaMaksimum;
   final Set<String> lokasi;
-  final bool hanyaTersedia;
+  final Set<String> penawaran;
+  final Set<String> kondisi;
+  final Set<String> terakhirDitambahkan;
+  final Set<String> ketersediaan;
 
   bool get aktif =>
-      urutan != UrutanLapak.terbaru ||
       kategori.isNotEmpty ||
       hargaMinimum != null ||
       hargaMaksimum != null ||
-      lokasi.isNotEmpty ||
-      !hanyaTersedia;
+      lokasi.isNotEmpty;
 
   int get jumlahFilterAktif {
     var jumlah = kategori.length + lokasi.length;
@@ -45,17 +34,18 @@ class FilterLapak {
   }
 
   FilterLapak copyWith({
-    UrutanLapak? urutan,
     Set<String>? kategori,
     int? hargaMinimum,
     int? hargaMaksimum,
     bool clearHargaMinimum = false,
     bool clearHargaMaksimum = false,
     Set<String>? lokasi,
-    bool? hanyaTersedia,
+    Set<String>? penawaran,
+    Set<String>? kondisi,
+    Set<String>? terakhirDitambahkan,
+    Set<String>? ketersediaan,
   }) {
     return FilterLapak(
-      urutan: urutan ?? this.urutan,
       kategori: kategori ?? this.kategori,
       hargaMinimum: clearHargaMinimum
           ? null
@@ -64,7 +54,10 @@ class FilterLapak {
           ? null
           : (hargaMaksimum ?? this.hargaMaksimum),
       lokasi: lokasi ?? this.lokasi,
-      hanyaTersedia: hanyaTersedia ?? this.hanyaTersedia,
+      penawaran: penawaran ?? this.penawaran,
+      kondisi: kondisi ?? this.kondisi,
+      terakhirDitambahkan: terakhirDitambahkan ?? this.terakhirDitambahkan,
+      ketersediaan: ketersediaan ?? this.ketersediaan,
     );
   }
 }

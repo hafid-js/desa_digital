@@ -1,9 +1,9 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/theme/app_text_theme.dart';
 import 'package:desa_digital/features/lapak_warga/data/filter_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/screens/widgets/tombol_terapkan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:iconsax/iconsax.dart';
 
 class FilterLapakSheet extends StatefulWidget {
   const FilterLapakSheet({
@@ -11,10 +11,18 @@ class FilterLapakSheet extends StatefulWidget {
     required this.kategori,
     required this.lokasi,
     required this.awal,
+    required this.penawaran,
+    required this.kondisi,
+    required this.terakhirDitambahkan,
+    required this.ketersediaan,
   });
 
   final List<String> kategori;
   final List<String> lokasi;
+  final List<String> penawaran;
+  final List<String> kondisi;
+  final List<String> terakhirDitambahkan;
+  final List<String> ketersediaan;
   final FilterLapak awal;
 
   @override
@@ -22,12 +30,14 @@ class FilterLapakSheet extends StatefulWidget {
 }
 
 class _FilterLapakSheetState extends State<FilterLapakSheet> {
-  late UrutanLapak _urutan;
   late Set<String> _kategori;
   late Set<String> _lokasi;
+  late Set<String> _penawaran;
+  late Set<String> _kondisi;
+  late Set<String> _terakhirDitambahkan;
+  late Set<String> _ketersediaan;
   late int? _hargaMinimum;
   late int? _hargaMaksimum;
-  late bool _hanyaTersedia;
 
   final TextEditingController _hargaMinController = TextEditingController();
   final TextEditingController _hargaMaxController = TextEditingController();
@@ -35,12 +45,14 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
   @override
   void initState() {
     super.initState();
-    _urutan = widget.awal.urutan;
     _kategori = {...widget.awal.kategori};
     _lokasi = {...widget.awal.lokasi};
+    _kondisi = {...widget.awal.kondisi};
+    _terakhirDitambahkan = {...widget.awal.terakhirDitambahkan};
+    _ketersediaan = {...widget.awal.ketersediaan};
+    _penawaran = {...widget.awal.penawaran};
     _hargaMinimum = widget.awal.hargaMinimum;
     _hargaMaksimum = widget.awal.hargaMaksimum;
-    _hanyaTersedia = widget.awal.hanyaTersedia;
     _hargaMinController.text = _hargaMinimum?.toString() ?? '';
     _hargaMaxController.text = _hargaMaksimum?.toString() ?? '';
   }
@@ -60,12 +72,14 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
 
   FilterLapak hasil() {
     return FilterLapak(
-      urutan: _urutan,
       kategori: _kategori,
       hargaMinimum: _hargaMinimum,
       hargaMaksimum: _hargaMaksimum,
       lokasi: _lokasi,
-      hanyaTersedia: _hanyaTersedia,
+      penawaran: _penawaran,
+      kondisi: _kondisi,
+      terakhirDitambahkan: _terakhirDitambahkan,
+      ketersediaan: _ketersediaan,
     );
   }
 
@@ -75,12 +89,14 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
 
   void _resetSemua() {
     setState(() {
-      _urutan = UrutanLapak.terbaru;
       _kategori = {};
       _lokasi = {};
+      _penawaran = {};
+      _kondisi = {};
+      _terakhirDitambahkan = {};
+      _ketersediaan = {};
       _hargaMinimum = null;
       _hargaMaksimum = null;
-      _hanyaTersedia = true;
       _hargaMinController.clear();
       _hargaMaxController.clear();
     });
@@ -119,21 +135,38 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
                   controller: scrollController,
                   padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
                   children: [
-                    _Label("Urutkan"),
+                    // _Label("Urutkan"),
+                    // const SizedBox(height: 8),
+                    // Wrap(
+                    //   spacing: 8,
+                    //   runSpacing: 8,
+                    //   children: [
+                    //     for (final opsi in UrutanLapak.values)
+                    //       _Chip(
+                    //         label: opsi.label,
+                    //         aktif: _urutan == opsi,
+                    //         onTap: () => setState(() => _urutan = opsi),
+                    //       ),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 20),
+                    _Label("Lokasi"),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        for (final opsi in UrutanLapak.values)
+                        for (final lokasi in widget.lokasi)
                           _Chip(
-                            label: opsi.label,
-                            aktif: _urutan == opsi,
-                            onTap: () => setState(() => _urutan = opsi),
+                            label: lokasi,
+                            aktif: _lokasi.contains(lokasi),
+                            onTap: () => _toggle(_lokasi, lokasi),
                           ),
                       ],
                     ),
+
                     SizedBox(height: 20),
+
                     _Label("Kategori"),
                     const SizedBox(height: 8),
                     Wrap(
@@ -156,19 +189,24 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
                         Expanded(
                           child: _InputHarga(
                             controller: _hargaMinController,
-                            hint: "Min",
+                            hint: "Harga terendah",
                             onChanged: (value) =>
                                 _hargaMinimum = _parseHarga(value),
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text("—"),
+                          child: Text(
+                            "—",
+                            style: TextStyle(
+                              color: AppColors.grey.withAlpha(180),
+                            ),
+                          ),
                         ),
                         Expanded(
                           child: _InputHarga(
                             controller: _hargaMaxController,
-                            hint: "Maks",
+                            hint: "Harga tertinggi",
                             onChanged: (value) =>
                                 _hargaMaksimum = _parseHarga(value),
                           ),
@@ -176,75 +214,82 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    _Label("Lokasi"),
+
+                    _Label("Penawaran"),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        for (final lokasi in widget.lokasi)
+                        for (final penawaran in widget.penawaran)
                           _Chip(
-                            label: lokasi,
-                            aktif: _lokasi.contains(lokasi),
-                            onTap: () => _toggle(_lokasi, lokasi),
+                            label: penawaran,
+                            aktif: _penawaran.contains(penawaran),
+                            onTap: () => _toggle(_penawaran, penawaran),
                           ),
                       ],
                     ),
-
-                    SizedBox(height: 10),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    SizedBox(height: 20),
+                    _Label("Kondisi"),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
                       children: [
-                        Text(
-                          "Stok tersedia",
-                          style: AppTextTheme.lightTextTheme.titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                        Transform.scale(
-                          scale: 0.85,
-                          child: Switch(
-                            value: _hanyaTersedia,
-                            activeThumbColor: AppColors.green,
-                            thumbColor: WidgetStatePropertyAll(
-                              _hanyaTersedia ? Colors.white : null,
-                            ),
-                            trackColor: WidgetStatePropertyAll(
-                              _hanyaTersedia
-                                  ? AppColors.green
-                                  : Colors.transparent,
-                            ),
-                            inactiveThumbColor: AppColors.grey,
-                            trackOutlineColor: WidgetStatePropertyAll(
-                              _hanyaTersedia ? AppColors.green : AppColors.grey,
-                            ),
-                            onChanged: (value) =>
-                                setState(() => _hanyaTersedia = value),
+                        for (final kondisi in widget.kondisi)
+                          _Chip(
+                            label: kondisi,
+                            aktif: _kondisi.contains(kondisi),
+                            onTap: () => _toggle(_kondisi, kondisi),
                           ),
-                        ),
                       ],
                     ),
+                    SizedBox(height: 20),
+                    _Label("Terakhir Ditambahkan"),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final terakhirDitambahkan
+                            in widget.terakhirDitambahkan)
+                          _Chip(
+                            label: terakhirDitambahkan,
+                            aktif: _terakhirDitambahkan.contains(
+                              terakhirDitambahkan,
+                            ),
+                            onTap: () => _toggle(
+                              _terakhirDitambahkan,
+                              terakhirDitambahkan,
+                            ),
+                          ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    _Label("Lainnya"),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final ketersediaan in widget.ketersediaan)
+                          _Chip(
+                            label: ketersediaan,
+                            aktif: _ketersediaan.contains(ketersediaan),
+                            onTap: () => _toggle(_ketersediaan, ketersediaan),
+                          ),
+                      ],
+                    ),
+
                   ],
                 ),
               ),
 
-              _TombolTerapkan(onTap: _terapkan, label: "Terapkan"),
+              TombolTerapkan(onTap: _terapkan, label: "Tampilkan Produk"),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class _Pemisah extends StatelessWidget {
-  const _Pemisah();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Divider(thickness: 0.5, color: AppColors.borderSecondary),
     );
   }
 }
@@ -315,37 +360,43 @@ class _InputHarga extends StatelessWidget {
       onChanged: onChanged,
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      style: TextStyle(fontSize: 14),
+      style: const TextStyle(fontSize: 14),
       decoration: InputDecoration(
         hintText: hint,
-
+        filled: true,
+        fillColor: AppColors.grey.withAlpha(50),
         hintStyle: TextStyle(
-          fontSize: 14,
+          fontSize: 13,
           color: AppColors.textSecondaryLight,
           fontWeight: FontWeight.w300,
         ),
         isDense: true,
-        prefixText: "Rp.",
-        prefixStyle: TextStyle(
-          fontSize: 14,
-          color: Colors.black87,
-          fontWeight: FontWeight.w400,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
+
+        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        prefixIcon: IntrinsicWidth(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12, right: 6),
+            child: Center(
+              child: Text(
+                "Rp.",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
         ),
 
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.primary, width: 1),
+          borderRadius: BorderRadius.circular(6),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: AppColors.grey.withAlpha(120),
-            width: 1.5,
-          ),
+          borderRadius: BorderRadius.circular(6),
+          borderSide: BorderSide.none,
         ),
       ),
     );
@@ -366,7 +417,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+      padding: const EdgeInsets.only(right: 12, top: 12),
       child: Row(
         children: [
           IconButton(
@@ -382,40 +433,6 @@ class _Header extends StatelessWidget {
           const Spacer(),
           TextButton(onPressed: onReset, child: const Text("Reset")),
         ],
-      ),
-    );
-  }
-}
-
-class _TombolTerapkan extends StatelessWidget {
-  const _TombolTerapkan({required this.onTap, required this.label});
-
-  final VoidCallback onTap;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: onTap,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: Text(
-              label,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-        ),
       ),
     );
   }
