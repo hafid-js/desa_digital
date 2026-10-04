@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// Label kecil berbentuk pill untuk status (mis. "Progress", "Selesai").
 class LabelPill extends StatelessWidget {
   const LabelPill({
     super.key,
     required this.label,
     required this.color,
     required this.backgroundColor,
+    this.action,
     this.icon,
   });
 
@@ -14,16 +14,19 @@ class LabelPill extends StatelessWidget {
   final Color color;
   final Color backgroundColor;
   final IconData? icon;
+  final VoidCallback? action;
 
   @override
   Widget build(BuildContext context) {
     final style = TextStyle(
       color: color,
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: FontWeight.w600,
     );
 
-    return Container(
+    return GestureDetector(
+      onTap: action,
+      child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -33,11 +36,12 @@ class LabelPill extends StatelessWidget {
           ? Text(label, style: style)
           : Row(
               children: [
-                Icon(icon, size: 12),
-                SizedBox(width: 5),
                 Text(label, style: style),
+                SizedBox(width: 4),
+                Icon(icon, size: 13, color: color),
               ],
             ),
+    ),
     );
   }
 }

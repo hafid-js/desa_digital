@@ -1,6 +1,9 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/app_search_bar.dart';
+import 'package:desa_digital/core/widgets/label_pill.dart';
 import 'package:desa_digital/features/artikel/screens/daftar_artikel_screen.dart';
+import 'package:desa_digital/features/cuaca/screens/cuaca_screen.dart';
 import 'package:desa_digital/features/home/data/item_artikel.dart';
 import 'package:desa_digital/features/home/data/item_agenda.dart';
 import 'package:desa_digital/features/home/data/menu_items.dart';
@@ -8,11 +11,13 @@ import 'package:desa_digital/features/home/data/models/home_menu_item.dart';
 import 'package:desa_digital/features/home/widgets/apbdes_section.dart';
 import 'package:desa_digital/features/home/widgets/call_center_card.dart';
 import 'package:desa_digital/features/home/widgets/content_section.dart';
+import 'package:desa_digital/features/home/widgets/cuaca_card.dart';
 import 'package:desa_digital/features/home/widgets/footer.dart';
 import 'package:desa_digital/features/home/widgets/home_app_bar.dart';
 import 'package:desa_digital/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(toolbarHeight: 0),
+      appBar: AppBar(
+        toolbarHeight: 0,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -36,13 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildBannerSection(context),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 20),
                     child: Column(
                       children: [
                         CallCenterCard(),
                         SizedBox(height: 20),
                         _buildMenuSection(context),
                         SizedBox(height: 20),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          titleAlignment: ListTileTitleAlignment.top,
+                          title: Text(
+                            "Prakiraan Cuaca",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          subtitle: Text(
+                            "Sabtu, 03 Oktober 2026 21:00",
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          trailing: UnconstrainedBox(
+                            child: LabelPill(
+                              label: "Semua Desa",
+                              color: AppColors.primary,
+                              backgroundColor: AppColors.primary.withAlpha(40),
+                              icon: Iconsax.arrow_right_3,
+                              action: () => Get.to(() => CuacaScreen()),
+                            ),
+                          ),
+                        ),
+                        CuacaCard(),
                       ],
                     ),
                   ),

@@ -1,39 +1,88 @@
-import 'package:desa_digital/core/utils/color_utils.dart';
+import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
-class AppSearchBar extends StatelessWidget {
-  // final ValueChanged<String> onChanged;
+class AppSearchBar extends StatefulWidget {
   final String hintText;
 
-  const AppSearchBar({
-    super.key,
-    // required this.onChanged,
-    this.hintText = "Cari...",
-  });
+  const AppSearchBar({super.key, this.hintText = "Cari..."});
+
+  @override
+  State<AppSearchBar> createState() => _AppSearchBarState();
+}
+
+class _AppSearchBarState extends State<AppSearchBar> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 55,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).cardColor,
-        // boxShadow: context.shadow.small,
-      ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: TextField(
-          // onChanged: onChanged,
-          style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            icon: Icon(Icons.search, color: HexColor.fromHex("#7c97a6")),
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color: HexColor.fromHex("#7c97a6"),
-              fontSize: 14,
-            ),
-            border: InputBorder.none,
+    return TextFormField(
+      autofocus: true,
+      keyboardType: TextInputType.name,
+      controller: _searchController,
+      decoration: InputDecoration(
+        isDense: true,
+        filled: true,
+        fillColor: Colors.white,
+
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+
+        prefixIconConstraints: const BoxConstraints(
+          minWidth: 40,
+          minHeight: 40,
+        ),
+        suffixIconConstraints: const BoxConstraints(
+          minWidth: 40,
+          minHeight: 40,
+        ),
+
+        prefixIcon: const Icon(Icons.search, color: Colors.black87, size: 20),
+        hintText: "Cari layanan apa?",
+        hintStyle: Theme.of(context).textTheme.labelMedium,
+
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        floatingLabelStyle: TextStyle(color: AppColors.primary),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: AppColors.grey.withAlpha(180),
+            width: 1.5,
+          ),
+        ),
+        suffixIcon: _searchController.text.isNotEmpty
+            ? IconButton(
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                icon: const Icon(
+                  Iconsax.close_circle5,
+                  size: 20,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  _searchController.clear();
+                  setState(() {});
+                },
+              )
+            : null,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: AppColors.grey.withAlpha(120),
+            width: 1.5,
           ),
         ),
       ),
