@@ -1,14 +1,14 @@
-import 'package:desa_digital/features/pengaduan/widgets/attachment_picker_section.dart';
-import 'package:desa_digital/features/pengaduan/widgets/privacy_option_card.dart';
-import 'package:desa_digital/features/pengaduan/widgets/report_details_field.dart';
-import 'package:desa_digital/features/pengaduan/widgets/submit_section.dart';
-import 'package:desa_digital/features/pengaduan/widgets/location_point_field.dart';
-import 'package:desa_digital/features/pengaduan/widgets/bagian_pemilih_wilayah.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/attachment_picker_section.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/privacy_option_card.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/report_details_field.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/submit_section.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/location_point_field.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/bagian_pemilih_wilayah.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-export 'package:desa_digital/features/pengaduan/widgets/privacy_option_card.dart'
+export 'package:desa_digital/features/pengaduan/presentation/widgets/privacy_option_card.dart'
     show ComplaintVisibility;
 
 class FormulirPengaduanScreen extends StatefulWidget {

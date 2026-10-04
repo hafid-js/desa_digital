@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/pengaduan/widgets/langkah_progres_pengaduan.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/langkah_progres_pengaduan.dart';
 import 'package:desa_digital/core/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

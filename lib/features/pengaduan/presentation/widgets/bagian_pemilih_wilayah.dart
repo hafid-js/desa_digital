@@ -1,7 +1,7 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/pengaduan/controllers/pencarian_wilayah_controller.dart';
-import 'package:desa_digital/features/pengaduan/widgets/searchable_wheel.dart';
+import 'package:desa_digital/features/pengaduan/presentation/controllers/pencarian_wilayah_controller.dart';
+import 'package:desa_digital/features/pengaduan/presentation/widgets/searchable_wheel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,10 +57,10 @@ class BagianPemilihWilayah extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 builder: (context) {
-                  if (Get.isRegistered<PencarianWilayahController>()) {
-                    Get.delete<PencarianWilayahController>();
-                  }
-                  final controller = Get.put(PencarianWilayahController());
+                  // Controller dibuat ulang setiap kali lembar dibuka agar
+                  // pencarian dan pilihan sebelumnya tidak terbawa.
+                  final controller = Get.find<PencarianWilayahController>()
+                    ..reset();
 
                   return _LembarCariWilayah(controller: controller);
                 },

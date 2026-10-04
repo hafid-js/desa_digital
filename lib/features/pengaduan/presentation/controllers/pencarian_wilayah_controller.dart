@@ -1,10 +1,17 @@
-import 'package:desa_digital/features/pengaduan/data/sumber_data_wilayah.dart';
+import 'package:desa_digital/core/usecase/usecase.dart';
 import 'package:desa_digital/features/pengaduan/domain/entities/wilayah.dart';
+import 'package:desa_digital/features/pengaduan/domain/entities/wilayah_catalog.dart';
+import 'package:desa_digital/features/pengaduan/domain/usecases/wilayah_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// Mengelola state lembar pencarian wilayah: kata kunci, hasil pencarian, dan
+/// indeks wilayah yang sedang dipilih pada wheel.
 class PencarianWilayahController extends GetxController {
-  final SumberDataWilayah _dataSource = SumberDataWilayah();
+  PencarianWilayahController(this._loadCatalog, this._searchWilayah);
+
+  final LoadWilayahCatalog _loadCatalog;
+  final SearchWilayah _searchWilayah;
 
   final searchController = TextEditingController();
   final FixedExtentScrollController scrollController =
@@ -16,8 +23,18 @@ class PencarianWilayahController extends GetxController {
   static const int minChars = 3;
   static const double itemExtent = 40;
 
-  List<Wilayah>? _allRegions;
-  Map<String, Wilayah>? _byCode;
+  WilayahCatalog? _catalog;
+
+  /// Dipanggil setiap kali lembar pencarian dibuka agar state kembali bersih
+  /// seperti controller yang baru dibuat.
+  void reset() {
+    _attachedPosition?.removeListener(syncSelection);
+    _attachedPosition = null;
+    clear();
+    if (scrollController.hasClients) {
+      scrollController.jumpToItem(0);
+    }
+  }
 
   Future<void> onQueryChanged(String query) async {
     final keyword = query.trim().toLowerCase();
@@ -30,22 +47,23 @@ class PencarianWilayahController extends GetxController {
     isLoading.value = true;
 
     try {
-      await _ensureLoaded();
+      final catalog = await _ensureCatalog();
+      if (catalog == null) {
+        results.clear();
+        return;
+      }
 
       final matches =
-          _allRegions!
-              .where(
-                (region) =>
-                    region.level >= 2 &&
-                    region.name.toLowerCase().contains(keyword),
-              )
-              .toList()
-            ..sort((a, b) {
-              if (a.level != b.level) return a.level.compareTo(b.level);
-              return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-            });
+          _searchWilayah(
+            WilayahSearchParams(
+              catalog: catalog,
+              keyword: keyword,
+              minChars: minChars,
+            ),
+          ).valueOrNull ??
+          const <Wilayah>[];
 
-      results.value = matches;
+      results.assignAll(matches);
       selectedIndex.value = 0;
       if (scrollController.hasClients) {
         scrollController.jumpToItem(0);
@@ -57,12 +75,12 @@ class PencarianWilayahController extends GetxController {
     }
   }
 
-  Future<void> _ensureLoaded() async {
-    if (_allRegions != null) return;
+  Future<WilayahCatalog?> _ensureCatalog() async {
+    final cached = _catalog;
+    if (cached != null) return cached;
 
-    final regions = await _dataSource.loadRegions();
-    _allRegions = regions;
-    _byCode = {for (final r in regions) r.code: r};
+    final loaded = (await _loadCatalog(const NoParams())).valueOrNull;
+    return _catalog = loaded;
   }
 
   void syncSelection() {
@@ -95,19 +113,7 @@ class PencarianWilayahController extends GetxController {
     return results[selectedIndex.value];
   }
 
-  String pathOf(Wilayah region) {
-    final names = <String>[];
-    Wilayah? current = region;
-
-    while (current != null) {
-      if (current.level >= 2) names.add(current.name);
-      current = current.parentCode.isEmpty
-          ? null
-          : _byCode?[current.parentCode];
-    }
-
-    return names.reversed.map((name) => name.toUpperCase()).join(', ');
-  }
+  String pathOf(Wilayah region) => _catalog?.pathOf(region) ?? '';
 
   String? get fullLocation {
     final selected = selectedRegion;

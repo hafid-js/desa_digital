@@ -2,7 +2,10 @@ import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/features/pengaduan/domain/entities/wilayah.dart';
 import 'package:flutter/services.dart';
 
-class SumberDataWilayah {
+/// Sumber data wilayah dari berkas CSV di dalam bundle.
+class WilayahDataSource {
+  const WilayahDataSource();
+
   Future<List<Wilayah>> loadRegions() async {
     final provinces = await _parse(AppAssets.dataProvinsi);
     final regencies = await _parse(AppAssets.dataKabupaten);

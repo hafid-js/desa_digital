@@ -18,12 +18,13 @@ import 'package:desa_digital/features/autentikasi/presentation/screens/register/
 import 'package:desa_digital/features/cuaca/presentation/bindings/weather_binding.dart';
 import 'package:desa_digital/features/cuaca/presentation/screens/cuaca_screen.dart';
 import 'package:desa_digital/features/lapak_warga/screens/lapak_warga_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/daftar_pengaduan_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/detail_lampiran_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/formulir_pengaduan_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/pemilih_lokasi_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/pengaduan_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/daftar_pengaduan_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/detail_lampiran_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/detail_pengaduan_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/formulir_pengaduan_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/pemilih_lokasi_screen.dart';
+import 'package:desa_digital/features/pengaduan/presentation/bindings/pengaduan_binding.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/pengaduan_screen.dart';
 import 'package:desa_digital/features/peraturan_desa/presentation/bindings/village_regulation_binding.dart';
 import 'package:desa_digital/features/peraturan_desa/presentation/screens/peraturan_desa_screen.dart';
 import 'package:desa_digital/features/profil/presentation/bindings/profile_binding.dart';
@@ -135,6 +136,7 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.formulirPengaduan,
       page: () => const FormulirPengaduanScreen(),
+      binding: PengaduanBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.pilihLokasi,
