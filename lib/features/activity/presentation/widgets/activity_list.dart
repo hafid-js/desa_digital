@@ -1,4 +1,4 @@
-import 'package:desa_digital/features/activity/data/activity_items.dart';
+import 'package:desa_digital/features/activity/domain/entities/activity_item.dart';
 import 'package:flutter/material.dart';
 
 class ActivityList extends StatelessWidget {

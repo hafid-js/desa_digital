@@ -1,6 +1,8 @@
+import 'package:desa_digital/app/bindings/main_shell_binding.dart';
 import 'package:desa_digital/app/main_shell.dart';
 import 'package:desa_digital/app/routes/app_routes.dart';
-import 'package:desa_digital/features/activity/screens/activity_screen.dart';
+import 'package:desa_digital/features/activity/presentation/bindings/activity_binding.dart';
+import 'package:desa_digital/features/activity/presentation/screens/activity_screen.dart';
 import 'package:desa_digital/features/agenda/screens/agenda_screen.dart';
 import 'package:desa_digital/features/agenda/screens/detail_agenda_screen.dart';
 import 'package:desa_digital/features/artikel/screens/daftar_artikel_screen.dart';
@@ -42,7 +44,11 @@ import 'package:get/get.dart';
 /// halaman ditambahkan saat feature-nya dimigrasikan ke layered architecture.
 abstract final class AppPages {
   static final List<GetPage<dynamic>> pages = <GetPage<dynamic>>[
-    GetPage<dynamic>(name: Routes.mainShell, page: () => const MainShell()),
+    GetPage<dynamic>(
+      name: Routes.mainShell,
+      page: () => const MainShell(),
+      binding: MainShellBinding(),
+    ),
 
     // Autentikasi
     GetPage<dynamic>(name: Routes.login, page: () => const LoginScreen()),
@@ -67,6 +73,7 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.aktivitas,
       page: () => const ActivityScreen(),
+      binding: ActivityBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.lapakWarga,

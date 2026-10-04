@@ -14,3 +14,6 @@ Failure mapExceptionToFailure(AppException exception) => switch (exception) {
   AuthException(:final message) => AuthFailure(message),
   UnknownException(:final message) => UnknownFailure(message),
 };
+
+/// Memetakan error di luar [AppException] menjadi [UnknownFailure].
+Failure mapUnknownError(Object error) => UnknownFailure(error.toString());

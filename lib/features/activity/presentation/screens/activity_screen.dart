@@ -1,6 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/activity/widgets/my_reports_section.dart';
-import 'package:desa_digital/features/activity/widgets/saved_section.dart';
+import 'package:desa_digital/features/activity/presentation/widgets/my_reports_section.dart';
+import 'package:desa_digital/features/activity/presentation/widgets/saved_section.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

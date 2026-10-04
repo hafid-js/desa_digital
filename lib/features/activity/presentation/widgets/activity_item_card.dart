@@ -1,6 +1,6 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/activity/data/activity_items.dart';
+import 'package:desa_digital/features/activity/domain/entities/activity_item.dart';
 import 'package:flutter/material.dart';
 
 const EdgeInsets activityReportCardPadding = EdgeInsets.only(

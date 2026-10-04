@@ -1,5 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/activity/screens/activity_screen.dart';
+import 'package:desa_digital/features/activity/presentation/screens/activity_screen.dart';
 import 'package:desa_digital/features/home/screens/home_screen.dart';
 import 'package:desa_digital/features/notifikasi/screens/notifikasi_screen.dart';
 import 'package:desa_digital/features/profil/screens/profil_screen.dart';
