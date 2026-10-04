@@ -3,10 +3,12 @@ import 'package:desa_digital/app/main_shell.dart';
 import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/features/activity/presentation/bindings/activity_binding.dart';
 import 'package:desa_digital/features/activity/presentation/screens/activity_screen.dart';
-import 'package:desa_digital/features/agenda/screens/agenda_screen.dart';
-import 'package:desa_digital/features/agenda/screens/detail_agenda_screen.dart';
-import 'package:desa_digital/features/artikel/screens/daftar_artikel_screen.dart';
-import 'package:desa_digital/features/artikel/screens/detail_artikel_screen.dart';
+import 'package:desa_digital/features/agenda/presentation/bindings/agenda_binding.dart';
+import 'package:desa_digital/features/agenda/presentation/screens/agenda_screen.dart';
+import 'package:desa_digital/features/agenda/presentation/screens/detail_agenda_screen.dart';
+import 'package:desa_digital/features/artikel/presentation/bindings/article_binding.dart';
+import 'package:desa_digital/features/artikel/presentation/screens/daftar_artikel_screen.dart';
+import 'package:desa_digital/features/artikel/presentation/screens/detail_artikel_screen.dart';
 import 'package:desa_digital/features/autentikasi/screens/login_screen.dart';
 import 'package:desa_digital/features/autentikasi/screens/register/register_step_1_screen.dart';
 import 'package:desa_digital/features/autentikasi/screens/register/register_step_2_screen.dart';
@@ -85,6 +87,7 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.artikel,
       page: () => const DaftarArtikelScreen(),
+      binding: ArticleBinding(),
     ),
 
     // Artikel
@@ -94,7 +97,11 @@ abstract final class AppPages {
     ),
 
     // Agenda
-    GetPage<dynamic>(name: Routes.agenda, page: () => const AgendaScreen()),
+    GetPage<dynamic>(
+      name: Routes.agenda,
+      page: () => const AgendaScreen(),
+      binding: AgendaBinding(),
+    ),
     GetPage<dynamic>(
       name: Routes.detailAgenda,
       page: () => const DetailEventScreen(),

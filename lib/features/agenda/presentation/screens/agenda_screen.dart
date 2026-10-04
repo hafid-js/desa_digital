@@ -1,60 +1,31 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/agenda/data/event_agenda.dart';
-import 'package:desa_digital/features/agenda/widgets/kartu_agenda.dart';
+import 'package:desa_digital/features/agenda/domain/entities/event_agenda.dart';
+import 'package:desa_digital/features/agenda/presentation/controllers/agenda_controller.dart';
+import 'package:desa_digital/features/agenda/presentation/widgets/kartu_agenda.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class AgendaScreen extends StatefulWidget {
+class AgendaScreen extends StatelessWidget {
   const AgendaScreen({super.key});
 
-  @override
-  State<AgendaScreen> createState() => _AgendaScreenState();
-}
+  AgendaController get _controller => Get.find<AgendaController>();
 
-class _AgendaScreenState extends State<AgendaScreen> {
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = DateTime.utc(
-      _focusedDay.year,
-      _focusedDay.month,
-      _focusedDay.day,
-    );
-    initializeDateFormatting('id_ID', null).then((_) {
-      if (mounted) setState(() {});
-    });
-  }
-
-  List<EventAgenda> _eventTanggal(DateTime day) => eventPadaTanggal(day);
-
-  TableCalendar _buildKalender() {
+  TableCalendar _buildKalender(BuildContext context) {
     return TableCalendar(
       firstDay: DateTime(2000),
       lastDay: DateTime(2100),
-      focusedDay: _focusedDay,
-      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-      onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          _selectedDay = selectedDay;
-          _focusedDay = focusedDay;
-        });
-      },
+      focusedDay: _controller.focusedDay.value,
+      selectedDayPredicate: (day) =>
+          isSameDay(_controller.selectedDay.value, day),
+      onDaySelected: _controller.onDaySelected,
       availableCalendarFormats: const {
         CalendarFormat.month: 'Bulanan',
         CalendarFormat.twoWeeks: '2 Mingguan',
         CalendarFormat.week: 'Mingguan',
       },
-      calendarFormat: _calendarFormat,
-      onFormatChanged: (format) {
-        setState(() {
-          _calendarFormat = format;
-        });
-      },
+      calendarFormat: _controller.calendarFormat.value,
+      onFormatChanged: _controller.onFormatChanged,
       headerVisible: true,
       headerStyle: HeaderStyle(
         titleTextStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
@@ -81,7 +52,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
           shape: BoxShape.circle,
         ),
       ),
-      eventLoader: _eventTanggal,
+      eventLoader: (day) => _controller.eventsOn(day),
       calendarBuilders: CalendarBuilders(
         markerBuilder: (context, date, events) {
           if (events.isNotEmpty) {
@@ -102,7 +73,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
     );
   }
 
-  Widget _buildDaftarEvent(List<EventAgenda> events) {
+  Widget _buildDaftarEvent(BuildContext context, List<EventAgenda> events) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -142,10 +113,6 @@ class _AgendaScreenState extends State<AgendaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final events = _selectedDay == null
-        ? const <EventAgenda>[]
-        : _eventTanggal(_selectedDay!);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -158,9 +125,13 @@ class _AgendaScreenState extends State<AgendaScreen> {
           Container(
             padding: const EdgeInsets.only(bottom: 15),
             decoration: BoxDecoration(color: AppColors.grey.withAlpha(35)),
-            child: _buildKalender(),
+            child: Obx(() => _buildKalender(context)),
           ),
-          if (_selectedDay != null) Expanded(child: _buildDaftarEvent(events)),
+          Obx(() {
+            final events = _controller.acaraTerpilih.value;
+            if (events == null) return const SizedBox.shrink();
+            return Expanded(child: _buildDaftarEvent(context, events));
+          }),
         ],
       ),
     );
