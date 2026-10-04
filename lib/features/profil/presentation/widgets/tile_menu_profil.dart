@@ -1,15 +1,27 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/constants/app_config.dart';
-import 'package:desa_digital/features/profil/data/models/item_menu_profil.dart';
+import 'package:desa_digital/features/profil/domain/entities/profile_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desa_digital/app/routes/app_routes.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TileMenuProfil extends StatelessWidget {
   const TileMenuProfil({super.key, required this.item});
 
-  final ItemMenuProfil item;
+  final ProfileMenuItem item;
+
+  /// Ikon tiap aksi menu; ikon berada di presentation karena `IconData` hanya
+  /// relevan bagi tampilan.
+  static const Map<ProfileMenuAction, IconData> _ikon = {
+    ProfileMenuAction.profileInfo: Iconsax.profile_circle,
+    ProfileMenuAction.accountSettings: Iconsax.setting_2,
+    ProfileMenuAction.helpCenter: Icons.contact_support_outlined,
+    ProfileMenuAction.termsConditions: Iconsax.document_text,
+    ProfileMenuAction.privacyPolicy: Iconsax.security,
+    ProfileMenuAction.rateApp: Iconsax.star,
+  };
 
   static const String _privacyPolicyUrl =
       'https://laporgub.jatengprov.go.id/privacy';
@@ -54,7 +66,7 @@ class TileMenuProfil extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(item.icon, size: 25, color: trailingColor),
+                  Icon(_ikon[item.action], size: 25, color: trailingColor),
                   const SizedBox(width: 10),
                   Text(
                     item.label,

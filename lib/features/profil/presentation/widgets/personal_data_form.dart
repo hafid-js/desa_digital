@@ -1,5 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/models/jenis_kelamin.dart';
+import 'package:desa_digital/features/profil/domain/entities/jenis_kelamin.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -26,16 +26,17 @@ import 'package:desa_digital/features/pengaduan/screens/pemilih_lokasi_screen.da
 import 'package:desa_digital/features/pengaduan/screens/pengaduan_screen.dart';
 import 'package:desa_digital/features/peraturan_desa/presentation/bindings/village_regulation_binding.dart';
 import 'package:desa_digital/features/peraturan_desa/presentation/screens/peraturan_desa_screen.dart';
-import 'package:desa_digital/features/profil/screens/detail_profil_screen.dart';
-import 'package:desa_digital/features/profil/screens/hapus_akun_screen.dart';
-import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
-import 'package:desa_digital/features/profil/screens/lupa_password_screen.dart';
-import 'package:desa_digital/features/profil/screens/pengaturan_akun_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_email_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_kata_sandi_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_profil_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_telepon_screen.dart';
-import 'package:desa_digital/features/profil/screens/verifikasi_otp_screen.dart';
+import 'package:desa_digital/features/profil/presentation/bindings/profile_binding.dart';
+import 'package:desa_digital/features/profil/presentation/screens/detail_profil_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/hapus_akun_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/kata_sandi_baru_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/lupa_password_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/pengaturan_akun_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/ubah_email_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/ubah_kata_sandi_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/ubah_profil_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/ubah_telepon_screen.dart';
+import 'package:desa_digital/features/profil/presentation/screens/verifikasi_otp_screen.dart';
 import 'package:desa_digital/features/surat/screens/daftar_surat_screen.dart';
 import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
 import 'package:desa_digital/features/surat/screens/keterangan_kematian_screen.dart';
@@ -177,10 +178,12 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.detailProfil,
       page: () => const DetailProfilScreen(),
+      binding: ProfileBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.ubahProfil,
       page: () => const UbahProfilScreen(),
+      binding: ProfileBinding(),
     ),
     GetPage<dynamic>(name: Routes.ubahEmail, page: () => UbahEmailScreen()),
     GetPage<dynamic>(

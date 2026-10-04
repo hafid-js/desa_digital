@@ -1,8 +1,10 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/models/jenis_kelamin.dart';
-import 'package:desa_digital/features/profil/widgets/main_info_form.dart';
-import 'package:desa_digital/features/profil/widgets/personal_data_form.dart';
+import 'package:desa_digital/features/profil/domain/entities/profile_form_options.dart';
+import 'package:desa_digital/features/profil/presentation/controllers/profile_controller.dart';
+import 'package:desa_digital/features/profil/presentation/widgets/main_info_form.dart';
+import 'package:desa_digital/features/profil/presentation/widgets/personal_data_form.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
@@ -15,58 +17,10 @@ class UbahProfilScreen extends StatefulWidget {
 
 class _UbahProfilScreenState extends State<UbahProfilScreen>
     with SingleTickerProviderStateMixin {
+  ProfileController get _controller => Get.find<ProfileController>();
+
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _fullNameController = TextEditingController(
-    text: 'HafidTech',
-  );
-  final TextEditingController _emailController = TextEditingController(
-    text: 'dev@hafidtech.com',
-  );
-  final TextEditingController _phoneController = TextEditingController(
-    text: '082322875277',
-  );
   late TabController _tabController;
-  JenisKelamin? _selectedGender;
-
-  final List<String> religionItems = [
-    'ISLAM',
-    'PROTESTAN',
-    'KATHOLIK',
-    'HINDU',
-    'BUDDHA',
-    'KONGHUCU',
-  ];
-
-  final List<String> marriedStatus = [
-    'BELUM KAWIN',
-    'KAWIN',
-    'CERAI HIDUP',
-    'CERAI MATI',
-  ];
-  final List<String> provinsiItems = [
-    'DKI JAKARTA',
-    'JAWA TENGAH',
-    'JAWA BARAT',
-    'DIY YOGYAKARTA',
-  ];
-  final List<String> kabupatenItems = [
-    'PURWOREJO',
-    'KEBUMEN',
-    'WONOSOBO',
-    'MAGELANG',
-  ];
-  final List<String> kecamatanItems = [
-    'BRUNO',
-    'KEMIRI',
-    'PITURUH',
-    'KUTOARJO',
-  ];
-  final List<String> kelurahanItems = [
-    'GUNUNG CONDONG',
-    'CEPEDAK',
-    'BRUNOREJO',
-    'KEMRANGGEN',
-  ];
 
   final Map<String, ValueNotifier<String?>> _dropdownValues = {};
 
@@ -118,14 +72,24 @@ class _UbahProfilScreenState extends State<UbahProfilScreen>
     _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _dateController.dispose();
-    _fullNameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
     for (final notifier in _dropdownValues.values) {
       notifier.dispose();
     }
     super.dispose();
   }
+
+  /// Opsi dropdown form; diambil dari controller agar daftar ini berasal dari
+  /// data, bukan hardcoded di layar.
+  ProfileFormOptions get _options =>
+      _controller.formOptions.value ??
+      const ProfileFormOptions(
+        religion: [],
+        marriedStatus: [],
+        provinsi: [],
+        kabupaten: [],
+        kecamatan: [],
+        kelurahan: [],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -179,9 +143,9 @@ class _UbahProfilScreenState extends State<UbahProfilScreen>
                     ),
                   ),
                   MainInfoForm(
-                    fullNameController: _fullNameController,
-                    emailController: _emailController,
-                    phoneController: _phoneController,
+                    fullNameController: _controller.fullNameController,
+                    emailController: _controller.emailController,
+                    phoneController: _controller.phoneController,
                   ),
                 ],
               ),
@@ -189,26 +153,24 @@ class _UbahProfilScreenState extends State<UbahProfilScreen>
             SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: PersonalDataForm(
-                  onSimpan: () {},
-                  dateController: _dateController,
-                  pickDate: _pickDate,
-                  selectedGender: _selectedGender,
-                  onGenderChanged: (value) {
-                    setState(() {
-                      _selectedGender = value;
-                    });
-                  },
-                  religionItems: religionItems,
-                  marriedStatus: marriedStatus,
-                  provinsiItems: provinsiItems,
-                  kabupatenItems: kabupatenItems,
-                  kecamatanItems: kecamatanItems,
-                  kelurahanItems: kelurahanItems,
-                  fullNameController: _fullNameController,
-                  emailController: _emailController,
-                  phoneController: _phoneController,
-                  dropdownValues: _dropdownValues,
+                child: Obx(
+                  () => PersonalDataForm(
+                    onSimpan: () {},
+                    dateController: _dateController,
+                    pickDate: _pickDate,
+                    selectedGender: _controller.selectedGender.value,
+                    onGenderChanged: _controller.selectGender,
+                    religionItems: _options.religion,
+                    marriedStatus: _options.marriedStatus,
+                    provinsiItems: _options.provinsi,
+                    kabupatenItems: _options.kabupaten,
+                    kecamatanItems: _options.kecamatan,
+                    kelurahanItems: _options.kelurahan,
+                    fullNameController: _controller.fullNameController,
+                    emailController: _controller.emailController,
+                    phoneController: _controller.phoneController,
+                    dropdownValues: _dropdownValues,
+                  ),
                 ),
               ),
             ),

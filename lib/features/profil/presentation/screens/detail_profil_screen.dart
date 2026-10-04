@@ -1,5 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/widgets/detail_info_tile.dart';
+import 'package:desa_digital/features/profil/presentation/controllers/profile_controller.dart';
+import 'package:desa_digital/features/profil/presentation/widgets/detail_info_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desa_digital/app/routes/app_routes.dart';
@@ -7,6 +8,8 @@ import 'package:iconsax/iconsax.dart';
 
 class DetailProfilScreen extends StatelessWidget {
   const DetailProfilScreen({super.key});
+
+  ProfileController get _controller => Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +50,20 @@ class DetailProfilScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  DetailInfoTile(title: "Nama", value: "Hafid Tech"),
-                  DetailInfoTile(
-                    title: "Email",
-                    value: "dev*****@hafidtech.com",
+                  const SizedBox(height: 20),
+                  Obx(
+                    () => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (final detail in _controller.personalDetails)
+                          DetailInfoTile(
+                            title: detail.title,
+                            value: detail.value,
+                          ),
+                      ],
+                    ),
                   ),
-                  DetailInfoTile(title: "No. HP", value: "628232287****"),
-                  DetailInfoTile(title: "NIK", value: "-"),
-                  DetailInfoTile(title: "Tempat, Tanggal Lahir", value: "-,-"),
-                  DetailInfoTile(title: "Jenis Kelamin", value: "-"),
-                  DetailInfoTile(title: "Alamat", value: "-,-,-,-"),
-                  DetailInfoTile(title: "Agama", value: "-"),
-                  DetailInfoTile(title: "Status Perkawinan", value: "-"),
                   Padding(
                     padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom,
