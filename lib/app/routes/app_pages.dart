@@ -24,7 +24,8 @@ import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.
 import 'package:desa_digital/features/pengaduan/screens/formulir_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/pemilih_lokasi_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/pengaduan_screen.dart';
-import 'package:desa_digital/features/peraturan_desa/screens/peraturan_desa_screen.dart';
+import 'package:desa_digital/features/peraturan_desa/presentation/bindings/village_regulation_binding.dart';
+import 'package:desa_digital/features/peraturan_desa/presentation/screens/peraturan_desa_screen.dart';
 import 'package:desa_digital/features/profil/screens/detail_profil_screen.dart';
 import 'package:desa_digital/features/profil/screens/hapus_akun_screen.dart';
 import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
@@ -169,6 +170,7 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.peraturanDesa,
       page: () => const PeraturanDesaScreen(),
+      binding: VillageRegulationBinding(),
     ),
 
     // Profil
