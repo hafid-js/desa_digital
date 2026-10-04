@@ -98,6 +98,9 @@ final class AppAssets {
   static const String emptyBox = '$_icons/empty_box.png';
   static const String emptyState = '$_images/data-kosong.png';
 
+  /// Ikon cuaca untuk kartu prakiraan harian.
+  static const String cloud = '$_icons/cloud.png';
+
   static const String villageRegulationLkdCepedak2021 =
       '$_pdf/PERDES-LKD-CEPEDAK-2021.pdf';
 

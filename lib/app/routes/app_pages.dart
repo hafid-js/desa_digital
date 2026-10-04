@@ -15,7 +15,8 @@ import 'package:desa_digital/features/autentikasi/presentation/screens/register/
 import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_2_screen.dart';
 import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_3_screen.dart';
 import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_4_screen.dart';
-import 'package:desa_digital/features/cuaca/screens/cuaca_screen.dart';
+import 'package:desa_digital/features/cuaca/presentation/bindings/weather_binding.dart';
+import 'package:desa_digital/features/cuaca/presentation/screens/cuaca_screen.dart';
 import 'package:desa_digital/features/lapak_warga/screens/lapak_warga_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/daftar_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/detail_lampiran_screen.dart';
@@ -88,7 +89,11 @@ abstract final class AppPages {
     ),
 
     // Home
-    GetPage<dynamic>(name: Routes.cuaca, page: () => const CuacaScreen()),
+    GetPage<dynamic>(
+      name: Routes.cuaca,
+      page: () => const CuacaScreen(),
+      binding: WeatherBinding(),
+    ),
     GetPage<dynamic>(
       name: Routes.artikel,
       page: () => const DaftarArtikelScreen(),
