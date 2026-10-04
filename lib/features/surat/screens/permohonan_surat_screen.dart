@@ -1,10 +1,10 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
-import 'package:desa_digital/features/surat/screens/daftar_surat_screen.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PermohonanSuratScreen extends StatelessWidget {
@@ -117,9 +117,9 @@ Widget _buildSuratCard(
   return GestureDetector(
     onTap: () {
       if (title == "Surat Mandiri") {
-        Get.to(() => const DaftarSuratScreen.mandiri());
+        Get.toNamed(Routes.daftarSuratMandiri);
       } else {
-        Get.to(() => const DaftarSuratScreen.perluProses());
+        Get.toNamed(Routes.daftarSuratPerluProses);
       }
     },
     child: Container(

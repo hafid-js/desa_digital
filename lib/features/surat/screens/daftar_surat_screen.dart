@@ -1,11 +1,10 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
 import 'package:desa_digital/features/surat/screens/formulir_surat_mandiri_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kematian_screen.dart';
 import 'package:desa_digital/features/surat/widgets/field_label.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class DaftarSuratScreen extends StatelessWidget {
@@ -89,9 +88,9 @@ class DaftarSuratScreen extends StatelessWidget {
                 ringkasan: perluProses[i].ringkasan,
                 onTap: () {
                   if (perluProses[i].code == 'S-17') {
-                    Get.to(() => KeteranganKelahiranScreen());
+                    Get.toNamed(Routes.keteranganKelahiran);
                   } else {
-                    Get.to(() => KeteranganKematianScreen());
+                    Get.toNamed(Routes.keteranganKematian);
                   }
                 },
               ),

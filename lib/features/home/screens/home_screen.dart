@@ -1,9 +1,8 @@
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/app_search_bar.dart';
 import 'package:desa_digital/core/widgets/label_pill.dart';
-import 'package:desa_digital/features/artikel/screens/daftar_artikel_screen.dart';
-import 'package:desa_digital/features/cuaca/screens/cuaca_screen.dart';
 import 'package:desa_digital/features/home/data/item_artikel.dart';
 import 'package:desa_digital/features/home/data/item_agenda.dart';
 import 'package:desa_digital/features/home/data/menu_items.dart';
@@ -68,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: AppColors.primary,
                               backgroundColor: AppColors.primary.withAlpha(40),
                               icon: Iconsax.arrow_right_3,
-                              action: () => Get.to(() => CuacaScreen()),
+                              action: () => Get.toNamed(Routes.cuaca),
                             ),
                           ),
                         ),
@@ -91,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: "Artikel Terbaru",
               items: daftarArtikel,
               padding: const EdgeInsets.only(left: 15, top: 5, bottom: 20),
-              onButtonPressed: () => Get.to(() => DaftarArtikelScreen()),
+              onButtonPressed: () => Get.toNamed(Routes.artikel),
               onTap: (item) {},
             ),
             SizedBox(height: 8),
@@ -169,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildMenuItem(BuildContext context, HomeMenuItem menu) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () => Get.to(menu.pageBuilder),
+      onTap: () => Get.toNamed(menu.route),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

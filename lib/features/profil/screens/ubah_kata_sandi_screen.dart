@@ -1,6 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/kata_sandi_baru_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class UbahKataSandiScreen extends StatefulWidget {
@@ -166,7 +166,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom + 12,
               ),
               child: ElevatedButton(
-                onPressed: () => Get.to(() => KataSandiBaruScreen()),
+                onPressed: () => Get.toNamed(Routes.kataSandiBaru),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,

@@ -1,6 +1,6 @@
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_2_screen.dart';
 import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RegisterStep1Screen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
           hint: "Contoh: hafid.tampan@gmail.com",
         ),
       ),
-      onLanjut: () => Get.to(() => const RegisterStep2Screen()),
+      onLanjut: () => Get.toNamed(Routes.registerStep2),
       labelLanjut: "Lanjut",
     );
   }

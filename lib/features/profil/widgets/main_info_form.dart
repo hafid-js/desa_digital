@@ -1,8 +1,7 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/ubah_email_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_telepon_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MainInfoForm extends StatelessWidget {
@@ -32,9 +31,9 @@ class MainInfoForm extends StatelessWidget {
             ? null
             : () {
                 if (label == "Email") {
-                  Get.to(() => UbahEmailScreen());
+                  Get.toNamed(Routes.ubahEmail);
                 } else if (label == "Nomor Whatsapp") {
-                  Get.to(() => UbahTeleponScreen());
+                  Get.toNamed(Routes.ubahTelepon);
                 }
               },
         decoration: InputDecoration(
@@ -54,12 +53,12 @@ class MainInfoForm extends StatelessWidget {
           suffixIcon: suffixIcon != null
               ? label == "Email"
                     ? GestureDetector(
-                        onTap: () => Get.to(() => UbahEmailScreen()),
+                        onTap: () => Get.toNamed(Routes.ubahEmail),
                         child: Icon(suffixIcon, size: 18),
                       )
                     : label == "Nomor Whatsapp"
                     ? GestureDetector(
-                        onTap: () => Get.to(() => UbahTeleponScreen()),
+                        onTap: () => Get.toNamed(Routes.ubahTelepon),
                         child: Icon(suffixIcon, size: 18),
                       )
                     : Icon(suffixIcon, size: 18)

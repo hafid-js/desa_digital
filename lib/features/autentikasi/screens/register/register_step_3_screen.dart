@@ -1,6 +1,6 @@
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_4_screen.dart';
 import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RegisterStep3Screen extends StatefulWidget {
@@ -59,7 +59,7 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
         keyboardType: TextInputType.visiblePassword,
         decoration: _dekorasiPassword(),
       ),
-      onLanjut: () => Get.to(() => const RegisterStep4Screen()),
+      onLanjut: () => Get.toNamed(Routes.registerStep4),
       labelLanjut: "Lanjut",
       langkahFontWeight: null,
     );

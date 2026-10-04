@@ -1,10 +1,9 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/constants/app_config.dart';
 import 'package:desa_digital/features/profil/data/models/item_menu_profil.dart';
-import 'package:desa_digital/features/profil/screens/detail_profil_screen.dart';
-import 'package:desa_digital/features/profil/screens/pengaturan_akun_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TileMenuProfil extends StatelessWidget {
@@ -27,9 +26,9 @@ class TileMenuProfil extends StatelessWidget {
   void _handleTap() {
     switch (item.action) {
       case ProfileMenuAction.profileInfo:
-        Get.to(() => const DetailProfilScreen());
+        Get.toNamed(Routes.detailProfil);
       case ProfileMenuAction.accountSettings:
-        Get.to(() => const PengaturanAkunScreen());
+        Get.toNamed(Routes.pengaturanAkun);
       case ProfileMenuAction.privacyPolicy:
         _openExternal(_privacyPolicyUrl);
       case ProfileMenuAction.termsConditions:

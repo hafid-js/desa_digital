@@ -1,6 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/pengaduan/screens/pemilih_lokasi_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class LocationPointField extends StatelessWidget {
@@ -40,7 +40,7 @@ class LocationPointField extends StatelessWidget {
         ),
 
         onTap: () {
-          Get.to(() => PemilihLokasiScreen());
+          Get.toNamed(Routes.pilihLokasi);
         },
       ),
     );

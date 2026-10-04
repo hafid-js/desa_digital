@@ -1,7 +1,7 @@
 import 'package:desa_digital/core/widgets/rounded_image.dart';
 import 'package:desa_digital/features/agenda/data/event_agenda.dart';
-import 'package:desa_digital/features/agenda/screens/detail_agenda_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class KartuAgenda extends StatelessWidget {
@@ -12,7 +12,7 @@ class KartuAgenda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(() => const DetailEventScreen()),
+      onTap: () => Get.toNamed(Routes.detailAgenda),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

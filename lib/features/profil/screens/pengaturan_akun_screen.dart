@@ -1,9 +1,7 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/autentikasi/screens/login_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_kata_sandi_screen.dart';
-import 'package:desa_digital/features/profil/screens/hapus_akun_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PengaturanAkunScreen extends StatelessWidget {
@@ -52,7 +50,7 @@ class PengaturanAkunScreen extends StatelessWidget {
       body: Column(
         children: [
           GestureDetector(
-            onTap: () => Get.to(() => UbahKataSandiScreen()),
+            onTap: () => Get.toNamed(Routes.ubahKataSandi),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Container(
@@ -100,7 +98,7 @@ class PengaturanAkunScreen extends StatelessWidget {
           ),
 
           GestureDetector(
-            onTap: () => Get.to(() => HapusAkunScreen()),
+            onTap: () => Get.toNamed(Routes.hapusAkun),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Container(
@@ -175,7 +173,7 @@ class PengaturanAkunScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
         child: ElevatedButton(
-          onPressed: () => Get.to(() => LoginScreen()),
+          onPressed: () => Get.toNamed(Routes.login),
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 48),
             backgroundColor: Colors.red,
@@ -201,7 +199,7 @@ class PengaturanAkunScreen extends StatelessWidget {
           ),
         ),
         // ElevatedButton(
-        //   onPressed: () => Get.to(() => LoginScreen()),
+        //   onPressed: () => Get.toNamed(Routes.login),
         //   style: ElevatedButton.styleFrom(
         //     backgroundColor: HexColor.fromHex("#FFE5E3"),
         //     foregroundColor: Colors.white,

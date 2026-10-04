@@ -1,7 +1,7 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class DaftarPengaduanScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
               bottom: 0,
             ),
             child: GestureDetector(
-              onTap: () => Get.to(() => DetailPengaduanScreen()),
+              onTap: () => Get.toNamed(Routes.detailPengaduan),
               child: Container(
                 padding: EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 14),
                 decoration: BoxDecoration(

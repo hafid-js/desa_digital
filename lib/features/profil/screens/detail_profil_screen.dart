@@ -1,8 +1,8 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/profil/widgets/detail_info_tile.dart';
-import 'package:desa_digital/features/profil/screens/ubah_profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class DetailProfilScreen extends StatelessWidget {
@@ -65,7 +65,7 @@ class DetailProfilScreen extends StatelessWidget {
                       bottom: MediaQuery.of(context).viewInsets.bottom,
                     ),
                     child: ElevatedButton(
-                      onPressed: () => Get.to(() => UbahProfilScreen()),
+                      onPressed: () => Get.toNamed(Routes.ubahProfil),
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
                         backgroundColor: AppColors.primary,

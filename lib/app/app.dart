@@ -1,4 +1,5 @@
-import 'package:desa_digital/app/main_shell.dart';
+import 'package:desa_digital/app/routes/app_pages.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,8 @@ class DesaDigitalApp extends StatelessWidget {
         );
       },
 
-      home: MainShell(),
+      initialRoute: Routes.mainShell,
+      getPages: AppPages.pages,
     );
   }
 }

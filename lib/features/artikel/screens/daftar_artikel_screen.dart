@@ -1,8 +1,8 @@
 import 'package:desa_digital/core/widgets/tab_section.dart';
 import 'package:desa_digital/features/artikel/data/kategori_artikel.dart';
-import 'package:desa_digital/features/artikel/screens/detail_artikel_screen.dart';
 import 'package:desa_digital/features/artikel/widgets/daftar_artikel.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class DaftarArtikelScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class DaftarArtikelScreen extends StatelessWidget {
           for (final category in articleCategories)
             DaftarArtikel(
               category: category,
-              onItemTap: () => Get.to(() => const DetailArtikelScreen()),
+              onItemTap: () => Get.toNamed(Routes.detailArtikel),
             ),
         ],
       ),

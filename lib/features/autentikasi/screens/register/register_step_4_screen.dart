@@ -1,6 +1,6 @@
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
-import 'package:desa_digital/features/profil/screens/verifikasi_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -84,7 +84,7 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
       subjudul: "Pastikan whatsapp aktif untuk menerima kode verifikasi",
       langkah: 4,
       field: _buildFieldWhatsapp(),
-      onLanjut: () => Get.to(() => VerifikasiOtpScreen()),
+      onLanjut: () => Get.toNamed(Routes.verifikasiOtp),
       labelLanjut: "Daftar & Kirim Kode",
       infoTambahan: _buildInfoSyarat(),
     );

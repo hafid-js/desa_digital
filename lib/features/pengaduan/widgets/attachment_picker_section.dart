@@ -1,11 +1,11 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/pengaduan/screens/detail_lampiran_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AttachmentPickerSection extends StatelessWidget {
@@ -48,7 +48,7 @@ class AttachmentPickerSection extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () =>
-                    Get.to(() => DetailLampiranScreen(), arguments: "foto"),
+                    Get.toNamed(Routes.detailLampiran, arguments: "foto"),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: SizedBox(
@@ -96,7 +96,7 @@ class AttachmentPickerSection extends StatelessWidget {
               SizedBox(width: 10),
               GestureDetector(
                 onTap: () =>
-                    Get.to(() => DetailLampiranScreen(), arguments: "pdf"),
+                    Get.toNamed(Routes.detailLampiran, arguments: "pdf"),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: SizedBox(

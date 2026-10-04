@@ -1,5 +1,5 @@
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/verifikasi_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -106,8 +106,8 @@ class LupaPasswordScreen extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: isValid
-                  ? () => Get.to(
-                      () => VerifikasiOtpScreen(),
+                  ? () => Get.toNamed(
+                      Routes.verifikasiOtp,
                       arguments: "dev@hafidtech.com",
                     )
                   : null,

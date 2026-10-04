@@ -1,11 +1,9 @@
-import 'package:desa_digital/app/main_shell.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_1_screen.dart';
-import 'package:desa_digital/features/profil/screens/lupa_password_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -147,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildTombolMasuk(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Get.to(() => MainShell()),
+      onPressed: () => Get.toNamed(Routes.mainShell),
       style: _gayaTombolUtama(background: AppColors.primary, elevation: 0),
       child: Text(
         "Masuk",
@@ -161,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLupaPassword() {
     return GestureDetector(
-      onTap: () => Get.to(() => LupaPasswordScreen()),
+      onTap: () => Get.toNamed(Routes.lupaPassword),
       child: Center(
         child: Text(
           "Lupa Password?",
@@ -262,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.w600,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => Get.to(() => const RegisterStep1Screen()),
+              ..onTap = () => Get.toNamed(Routes.registerStep1),
           ),
         ],
       ),

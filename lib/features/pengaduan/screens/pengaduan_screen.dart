@@ -2,11 +2,10 @@ import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/bordered_card.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
-import 'package:desa_digital/features/activity/screens/activity_screen.dart';
-import 'package:desa_digital/features/pengaduan/screens/daftar_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/widgets/panduan_pengaduan.dart';
 import 'package:desa_digital/features/pengaduan/widgets/baris_pengaduan.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class PengaduanScreen extends StatefulWidget {
@@ -115,7 +114,7 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () => Get.to(() => DaftarPengaduanScreen()),
+                        onTap: () => Get.toNamed(Routes.daftarPengaduan),
                         child: BorderedCard(
                           child: BarisMenu(
                             image: AssetImage(AppAssets.iconSearchAttachment),
@@ -125,7 +124,7 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
                       ),
                       const SizedBox(height: 20),
                       GestureDetector(
-                        onTap: () => Get.to(() => ActivityScreen()),
+                        onTap: () => Get.toNamed(Routes.aktivitas),
                         child: BorderedCard(
                           child: BarisMenu(
                             image: AssetImage(AppAssets.iconList),

@@ -1,5 +1,5 @@
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/profil/screens/verifikasi_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -114,8 +114,8 @@ class _UbahTeleponScreenState extends State<UbahTeleponScreen> {
           ),
           child: ElevatedButton(
             onPressed: isValid.value
-                ? () => Get.to(
-                    () => VerifikasiOtpScreen(),
+                ? () => Get.toNamed(
+                    Routes.verifikasiOtp,
                     arguments: "082322875277",
                   )
                 : null,

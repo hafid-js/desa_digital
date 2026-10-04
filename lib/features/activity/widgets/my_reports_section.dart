@@ -5,14 +5,14 @@ import 'package:desa_digital/features/activity/data/activity_items.dart';
 import 'package:desa_digital/features/activity/widgets/activity_item_card.dart';
 import 'package:desa_digital/features/activity/widgets/activity_list.dart';
 import 'package:desa_digital/features/activity/widgets/activity_meta.dart';
-import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class MyReportsSection extends StatelessWidget {
   const MyReportsSection({super.key});
 
-  void _openDetail() => Get.to(() => DetailPengaduanScreen());
+  void _openDetail() => Get.toNamed(Routes.detailPengaduan);
 
   @override
   Widget build(BuildContext context) {

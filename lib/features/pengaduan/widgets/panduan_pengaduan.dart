@@ -1,8 +1,8 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/bordered_pill_button.dart';
-import 'package:desa_digital/features/pengaduan/screens/formulir_pengaduan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PanduanPengaduan extends StatelessWidget {
@@ -15,7 +15,7 @@ class PanduanPengaduan extends StatelessWidget {
   final bool agreeChecked;
   final ValueChanged<bool> onAgreeChanged;
 
-  void _openForm() => Get.to(() => FormulirPengaduanScreen());
+  void _openForm() => Get.toNamed(Routes.formulirPengaduan);
 
   @override
   Widget build(BuildContext context) {
