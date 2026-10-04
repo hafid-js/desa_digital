@@ -17,7 +17,8 @@ import 'package:desa_digital/features/autentikasi/presentation/screens/register/
 import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_4_screen.dart';
 import 'package:desa_digital/features/cuaca/presentation/bindings/weather_binding.dart';
 import 'package:desa_digital/features/cuaca/presentation/screens/cuaca_screen.dart';
-import 'package:desa_digital/features/lapak_warga/screens/lapak_warga_screen.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/bindings/lapak_warga_binding.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/screens/lapak_warga_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/daftar_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/detail_lampiran_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/detail_pengaduan_screen.dart';
@@ -89,6 +90,7 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.lapakWarga,
       page: () => const LapakWargaScreen(),
+      binding: LapakWargaBinding(),
     ),
 
     // Home

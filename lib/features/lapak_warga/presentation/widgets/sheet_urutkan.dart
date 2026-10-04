@@ -1,6 +1,6 @@
-import 'package:desa_digital/features/lapak_warga/data/urutan_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/header_sheet.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/tombol_terapkan.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/urutan.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/header_sheet.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/tombol_terapkan.dart';
 import 'package:flutter/material.dart';
 
 class SheetUrutkan extends StatefulWidget {

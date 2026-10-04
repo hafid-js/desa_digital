@@ -1,12 +1,13 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/produk_lapak.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LapakItemCard extends StatefulWidget {
   const LapakItemCard({super.key, required this.product, required this.onTap});
 
-  final Map<String, dynamic> product;
+  final ProdukLapak product;
   final VoidCallback onTap;
 
   @override
@@ -39,14 +40,13 @@ class _LapakItemCardState extends State<LapakItemCard> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
                       child: Image.asset(
-                        widget.product["image"],
+                        widget.product.image,
                         height: 150,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    if ((widget.product["discount"] as String?)?.isNotEmpty ??
-                        false)
+                    if (widget.product.discount.isNotEmpty)
                       Positioned(
                         top: 0,
                         right: 0,
@@ -63,7 +63,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                             ),
                           ),
                           child: Text(
-                            widget.product["discount"],
+                            widget.product.discount,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 10,
@@ -81,7 +81,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.product["title"],
+                        widget.product.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
@@ -126,7 +126,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                             ),
                           ),
                           TextSpan(
-                            text: widget.product["price"],
+                            text: widget.product.price,
                             style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(
                                   fontWeight: FontWeight.w700,
@@ -141,7 +141,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        "Rp${widget.product['originalPrice']}",
+                        "Rp${widget.product.originalPrice}",
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
                           fontSize: 10,
                           color: Colors.grey,
@@ -158,7 +158,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                 Row(
                   children: [
                     AppRoundedImage(
-                      imageUrl: widget.product["userAvatar"],
+                      imageUrl: widget.product.userAvatar,
                       height: 24,
                       width: 24,
                       fit: BoxFit.cover,
@@ -169,7 +169,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.product["seller"],
+                            widget.product.seller,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.labelSmall!
@@ -188,7 +188,7 @@ class _LapakItemCardState extends State<LapakItemCard> {
                               const SizedBox(width: 2),
                               Expanded(
                                 child: Text(
-                                  widget.product["location"],
+                                  widget.product.location,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.labelSmall!

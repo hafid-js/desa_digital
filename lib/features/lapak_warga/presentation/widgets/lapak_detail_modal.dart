@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/produk_lapak.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LapakDesaDetailModal extends StatefulWidget {
-  final Map<String, dynamic> product;
+  final ProdukLapak product;
   final ScrollController scrollController;
 
   const LapakDesaDetailModal({
@@ -132,7 +133,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                         children: [
                           Flexible(
                             child: Text(
-                              widget.product["title"] ?? "iPhone 17 Pro Max",
+                              widget.product.title,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -172,7 +173,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: widget.product["price"],
+                                  text: widget.product.price,
                                   style: Theme.of(context).textTheme.titleLarge!
                                       .copyWith(
                                         fontWeight: FontWeight.w700,
@@ -191,7 +192,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              "Rp${widget.product['originalPrice']}",
+                              "Rp${widget.product.originalPrice}",
                               style: Theme.of(context).textTheme.labelSmall!
                                   .copyWith(
                                     color: Colors.grey,
@@ -235,7 +236,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                           Row(
                             children: [
                               AppRoundedImage(
-                                imageUrl: widget.product["userAvatar"] ?? "",
+                                imageUrl: widget.product.userAvatar,
                                 height: 35,
                                 width: 35,
                                 fit: BoxFit.cover,
@@ -246,7 +247,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      widget.product["seller"] ?? "Sumanto",
+                                      widget.product.seller,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
@@ -266,8 +267,7 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                                         const SizedBox(width: 2),
                                         Expanded(
                                           child: Text(
-                                            widget.product["location"] ??
-                                                "Dusun Karangsari",
+                                            widget.product.location,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)

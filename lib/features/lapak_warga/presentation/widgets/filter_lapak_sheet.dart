@@ -1,7 +1,7 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/theme/app_text_theme.dart';
-import 'package:desa_digital/features/lapak_warga/data/filter_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/tombol_terapkan.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/filter_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/tombol_terapkan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

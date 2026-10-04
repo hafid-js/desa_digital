@@ -1,64 +1,60 @@
-import 'package:desa_digital/features/lapak_warga/data/filter_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/data/opsi_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/data/produk_contoh.dart';
-import 'package:desa_digital/features/lapak_warga/data/urutan_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/filter_lapak_sheet.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/lapak_detail_modal.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/lapak_item_card.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/lapak_kosong.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/sheet_posting_lapak.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/sheet_urutkan.dart';
-import 'package:desa_digital/features/lapak_warga/screens/widgets/tombol_filter.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/filter_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/produk_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/domain/entities/urutan.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/controllers/lapak_warga_controller.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/filter_lapak_sheet.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/lapak_detail_modal.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/lapak_item_card.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/lapak_kosong.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/sheet_posting_lapak.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/sheet_urutkan.dart';
+import 'package:desa_digital/features/lapak_warga/presentation/widgets/tombol_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class LapakWargaScreen extends StatefulWidget {
+class LapakWargaScreen extends GetView<LapakWargaController> {
   const LapakWargaScreen({super.key});
 
-  @override
-  State<LapakWargaScreen> createState() => _LapakWargaScreenState();
-}
-
-class _LapakWargaScreenState extends State<LapakWargaScreen> {
-  FilterLapak _filter = const FilterLapak();
-  Urutan _urutan = Urutan.palingSesuai;
-
-  Future<void> _bukaFilter() async {
+  Future<void> _bukaFilter(BuildContext context) async {
+    final opsi = controller.opsi;
     final hasil = await showModalBottomSheet<FilterLapak>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => FilterLapakSheet(
-        kategori: opsiKategoriFilter,
-        lokasi: opsiLokasi,
-        penawaran: opsiPenawaran,
-        kondisi: opsiKondisiProduk,
-        terakhirDitambahkan: opsiTerakhirDitambahkan,
-        ketersediaan: opsiKetersediaan,
-        awal: _filter,
+        kategori: opsi?.kategoriFilter ?? const [],
+        lokasi: opsi?.lokasi ?? const [],
+        penawaran: opsi?.penawaran ?? const [],
+        kondisi: opsi?.kondisiProduk ?? const [],
+        terakhirDitambahkan: opsi?.terakhirDitambahkan ?? const [],
+        ketersediaan: opsi?.ketersediaan ?? const [],
+        awal: controller.filter.value,
       ),
     );
 
-    if (hasil == null || !mounted) return;
+    if (hasil == null) return;
 
-    setState(() => _filter = hasil);
+    controller.setFilter(hasil);
   }
 
-  Future<void> _bukaUrutkan() async {
+  Future<void> _bukaUrutkan(BuildContext context) async {
     final hasil = await showModalBottomSheet<Urutan>(
       context: context,
       isScrollControlled: false,
       backgroundColor: Colors.transparent,
-      builder: (context) => SheetUrutkan(awal: _urutan),
+      builder: (context) => SheetUrutkan(awal: controller.urutan.value),
     );
 
-    if (hasil == null || !mounted) return;
+    if (hasil == null) return;
 
-    setState(() => _urutan = hasil);
+    controller.setUrutan(hasil);
   }
 
-  Future<void> _bukaJual() async {
+  Future<void> _bukaJual(BuildContext context) async {
+    final opsi = controller.opsi;
+
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -69,16 +65,16 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
         maxChildSize: 1.0,
         expand: false,
         builder: (context, scrollController) => SheetPostingLapak(
-          kategori: opsiKategoriProduk,
-          kondisi: opsiKondisiProduk,
-          lokasi: opsiLokasi,
+          kategori: opsi?.kategoriProduk ?? const [],
+          kondisi: opsi?.kondisiProduk ?? const [],
+          lokasi: opsi?.lokasi ?? const [],
           scrollController: scrollController,
         ),
       ),
     );
   }
 
-  void _showDetailModal(BuildContext context, Map<String, dynamic> product) {
+  void _showDetailModal(BuildContext context, ProdukLapak product) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -107,7 +103,7 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final produk = List.generate(8, (_) => produkContoh);
+    final produk = controller.produk;
 
     return Scaffold(
       appBar: AppBar(
@@ -118,18 +114,23 @@ class _LapakWargaScreenState extends State<LapakWargaScreen> {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: _bukaJual,
+            onPressed: () => _bukaJual(context),
             icon: const Icon(Iconsax.add),
             tooltip: "Posting Lapak",
           ),
           const SizedBox(width: 8),
           IconButton(
-            onPressed: _bukaUrutkan,
+            onPressed: () => _bukaUrutkan(context),
             icon: const Icon(Iconsax.filter),
             tooltip: "Urutkan",
           ),
           const SizedBox(width: 8),
-          TombolFilter(jumlah: _filter.jumlahFilterAktif, onTap: _bukaFilter),
+          Obx(
+            () => TombolFilter(
+              jumlah: controller.filter.value.jumlahFilterAktif,
+              onTap: () => _bukaFilter(context),
+            ),
+          ),
         ],
         actionsPadding: const EdgeInsets.only(right: 12),
       ),
