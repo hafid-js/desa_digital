@@ -1,3 +1,4 @@
+import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -60,7 +61,7 @@ class CuacaCard extends StatelessWidget {
         children: [
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: Image.asset("assets/icons/cloud.png", height: 50),
+            leading: Image.asset(AppAssets.cloud, height: 50),
             title: Text.rich(
               TextSpan(
                 children: [

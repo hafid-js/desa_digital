@@ -1,4 +1,4 @@
-import 'package:desa_digital/core/models/content_item.dart';
+import 'package:desa_digital/features/home/domain/entities/content_item.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
 import 'package:flutter/material.dart';
 

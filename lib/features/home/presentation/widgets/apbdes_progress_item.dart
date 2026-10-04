@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/features/home/domain/entities/apbdes.dart';
 import 'package:flutter/material.dart';
 
 class ApbdesProgressItem extends StatelessWidget {
@@ -11,6 +12,18 @@ class ApbdesProgressItem extends StatelessWidget {
     required this.percentageText,
     this.stackAlignment = Alignment.centerLeft,
   });
+
+  /// Baris capaian dari [ApbdesItem], termasuk penempatan label persentasenya.
+  factory ApbdesProgressItem.fromItem(ApbdesItem item) => ApbdesProgressItem(
+    title: item.title,
+    realAmount: item.realAmount,
+    targetAmount: item.targetAmount,
+    progress: item.progress,
+    percentageText: item.percentageText,
+    stackAlignment: item.labelAlignment == ApbdesLabelAlignment.center
+        ? Alignment.center
+        : Alignment.centerLeft,
+  );
 
   final String title;
   final String realAmount;
@@ -52,7 +65,7 @@ class ApbdesProgressItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 6),
+              padding: const EdgeInsets.only(left: 6),
               child: Text(
                 percentageText,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(

@@ -1,7 +1,7 @@
-import 'package:desa_digital/core/models/content_item.dart';
-import 'package:desa_digital/core/widgets/content_card.dart';
 import 'package:desa_digital/core/widgets/rounded_container.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
+import 'package:desa_digital/features/home/domain/entities/content_item.dart';
+import 'package:desa_digital/features/home/presentation/widgets/content_card.dart';
 import 'package:flutter/material.dart';
 
 class ContentSection extends StatelessWidget {
