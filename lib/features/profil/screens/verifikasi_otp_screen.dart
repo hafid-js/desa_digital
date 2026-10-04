@@ -43,10 +43,8 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String args = Get.arguments ?? '';
-
     return Scaffold(
-     appBar: PreferredSize(
+      appBar: PreferredSize(
         preferredSize: const Size.fromHeight(118),
         child: AppBar(
           backgroundColor: Colors.white,
@@ -106,8 +104,6 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

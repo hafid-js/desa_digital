@@ -1,5 +1,5 @@
-import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/autentikasi/screens/register/register_step_4_screen.dart';
+import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,18 +7,12 @@ class RegisterStep3Screen extends StatefulWidget {
   const RegisterStep3Screen({super.key});
 
   @override
-  PasswordFieldState createState() => PasswordFieldState();
+  State<RegisterStep3Screen> createState() => _RegisterStep3ScreenState();
 }
 
-class PasswordFieldState extends State<RegisterStep3Screen> {
-  bool _obsecureText = true;
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obsecureText = !_obsecureText;
-    });
-  }
-
+class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
   final FocusNode _focusNode = FocusNode();
+  bool _sembunyikanPassword = true;
 
   @override
   void initState() {
@@ -34,157 +28,40 @@ class PasswordFieldState extends State<RegisterStep3Screen> {
     super.dispose();
   }
 
+  void _togglePassword() {
+    setState(() {
+      _sembunyikanPassword = !_sembunyikanPassword;
+    });
+  }
+
+  InputDecoration _dekorasiPassword() {
+    return dekorasiInputRegistrasi(
+      hint: "Minimal 8 karakter",
+      suffixIcon: IconButton(
+        icon: Icon(
+          _sembunyikanPassword ? Icons.visibility_off : Icons.visibility,
+          color: Colors.grey,
+        ),
+        onPressed: _togglePassword,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(118),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          flexibleSpace: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => Get.back(),
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Buat Password",
-                          style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          "Agar akun Ngopeni Nglakoni kamu tetap aman",
-                          style: Theme.of(context).textTheme.labelSmall!
-                              .copyWith(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w300,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    return RegisterStepScaffold(
+      judul: "Buat Password",
+      subjudul: "Gunakan kombinasi angka dan huruf",
+      langkah: 3,
+      field: TextFormField(
+        focusNode: _focusNode,
+        obscureText: _sembunyikanPassword,
+        keyboardType: TextInputType.visiblePassword,
+        decoration: _dekorasiPassword(),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 30),
-        child: Column(
-          children: [
-            TextFormField(
-              obscureText: _obsecureText,
-              focusNode: _focusNode,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                
-                suffixIcon: IconButton(
-                  onPressed: _togglePasswordVisibility,
-                  icon: Icon(
-                    _obsecureText ? Icons.visibility : Icons.visibility_off,
-                  ),
-                  color: Colors.black87,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                    color: AppColors.primary,
-                    width: 1,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
-                    color: AppColors.grey.withAlpha(120),
-                    width: 2,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "3 dari 4",
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-
-                Text(
-                  "Langkah Registrasi",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom + 12,
-              ),
-              child: ElevatedButton(
-                onPressed: () => Get.to(() => RegisterStep4Screen()),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Lanjut",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      onLanjut: () => Get.to(() => const RegisterStep4Screen()),
+      labelLanjut: "Lanjut",
+      langkahFontWeight: null,
     );
   }
 }

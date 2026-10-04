@@ -130,9 +130,9 @@ class PasswordFieldState extends State<KataSandiBaruScreen> {
             SizedBox(height: 10),
             Text(
               "Minimal 8 karakter terdiri dari huruf besar, huruf kecil, dan angka",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: AppColors.textSecondaryLight,
+              ),
             ),
           ],
         ),
@@ -157,9 +157,9 @@ class PasswordFieldState extends State<KataSandiBaruScreen> {
 
                 Text(
                   "Langkah Ubah Password",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: AppColors.textSecondaryLight,
+                  ),
                 ),
               ],
             ),

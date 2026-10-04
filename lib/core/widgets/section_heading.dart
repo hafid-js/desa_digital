@@ -26,9 +26,10 @@ class AppSectionHeading extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               buttonTitle ?? '',
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: AppColors.blue, fontWeight: FontWeight.w500),
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: AppColors.blue,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
       ],

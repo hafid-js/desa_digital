@@ -114,10 +114,7 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                    color: AppColors.primary,
-                    width: 1,
-                  ),
+                  borderSide: BorderSide(color: AppColors.primary, width: 1),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -131,9 +128,9 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
             SizedBox(height: 10),
             Text(
               "Minimal 8 karakter terdiri dari huruf besar, huruf kecil, dan angka",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: AppColors.textSecondaryLight,
+              ),
             ),
           ],
         ),
@@ -158,9 +155,9 @@ class PasswordFieldState extends State<UbahKataSandiScreen> {
 
                 Text(
                   "Langkah Ubah Password",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelSmall!.copyWith(color: AppColors.textSecondaryLight),
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: AppColors.textSecondaryLight,
+                  ),
                 ),
               ],
             ),

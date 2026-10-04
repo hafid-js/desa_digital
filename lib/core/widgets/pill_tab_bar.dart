@@ -2,7 +2,7 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 /// Baris pilihan berbentuk pill yang mengikuti tab terpilih.
-/// Dipakai bersama oleh [ArticleCategoryBar] dan section di feature activity.
+/// Dipakai bersama oleh [TabSection] pada feature activity dan feature artikel.
 class PillTabBar extends StatelessWidget {
   const PillTabBar({
     super.key,

@@ -27,21 +27,21 @@ class LabelPill extends StatelessWidget {
     return GestureDetector(
       onTap: action,
       child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(20),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: icon == null
+            ? Text(label, style: style)
+            : Row(
+                children: [
+                  Text(label, style: style),
+                  SizedBox(width: 4),
+                  Icon(icon, size: 13, color: color),
+                ],
+              ),
       ),
-      child: icon == null
-          ? Text(label, style: style)
-          : Row(
-              children: [
-                Text(label, style: style),
-                SizedBox(width: 4),
-                Icon(icon, size: 13, color: color),
-              ],
-            ),
-    ),
     );
   }
 }

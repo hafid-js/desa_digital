@@ -48,7 +48,7 @@ class KolomDropdownSurat<T> extends StatelessWidget {
         validator: validator,
         hint: Text(
           'Pilih $label',
-          style:  TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
             color: AppColors.textSecondaryLight,

@@ -65,16 +65,15 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
               children: [
                 Text(
                   "Aduan Masyarakat",
-                   style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 5),
                 Text(
                   "Sampaikan aduan seputar layanan atau fasilitas umum di Desa",
-                 style: Theme.of(context).textTheme.labelSmall
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
             ),
@@ -128,12 +127,12 @@ class _PengaduanScreenState extends State<PengaduanScreen> {
                       GestureDetector(
                         onTap: () => Get.to(() => ActivityScreen()),
                         child: BorderedCard(
-                        child: BarisMenu(
-                          image: AssetImage(AppAssets.iconList),
-                          title: "Laporan Saya",
+                          child: BarisMenu(
+                            image: AssetImage(AppAssets.iconList),
+                            title: "Laporan Saya",
+                          ),
                         ),
                       ),
-                      )
                     ],
                   ),
                 ),

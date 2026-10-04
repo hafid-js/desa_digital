@@ -9,6 +9,7 @@ final class AppAssets {
   static const String _images = 'assets/images';
   static const String _lapak = 'assets/images/lapak_warga';
   static const String _icons = 'assets/icons';
+  static const String _iconMenu = 'assets/icons/menu';
   static const String _pdf = 'assets/pdf';
   static const String _data = 'data';
 
@@ -72,6 +73,11 @@ final class AppAssets {
   // MENU UTAMA
   // ---------------------------------------------------------------------
 
+  static const String aduan = '$_iconMenu/speaker.png';
+  static const String acara = '$_iconMenu/calendar.png';
+  static const String peraturan = '$_iconMenu/gavel.png';
+  static const String lapak = '$_iconMenu/store.png';
+
   static const String menuComplaint = '$_icons/complaint.png';
   static const String menuEvent = '$_icons/event-jateng.png';
   static const String menuVillageRegulation = '$_icons/informasi-publik.png';
@@ -104,7 +110,6 @@ final class AppAssets {
   static const String dataKecamatan = '$_data/districts.csv';
   static const String dataDesa = '$_data/villages.csv';
 
-
   // LAPAK WARGA
-    static const String example1 = '$_lapak/handphone.png';
+  static const String example1 = '$_lapak/handphone.png';
 }

@@ -66,11 +66,17 @@ class PersonalDataForm extends StatelessWidget {
               : FloatingLabelBehavior.auto,
           labelText: label,
           labelStyle: TextStyle(fontSize: 14, color: Colors.grey),
-          floatingLabelStyle: TextStyle(color: AppColors.textSecondaryLight, fontSize: 12),
+          floatingLabelStyle: TextStyle(
+            color: AppColors.textSecondaryLight,
+            fontSize: 12,
+          ),
 
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors.textSecondaryLight, width: 1),
+            borderSide: BorderSide(
+              color: AppColors.textSecondaryLight,
+              width: 1,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -156,86 +162,88 @@ class PersonalDataForm extends StatelessWidget {
       ),
     );
   }
-Widget _buildGenderSelector() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Text(
-        "Jenis Kelamin",
-        style: TextStyle(fontSize: 12, color: Colors.black),
-      ),
-      const SizedBox(height: 8),
-      Row(
-        children: [
-          Expanded(
-            child: _genderRadio(
-              label: "Laki-Laki",
-              value: JenisKelamin.male,
-              groupValue: selectedGender,
-              onChanged: onGenderChanged,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: _genderRadio(
-              label: "Perempuan",
-              value: JenisKelamin.female,
-              groupValue: selectedGender,
-              onChanged: onGenderChanged,
-            ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 20),
-    ],
-  );
-}
-  Widget _genderRadio({
-  required String label,
-  required JenisKelamin value,
-  required JenisKelamin? groupValue,
-  required ValueChanged<JenisKelamin?> onChanged,
-}) {
-  final isSelected = value == groupValue;
 
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(
-        color: isSelected ? AppColors.primary : AppColors.grey,
-        width: 1,
-      ),
-    ),
-    child: InkWell(
-      borderRadius: BorderRadius.circular(20),
-      onTap: () => onChanged(value), // Supaya area container bisa diklik
-      child: Padding(
-        padding: const EdgeInsets.only(right: 16), // Padding kanan agar rapi
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+  Widget _buildGenderSelector() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Jenis Kelamin",
+          style: TextStyle(fontSize: 12, color: Colors.black),
+        ),
+        const SizedBox(height: 8),
+        Row(
           children: [
-            Radio<JenisKelamin>(
-              value: value,
-              groupValue: groupValue,
-              onChanged: onChanged,
-              fillColor: WidgetStateProperty.resolveWith(
-                (states) => states.contains(WidgetState.selected)
-                    ? AppColors.primary
-                    : AppColors.textSecondaryLight,
+            Expanded(
+              child: _genderRadio(
+                label: "Laki-Laki",
+                value: JenisKelamin.male,
+                groupValue: selectedGender,
+                onChanged: onGenderChanged,
               ),
             ),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: const TextStyle(fontSize: 14, color: Colors.black87),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _genderRadio(
+                label: "Perempuan",
+                value: JenisKelamin.female,
+                groupValue: selectedGender,
+                onChanged: onGenderChanged,
+              ),
             ),
           ],
         ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _genderRadio({
+    required String label,
+    required JenisKelamin value,
+    required JenisKelamin? groupValue,
+    required ValueChanged<JenisKelamin?> onChanged,
+  }) {
+    final isSelected = value == groupValue;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isSelected ? AppColors.primary : AppColors.grey,
+          width: 1,
+        ),
       ),
-    ),
-  );
-}
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () => onChanged(value), // Supaya area container bisa diklik
+        child: Padding(
+          padding: const EdgeInsets.only(right: 16), // Padding kanan agar rapi
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Radio<JenisKelamin>(
+                value: value,
+                groupValue: groupValue,
+                onChanged: onChanged,
+                fillColor: WidgetStateProperty.resolveWith(
+                  (states) => states.contains(WidgetState.selected)
+                      ? AppColors.primary
+                      : AppColors.textSecondaryLight,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: const TextStyle(fontSize: 14, color: Colors.black87),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +316,10 @@ Widget _buildGenderSelector() {
             labelStyle: TextStyle(fontSize: 14, color: Colors.black),
             floatingLabelAlignment: FloatingLabelAlignment.start,
             hintText: "Masukkan alamat lengkap, contoh : Jl. Wangsajaya No.9",
-            hintStyle: TextStyle(fontSize: 14, color: AppColors.textSecondaryLight),
+            hintStyle: TextStyle(
+              fontSize: 14,
+              color: AppColors.textSecondaryLight,
+            ),
             alignLabelWithHint: false,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),

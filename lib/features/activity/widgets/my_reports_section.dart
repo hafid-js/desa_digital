@@ -1,10 +1,10 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/label_pill.dart';
+import 'package:desa_digital/core/widgets/tab_section.dart';
 import 'package:desa_digital/features/activity/data/activity_items.dart';
 import 'package:desa_digital/features/activity/widgets/activity_item_card.dart';
 import 'package:desa_digital/features/activity/widgets/activity_list.dart';
 import 'package:desa_digital/features/activity/widgets/activity_meta.dart';
-import 'package:desa_digital/features/activity/widgets/activity_tab_section.dart';
 import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ class MyReportsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ActivityTabSection(
+    return TabSection(
       labels: const ["Proses", "Selesai"],
       tabs: [
         ActivityList(
@@ -51,6 +51,7 @@ class MyReportsSection extends StatelessWidget {
           ),
         ),
       ],
+      barPadding: const EdgeInsets.all(12),
     );
   }
 
@@ -59,11 +60,11 @@ class MyReportsSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         statusPill,
-        SizedBox(width: 5),
-        LabelPill(
+        const SizedBox(width: 5),
+        const LabelPill(
           label: "Publik",
           color: AppColors.textPrimaryLight,
-          backgroundColor: Colors.black.withAlpha(30),
+          backgroundColor: Color(0x1E000000),
           icon: Icons.lock_open_rounded,
         ),
       ],

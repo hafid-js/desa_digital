@@ -1,14 +1,11 @@
 import 'package:desa_digital/app/main_shell.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/autentikasi/screens/register/register_step_1_screen.dart';
-import 'package:desa_digital/features/home/screens/home_screen.dart';
 import 'package:desa_digital/features/profil/screens/lupa_password_screen.dart';
-import 'package:desa_digital/features/profil/screens/ubah_kata_sandi_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
-import 'package:get/utils.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,20 +17,256 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _obsecureText = true;
+
   void _togglePasswordVisibility() {
     setState(() {
       _obsecureText = !_obsecureText;
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
+  InputDecoration _dekorasiField({
+    required IconData prefixIcon,
+    required String hintText,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      prefixIcon: Icon(prefixIcon, size: 20, color: Colors.grey),
+      suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      hintText: hintText,
+      hintStyle: const TextStyle(
+        fontSize: 14,
+        color: Colors.black87,
+        fontWeight: FontWeight.w300,
+      ),
+      floatingLabelStyle: TextStyle(color: AppColors.primary),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: BorderSide(color: AppColors.primary, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: BorderSide(color: AppColors.primary),
+      ),
+    );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  ButtonStyle _gayaTombolUtama({
+    required Color background,
+    required double elevation,
+  }) {
+    return ElevatedButton.styleFrom(
+      minimumSize: const Size(double.infinity, 48),
+      backgroundColor: background,
+      foregroundColor: background,
+      elevation: elevation,
+      side: BorderSide.none,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+    );
+  }
+
+  TextSpan _spanTeks(
+    String text, {
+    required Color color,
+    double? fontSize,
+    FontWeight? fontWeight,
+  }) {
+    return TextSpan(
+      text: text,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Center(
+        child: Image.asset("assets/images/logo_main.png", height: 100),
+      ),
+    );
+  }
+
+  Widget _buildJudul(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Sugeng Rawuh",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Masukkan alamat email dan password kamu",
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: Colors.black87,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFieldEmail() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: _dekorasiField(
+        prefixIcon: Icons.email_rounded,
+        hintText: "Masukkan email / no WA",
+      ),
+    );
+  }
+
+  Widget _buildFieldPassword() {
+    return TextFormField(
+      obscureText: _obsecureText,
+      keyboardType: TextInputType.emailAddress,
+      decoration: _dekorasiField(
+        prefixIcon: Iconsax.key1,
+        hintText: "Masukkan password",
+        suffixIcon: IconButton(
+          onPressed: _togglePasswordVisibility,
+          icon: Icon(_obsecureText ? Iconsax.eye : Iconsax.eye_slash),
+          color: AppColors.textSecondaryLight,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTombolMasuk(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => Get.to(() => MainShell()),
+      style: _gayaTombolUtama(background: AppColors.primary, elevation: 0),
+      child: Text(
+        "Masuk",
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLupaPassword() {
+    return GestureDetector(
+      onTap: () => Get.to(() => LupaPasswordScreen()),
+      child: Center(
+        child: Text(
+          "Lupa Password?",
+          style: TextStyle(
+            fontSize: 13,
+            color: AppColors.secondary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPemisah() {
+    const gayaGaris = Divider(thickness: 0.25, color: Colors.grey);
+    const gayaLabel = TextStyle(fontSize: 12, color: Colors.grey);
+
+    return Row(
+      children: [
+        const Expanded(child: gayaGaris),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          child: Text('Atau', style: gayaLabel),
+        ),
+        const Expanded(child: gayaGaris),
+      ],
+    );
+  }
+
+  Widget _buildTombolSosial({
+    required FaIconData icon,
+    required String label,
+    required Color background,
+    required Color foreground,
+  }) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: _gayaTombolUtama(background: background, elevation: 0.8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FaIcon(icon, color: foreground),
+          const SizedBox(width: 10),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              fontSize: 15,
+              color: foreground,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPersetujuan() {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        children: [
+          _spanTeks(
+            "Dengan masuk ke aplikasi Desa Ngopeni Nglakoni, kamu menyetujui ",
+            color: Colors.black87,
+            fontSize: 10,
+          ),
+          _spanTeks(
+            "Syarat dan Ketentuan ",
+            color: AppColors.secondary,
+            fontSize: 10,
+          ),
+          _spanTeks("serta ", color: Colors.black87, fontSize: 10),
+          _spanTeks(
+            "Kebijakan Privasi ",
+            color: AppColors.secondary,
+            fontSize: 10,
+          ),
+          _spanTeks("yang berlaku.", color: Colors.black87, fontSize: 10),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBelumPunyaAkun() {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        children: [
+          _spanTeks(
+            "Belum punya akun? ",
+            color: Colors.black87,
+            fontWeight: FontWeight.w600,
+          ),
+          TextSpan(
+            text: "Daftar disini",
+            style: TextStyle(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => Get.to(() => const RegisterStep1Screen()),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -41,14 +274,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(backgroundColor: Colors.transparent),
-
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/bg.png"),
@@ -59,300 +291,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 40),
-                      child: Center(
-                        child: Image.asset(
-                          "assets/images/logo_main.png",
-                          height: 100,
-                        ),
-                      ),
+                    _buildHeader(context),
+                    _buildJudul(context),
+                    const SizedBox(height: 15),
+                    _buildFieldEmail(),
+                    const SizedBox(height: 12),
+                    _buildFieldPassword(),
+                    const SizedBox(height: 12),
+                    _buildTombolMasuk(context),
+                    const SizedBox(height: 20),
+                    _buildLupaPassword(),
+                    const SizedBox(height: 20),
+                    _buildPemisah(),
+                    const SizedBox(height: 20),
+                    _buildTombolSosial(
+                      icon: FontAwesomeIcons.google,
+                      label: "Masuk/Daftar dengan Google",
+                      background: AppColors.textPrimaryDark,
+                      foreground: Colors.black,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Sugeng Rawuh",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                    const SizedBox(height: 10),
+                    _buildTombolSosial(
+                      icon: FontAwesomeIcons.apple,
+                      label: "Masuk/Daftar dengan Apple",
+                      background: Colors.black,
+                      foreground: AppColors.textPrimaryDark,
                     ),
-                    SizedBox(height: 5),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Masukkan alamat email dan password kamu",
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 15),
-                    TextFormField(
-                      // controller: _emailController,
-                      // autofocus: true,
-                      keyboardType: TextInputType.emailAddress,
-
-                      // onChanged: _validateEmail,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.email_rounded,
-                          size: 20,
-                          color: Colors.grey,
-                        ),
-
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        hintText: "Masukkan email / no WA",
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w300,
-                        ),
-                        floatingLabelStyle: TextStyle(color: AppColors.primary),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: AppColors.primary,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: AppColors.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    TextFormField(
-                      // controller: _emailController,
-                      // autofocus: true,
-                      obscureText: _obsecureText,
-
-                      keyboardType: TextInputType.emailAddress,
-                      // onChanged: _validateEmail,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Iconsax.key1,
-                          size: 20,
-                          color: Colors.grey,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: _togglePasswordVisibility,
-                          icon: Icon(
-                            _obsecureText ? Iconsax.eye : Iconsax.eye_slash,
-                          ),
-                          color: AppColors.textSecondaryLight,
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        hintText: "Masukkan password",
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w300,
-                        ),
-                        floatingLabelStyle: TextStyle(color: AppColors.primary),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: AppColors.primary,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: AppColors.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () => Get.to(() => MainShell()),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 48),
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: AppColors.primary,
-                        elevation: 0,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Text(
-                        "Masuk",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () => Get.to(() => LupaPasswordScreen()), child: Center(
-                      child: Text(
-                        "Lupa Password?",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: AppColors.secondary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),),
-                    
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(thickness: 0.25, color: Colors.grey),
-                        ),
-
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Atau',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ),
-
-                        Expanded(
-                          child: Divider(thickness: 0.25, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 48),
-                        backgroundColor: AppColors.textPrimaryDark,
-                        foregroundColor: AppColors.textPrimaryDark,
-                        elevation: 0.8,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(FontAwesomeIcons.google, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text(
-                            "Masuk/Daftar dengan Google",
-                            style: Theme.of(context).textTheme.titleSmall!
-                                .copyWith(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 48),
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.black,
-                        elevation: 0.8,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.apple,
-                            color: AppColors.textPrimaryDark,
-                          ),
-
-                          SizedBox(width: 10),
-                          Text(
-                            "Masuk/Daftar dengan Apple",
-                            style: Theme.of(context).textTheme.titleSmall!
-                                .copyWith(
-                                  fontSize: 15,
-                                  color: AppColors.textPrimaryDark,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "Dengan masuk ke aplikasi Desa Ngopeni Nglakoni, kamu menyetujui ",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "Syarat dan Ketentuan ",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.secondary,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "serta ",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "Kebijakan Privasi ",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.secondary,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "yang berlaku.",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Belum punya akun? ",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          TextSpan(
-                            text: "Daftar disini",
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.to(() => const RegisterStep1Screen())
-                          ),
-                        ],
-                      ),
-                    ),
+                    const SizedBox(height: 10),
+                    _buildPersetujuan(),
+                    const SizedBox(height: 20),
+                    _buildBelumPunyaAkun(),
                   ],
                 ),
               ),

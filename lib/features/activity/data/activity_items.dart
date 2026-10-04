@@ -7,13 +7,8 @@ class ActivityItem {
 
   final String title;
   final String meta;
-
   final bool isReportCode;
 }
-
-const String activityDescription =
-    "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | "
-    "Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan";
 
 const String _reportTitle = "LGWS67947799";
 const String _reportMeta = "Sukoharjo, 6 jam yang lalu";

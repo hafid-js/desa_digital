@@ -149,7 +149,11 @@ class _KartuSurat extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Iconsax.arrow_right_3, size: 15, color: AppColors.textSecondaryLight),
+            Icon(
+              Iconsax.arrow_right_3,
+              size: 15,
+              color: AppColors.textSecondaryLight,
+            ),
           ],
         ),
       ),

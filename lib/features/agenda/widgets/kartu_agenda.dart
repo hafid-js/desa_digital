@@ -1,12 +1,13 @@
-import 'package:desa_digital/features/agenda/screens/detail_agenda_screen.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
+import 'package:desa_digital/features/agenda/data/event_agenda.dart';
+import 'package:desa_digital/features/agenda/screens/detail_agenda_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class KartuAgenda extends StatelessWidget {
-  final Map<String, String> event;
-
   const KartuAgenda({super.key, required this.event});
+
+  final EventAgenda event;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class KartuAgenda extends StatelessWidget {
         children: [
           AppRoundedImage(
             fit: BoxFit.cover,
-            imageUrl: event['image']!,
+            imageUrl: event.image,
             isNetworkImage: false,
             width: 90,
             height: 90,
@@ -34,7 +35,7 @@ class KartuAgenda extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        event['title']!,
+                        event.title,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -46,7 +47,7 @@ class KartuAgenda extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  event['date']!,
+                  event.date,
                   style: Theme.of(
                     context,
                   ).textTheme.labelSmall!.copyWith(color: Colors.black),

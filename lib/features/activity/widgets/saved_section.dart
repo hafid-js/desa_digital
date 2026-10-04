@@ -1,10 +1,10 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/label_pill.dart';
+import 'package:desa_digital/core/widgets/tab_section.dart';
 import 'package:desa_digital/features/activity/data/activity_items.dart';
 import 'package:desa_digital/features/activity/widgets/activity_item_card.dart';
 import 'package:desa_digital/features/activity/widgets/activity_list.dart';
 import 'package:desa_digital/features/activity/widgets/activity_meta.dart';
-import 'package:desa_digital/features/activity/widgets/activity_tab_section.dart';
 import 'package:desa_digital/features/pengaduan/screens/detail_pengaduan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ class SavedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ActivityTabSection(
+    return TabSection(
       labels: const ["Aduan Masyarakat", "Berita"],
       tabs: [
         ActivityList(
@@ -58,6 +58,7 @@ class SavedSection extends StatelessWidget {
           ),
         ),
       ],
+      barPadding: const EdgeInsets.all(12),
     );
   }
 }

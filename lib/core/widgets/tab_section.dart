@@ -1,15 +1,19 @@
 import 'package:desa_digital/core/widgets/pill_tab_bar.dart';
 import 'package:flutter/material.dart';
 
-class ActivityTabSection extends StatelessWidget {
-  const ActivityTabSection({
+/// Gabungan DefaultTabController, baris pill, dan TabBarView.
+/// Dipakai bersama oleh section di feature activity dan feature artikel.
+class TabSection extends StatelessWidget {
+  const TabSection({
     super.key,
     required this.labels,
     required this.tabs,
+    this.barPadding = const EdgeInsets.all(16),
   });
 
   final List<String> labels;
   final List<Widget> tabs;
+  final EdgeInsets barPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class ActivityTabSection extends StatelessWidget {
               PillTabBar(
                 labels: labels,
                 controller: controller,
-                padding: const EdgeInsets.all(12),
+                padding: barPadding,
               ),
               Expanded(child: TabBarView(children: tabs)),
             ],

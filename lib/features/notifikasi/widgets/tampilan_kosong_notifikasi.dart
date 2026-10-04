@@ -18,7 +18,7 @@ class TampilanKosongNotifikasi extends StatelessWidget {
         SizedBox(height: 5),
         Text(
           "Belum ada pengumumuman buat kamu",
-          style: Theme.of(context).textTheme.labelSmall
+          style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
     );

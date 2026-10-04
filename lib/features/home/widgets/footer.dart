@@ -18,7 +18,7 @@ class Footer extends StatelessWidget {
               style: TextStyle(fontSize: 11, color: Colors.black),
               children: [
                 TextSpan(
-                  text: "Desa Ngopeni Nglakoni. ",
+                  text: "Desa Digital. ",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 TextSpan(

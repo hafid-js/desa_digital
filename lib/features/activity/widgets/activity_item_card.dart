@@ -3,6 +3,17 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/activity/data/activity_items.dart';
 import 'package:flutter/material.dart';
 
+const EdgeInsets activityReportCardPadding = EdgeInsets.only(
+  right: 8,
+  left: 8,
+  top: 8,
+  bottom: 14,
+);
+
+const String _deskripsiAktivitas =
+    "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | "
+    "Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan";
+
 class ActivityItemCard extends StatelessWidget {
   const ActivityItemCard({
     super.key,
@@ -19,7 +30,6 @@ class ActivityItemCard extends StatelessWidget {
   });
 
   final ActivityItem item;
-
   final Widget? meta;
   final Widget footer;
   final VoidCallback onTap;
@@ -54,39 +64,31 @@ class ActivityItemCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (item.isReportCode)
-                      Text(
-                        item.title,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColors.primary,
-                          fontSize: 12,
-                        ),
-                      )
-                    else
-                      Text(
-                        item.title,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColors.primary,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    SizedBox(height: 5),
                     Text(
-                      activityDescription,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelSmall,
+                      item.title,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: AppColors.primary,
+                        fontSize: item.isReportCode ? 12 : null,
+                      ),
+                      overflow: item.isReportCode
+                          ? null
+                          : TextOverflow.ellipsis,
+                      maxLines: item.isReportCode ? null : 2,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      _deskripsiAktivitas,
+                      style: Theme.of(context).textTheme.labelSmall,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 5),
-                    if (meta != null) ...[meta!, SizedBox(height: 15)],
+                    const SizedBox(height: 5),
+                    if (meta != null) ...[meta!, const SizedBox(height: 15)],
                     footer,
                   ],
                 ),

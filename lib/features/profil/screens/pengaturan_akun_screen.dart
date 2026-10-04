@@ -2,7 +2,6 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/autentikasi/screens/login_screen.dart';
 import 'package:desa_digital/features/profil/screens/ubah_kata_sandi_screen.dart';
 import 'package:desa_digital/features/profil/screens/hapus_akun_screen.dart';
-import 'package:desa_digital/core/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -175,20 +174,19 @@ class PengaturanAkunScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
-        child: 
-        ElevatedButton(
-                      onPressed: () => Get.to(() => LoginScreen()),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 48),
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.red,
-                        elevation: 0,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Row(
+        child: ElevatedButton(
+          onPressed: () => Get.to(() => LoginScreen()),
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.red,
+            elevation: 0,
+            side: BorderSide.none,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.logout, color: Colors.white),
@@ -201,7 +199,7 @@ class PengaturanAkunScreen extends StatelessWidget {
               ),
             ],
           ),
-                    ),
+        ),
         // ElevatedButton(
         //   onPressed: () => Get.to(() => LoginScreen()),
         //   style: ElevatedButton.styleFrom(

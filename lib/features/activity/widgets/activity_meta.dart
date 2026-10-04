@@ -59,10 +59,3 @@ class DateText extends StatelessWidget {
     );
   }
 }
-
-const activityReportCardPadding = EdgeInsets.only(
-  right: 8,
-  left: 8,
-  top: 8,
-  bottom: 14,
-);

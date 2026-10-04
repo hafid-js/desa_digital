@@ -84,6 +84,7 @@ flutter:
     - assets/images/lapak_warga/
     - assets/fonts/
     - assets/icons/
+    - assets/icons/menu/
     - assets/pdf/
     - data/
 

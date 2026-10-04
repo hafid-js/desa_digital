@@ -13,11 +13,11 @@ class DetailArtikelScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         actions: [Icon(Icons.share_outlined)],
-        actionsPadding: EdgeInsets.only(right: 12),
+        actionsPadding: const EdgeInsets.only(right: 12),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -27,16 +27,14 @@ class DetailArtikelScreen extends StatelessWidget {
                   context,
                 ).textTheme.titleLarge!.copyWith(fontSize: 22),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "19 September 2026",
-                style: Theme.of(
-                  context,
-                ).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.labelSmall,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               AppRoundedImage(imageUrl: AppAssets.article11, borderRadius: 12),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerRight,
                 child: Icon(
@@ -45,7 +43,7 @@ class DetailArtikelScreen extends StatelessWidget {
                   color: AppColors.grey,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               RichText(
                 text: TextSpan(
                   children: [
@@ -68,15 +66,15 @@ class DetailArtikelScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AppRoundedImage(imageUrl: AppAssets.article2),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AppRoundedImage(imageUrl: AppAssets.article3),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AppRoundedImage(imageUrl: AppAssets.article4),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AppRoundedImage(imageUrl: AppAssets.article5),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),

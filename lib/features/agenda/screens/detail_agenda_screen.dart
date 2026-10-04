@@ -17,7 +17,7 @@ class DetailEventScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [Icon(Icons.share_outlined)],
-        actionsPadding: EdgeInsets.only(right: 12),
+        actionsPadding: const EdgeInsets.only(right: 12),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -25,7 +25,7 @@ class DetailEventScreen extends StatelessWidget {
           children: [
             Image.asset(AppAssets.event1, fit: BoxFit.contain),
             Padding(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -33,7 +33,7 @@ class DetailEventScreen extends StatelessWidget {
                     "Bazar Ramadhan Desa Gunung Condong",
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text.rich(
                     TextSpan(
                       children: [
@@ -51,7 +51,7 @@ class DetailEventScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       Icon(Iconsax.calendar_tick5, color: AppColors.primary),
@@ -62,7 +62,7 @@ class DetailEventScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Icon(Icons.location_on_sharp, color: AppColors.primary),
@@ -73,12 +73,12 @@ class DetailEventScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Text(
                     "DESKRIPSI",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets.",
                     style: Theme.of(

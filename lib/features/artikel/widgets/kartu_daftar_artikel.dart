@@ -1,7 +1,12 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/artikel/data/kategori_artikel.dart';
 import 'package:flutter/material.dart';
+
+const String _deskripsiArtikel =
+    "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | "
+    "Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan";
+
+const String _tanggalArtikel = "17 Sept 2026";
 
 class KartuDaftarArtikel extends StatelessWidget {
   const KartuDaftarArtikel({
@@ -46,7 +51,7 @@ class KartuDaftarArtikel extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,21 +65,21 @@ class KartuDaftarArtikel extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      articleDescription,
+                      _deskripsiArtikel,
                       style: Theme.of(
                         context,
                       ).textTheme.labelSmall!.copyWith(color: Colors.black),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          articleDate,
+                          _tanggalArtikel,
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 fontSize: 11,
@@ -84,9 +89,9 @@ class KartuDaftarArtikel extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.bookmark_rounded,
-                          color: AppColors.grey,
+                          color: Colors.grey,
                           size: 30,
                         ),
                       ],

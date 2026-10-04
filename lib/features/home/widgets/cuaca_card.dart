@@ -1,7 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:iconsax/iconsax.dart';
 
 class CuacaCard extends StatelessWidget {
   final String humidity;

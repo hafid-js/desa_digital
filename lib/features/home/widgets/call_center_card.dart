@@ -16,7 +16,7 @@ class CallCenterCard extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         leading: Image.asset(AppAssets.iconCsSupport, height: 50, width: 50),
         title: Text(
-          "Call Center Ngopeni Nglakoni",
+          "Call Center Layanan Desa",
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.bold,

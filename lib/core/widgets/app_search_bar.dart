@@ -31,7 +31,6 @@ class _AppSearchBarState extends State<AppSearchBar> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autofocus: true,
       keyboardType: TextInputType.name,
       controller: _searchController,
       decoration: InputDecoration(
@@ -51,7 +50,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
         ),
 
         prefixIcon: const Icon(Icons.search, color: Colors.black87, size: 20),
-        hintText: "Cari layanan apa?",
+        hintText: widget.hintText,
         hintStyle: Theme.of(context).textTheme.labelMedium,
 
         floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -80,10 +79,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
             : null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: AppColors.grey.withAlpha(120),
-            width: 1.5,
-          ),
+          borderSide: BorderSide.none,
         ),
       ),
     );

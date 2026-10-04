@@ -34,14 +34,8 @@ class ApbdesProgressItem extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              realAmount,
-              style: Theme.of(context).textTheme.labelSmall
-            ),
-            Text(
-              targetAmount,
-              style: Theme.of(context).textTheme.labelSmall
-            ),
+            Text(realAmount, style: Theme.of(context).textTheme.labelSmall),
+            Text(targetAmount, style: Theme.of(context).textTheme.labelSmall),
           ],
         ),
         const SizedBox(height: 8),

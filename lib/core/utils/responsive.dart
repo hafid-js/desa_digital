@@ -38,8 +38,6 @@ class Responsive {
     return phone;
   }
 
-  // ---------- SCREEN DIMENSIONS ----------
-
   static double screenWidth(BuildContext context) =>
       MediaQuery.of(context).size.width;
 
@@ -48,8 +46,6 @@ class Responsive {
 
   static bool isLandscape(BuildContext context) =>
       MediaQuery.of(context).orientation == Orientation.landscape;
-
-  // ---------- SAFE AREA ----------
 
   static EdgeInsets safePadding(BuildContext context) =>
       MediaQuery.of(context).padding;

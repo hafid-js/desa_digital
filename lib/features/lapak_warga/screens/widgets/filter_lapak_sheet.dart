@@ -108,6 +108,66 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
     });
   }
 
+  Widget _bagian(String label, Widget isi, {bool denganSpasiBawah = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _Label(label),
+        const SizedBox(height: 8),
+        isi,
+        if (denganSpasiBawah) const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _grupChip({
+    required List<String> opsi,
+    required Set<String> terpilih,
+    required Set<String> Function() target,
+  }) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        for (final item in opsi)
+          _Chip(
+            label: item,
+            aktif: terpilih.contains(item),
+            onTap: () => _toggle(target(), item),
+          ),
+      ],
+    );
+  }
+
+  Widget _rentangHarga() {
+    return Row(
+      children: [
+        Expanded(
+          child: _InputHarga(
+            controller: _hargaMinController,
+            hint: "Harga terendah",
+            onChanged: (value) => _hargaMinimum = _parseHarga(value),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "—",
+            style: TextStyle(color: AppColors.grey.withAlpha(180)),
+          ),
+        ),
+        Expanded(
+          child: _InputHarga(
+            controller: _hargaMaxController,
+            hint: "Harga tertinggi",
+            onChanged: (value) => _hargaMaksimum = _parseHarga(value),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -135,156 +195,67 @@ class _FilterLapakSheetState extends State<FilterLapakSheet> {
                   controller: scrollController,
                   padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
                   children: [
-                    // _Label("Urutkan"),
-                    // const SizedBox(height: 8),
-                    // Wrap(
-                    //   spacing: 8,
-                    //   runSpacing: 8,
-                    //   children: [
-                    //     for (final opsi in UrutanLapak.values)
-                    //       _Chip(
-                    //         label: opsi.label,
-                    //         aktif: _urutan == opsi,
-                    //         onTap: () => setState(() => _urutan = opsi),
-                    //       ),
-                    //   ],
-                    // ),
-                    // SizedBox(height: 20),
-                    _Label("Lokasi"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final lokasi in widget.lokasi)
-                          _Chip(
-                            label: lokasi,
-                            aktif: _lokasi.contains(lokasi),
-                            onTap: () => _toggle(_lokasi, lokasi),
-                          ),
-                      ],
+                    _bagian(
+                      "Lokasi",
+                      _grupChip(
+                        opsi: widget.lokasi,
+                        terpilih: _lokasi,
+                        target: () => _lokasi,
+                      ),
+                      denganSpasiBawah: true,
                     ),
-
-                    SizedBox(height: 20),
-
-                    _Label("Kategori"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final kategori in widget.kategori)
-                          _Chip(
-                            label: kategori,
-                            aktif: _kategori.contains(kategori),
-                            onTap: () => _toggle(_kategori, kategori),
-                          ),
-                      ],
+                    _bagian(
+                      "Kategori",
+                      _grupChip(
+                        opsi: widget.kategori,
+                        terpilih: _kategori,
+                        target: () => _kategori,
+                      ),
+                      denganSpasiBawah: true,
                     ),
-                    SizedBox(height: 20),
-                    _Label("Rentang Harga"),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _InputHarga(
-                            controller: _hargaMinController,
-                            hint: "Harga terendah",
-                            onChanged: (value) =>
-                                _hargaMinimum = _parseHarga(value),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            "—",
-                            style: TextStyle(
-                              color: AppColors.grey.withAlpha(180),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: _InputHarga(
-                            controller: _hargaMaxController,
-                            hint: "Harga tertinggi",
-                            onChanged: (value) =>
-                                _hargaMaksimum = _parseHarga(value),
-                          ),
-                        ),
-                      ],
+                    _bagian(
+                      "Rentang Harga",
+                      _rentangHarga(),
+                      denganSpasiBawah: true,
                     ),
-                    SizedBox(height: 20),
-
-                    _Label("Penawaran"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final penawaran in widget.penawaran)
-                          _Chip(
-                            label: penawaran,
-                            aktif: _penawaran.contains(penawaran),
-                            onTap: () => _toggle(_penawaran, penawaran),
-                          ),
-                      ],
+                    _bagian(
+                      "Penawaran",
+                      _grupChip(
+                        opsi: widget.penawaran,
+                        terpilih: _penawaran,
+                        target: () => _penawaran,
+                      ),
+                      denganSpasiBawah: true,
                     ),
-                    SizedBox(height: 20),
-                    _Label("Kondisi"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final kondisi in widget.kondisi)
-                          _Chip(
-                            label: kondisi,
-                            aktif: _kondisi.contains(kondisi),
-                            onTap: () => _toggle(_kondisi, kondisi),
-                          ),
-                      ],
+                    _bagian(
+                      "Kondisi",
+                      _grupChip(
+                        opsi: widget.kondisi,
+                        terpilih: _kondisi,
+                        target: () => _kondisi,
+                      ),
+                      denganSpasiBawah: true,
                     ),
-                    SizedBox(height: 20),
-                    _Label("Terakhir Ditambahkan"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final terakhirDitambahkan
-                            in widget.terakhirDitambahkan)
-                          _Chip(
-                            label: terakhirDitambahkan,
-                            aktif: _terakhirDitambahkan.contains(
-                              terakhirDitambahkan,
-                            ),
-                            onTap: () => _toggle(
-                              _terakhirDitambahkan,
-                              terakhirDitambahkan,
-                            ),
-                          ),
-                      ],
+                    _bagian(
+                      "Terakhir Ditambahkan",
+                      _grupChip(
+                        opsi: widget.terakhirDitambahkan,
+                        terpilih: _terakhirDitambahkan,
+                        target: () => _terakhirDitambahkan,
+                      ),
+                      denganSpasiBawah: true,
                     ),
-                    SizedBox(height: 20),
-                    _Label("Lainnya"),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final ketersediaan in widget.ketersediaan)
-                          _Chip(
-                            label: ketersediaan,
-                            aktif: _ketersediaan.contains(ketersediaan),
-                            onTap: () => _toggle(_ketersediaan, ketersediaan),
-                          ),
-                      ],
+                    _bagian(
+                      "Lainnya",
+                      _grupChip(
+                        opsi: widget.ketersediaan,
+                        terpilih: _ketersediaan,
+                        target: () => _ketersediaan,
+                      ),
                     ),
-
                   ],
                 ),
               ),
-
               TombolTerapkan(onTap: _terapkan, label: "Tampilkan Produk"),
             ],
           ),
@@ -371,7 +342,6 @@ class _InputHarga extends StatelessWidget {
           fontWeight: FontWeight.w300,
         ),
         isDense: true,
-
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         prefixIcon: IntrinsicWidth(
           child: Padding(
@@ -379,7 +349,7 @@ class _InputHarga extends StatelessWidget {
             child: Center(
               child: Text(
                 "Rp.",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: Colors.black87,
                   fontWeight: FontWeight.w300,
@@ -388,14 +358,13 @@ class _InputHarga extends StatelessWidget {
             ),
           ),
         ),
-
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide.none,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide.none,
         ),
       ),

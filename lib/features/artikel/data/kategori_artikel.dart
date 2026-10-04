@@ -21,12 +21,6 @@ class ArticleCategory {
   final List<ArticleSample> samples;
 }
 
-const String articleDescription =
-    "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | "
-    "Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan";
-
-const String articleDate = "17 Sept 2026";
-
 const ArticleSample _publicSample = ArticleSample(
   title: "Kala Gelaran Final MTQ 2026 di Jateng Pukau Ribuan Orang",
 );

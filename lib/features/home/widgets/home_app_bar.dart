@@ -54,40 +54,40 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-          SizedBox(
-            height: 174,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: sliderItems.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.zero,
-                  child: AppRoundedImage(
-                    borderRadius: 16,
-                    fit: BoxFit.cover,
-                    imageUrl: sliderItems[index],
-                    isNetworkImage: false,
-                    onTap: () {},
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 10),
-          SmoothPageIndicator(
-            count: sliderItems.length,
-            effect: ExpandingDotsEffect(
-              dotHeight: 12,
-              dotWidth: 12,
-              spacing: 8,
-              expansionFactor: 4,
-              activeDotColor: HexColor.fromHex("#ff6900"),
-              dotColor: AppColors.white,
-            ),
+      children: [
+        SizedBox(
+          height: 174,
+          child: PageView.builder(
             controller: _pageController,
+            itemCount: sliderItems.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.zero,
+                child: AppRoundedImage(
+                  borderRadius: 16,
+                  fit: BoxFit.cover,
+                  imageUrl: sliderItems[index],
+                  isNetworkImage: false,
+                  onTap: () {},
+                ),
+              );
+            },
           ),
-        ],
-      );
+        ),
+        const SizedBox(height: 10),
+        SmoothPageIndicator(
+          count: sliderItems.length,
+          effect: ExpandingDotsEffect(
+            dotHeight: 12,
+            dotWidth: 12,
+            spacing: 8,
+            expansionFactor: 4,
+            activeDotColor: HexColor.fromHex("#ff6900"),
+            dotColor: AppColors.white,
+          ),
+          controller: _pageController,
+        ),
+      ],
+    );
   }
 }

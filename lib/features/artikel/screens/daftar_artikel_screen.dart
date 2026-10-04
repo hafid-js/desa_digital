@@ -1,6 +1,6 @@
+import 'package:desa_digital/core/widgets/tab_section.dart';
 import 'package:desa_digital/features/artikel/data/kategori_artikel.dart';
 import 'package:desa_digital/features/artikel/screens/detail_artikel_screen.dart';
-import 'package:desa_digital/features/artikel/widgets/bar_kategori_artikel.dart';
 import 'package:desa_digital/features/artikel/widgets/daftar_artikel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,30 +20,15 @@ class DaftarArtikelScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: DefaultTabController(
-        length: articleCategories.length,
-        child: Builder(
-          builder: (context) {
-            final controller = DefaultTabController.of(context);
-
-            return Column(
-              children: [
-                BarKategoriArtikel(controller: controller),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      for (final category in articleCategories)
-                        DaftarArtikel(
-                          category: category,
-                          onItemTap: () => Get.to(() => DetailArtikelScreen()),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+      body: TabSection(
+        labels: [for (final category in articleCategories) category.label],
+        tabs: [
+          for (final category in articleCategories)
+            DaftarArtikel(
+              category: category,
+              onItemTap: () => Get.to(() => const DetailArtikelScreen()),
+            ),
+        ],
       ),
     );
   }

@@ -12,30 +12,23 @@ final class AppColors {
   static Color tertiary = HexColor.fromHex('#4EA6DC');
   static Color quartenary = HexColor.fromHex('#2B8637');
 
-
-
   static Color light = HexColor.fromHex('#F5F6F6');
   static Color lightCard = Colors.white;
   static Color lightSurface = HexColor.fromHex('#F5F6F6');
   static Color lightDisableColor = HexColor.fromHex('#F6F8F9');
-
- 
 
   static const Color dark = Color(0xFF0F202B);
   static const Color darkCard = Color(0xFF132E3A);
   static const Color darkSurface = Color(0xFF17404A);
   static Color darkDisableColor = HexColor.fromHex('#193341');
 
-
   static const Color textPrimaryDark = Colors.white;
   static const Color textSecondaryDark = Color(0xFF8BA4B4);
   // static const Color textPrimaryLight = Color(0xFF2D4A52);
-    static const Color textPrimaryLight =  Colors.black87;
-  static Color textSecondaryLight =  HexColor.fromHex("#6e6e73");
-    // static Color textSecondaryLight = Colors.black87;
+  static const Color textPrimaryLight = Colors.black87;
+  static Color textSecondaryLight = HexColor.fromHex("#6e6e73");
+  // static Color textSecondaryLight = Colors.black87;
   static Color textSection = HexColor.fromHex('#2D4A52');
-
-
 
   static Color grey = HexColor.fromHex('#AAB1B9');
   static const Color white = Colors.white;
@@ -43,8 +36,6 @@ final class AppColors {
   static const Color borderPrimary = Color(0xFFD9D9D9);
   static const Color borderSecondary = Color(0xFFE6E6E6);
   static const Color background = Color(0xFFF7F8FB);
-
- 
 
   static const Color error = Color(0xFFD32F2F);
   static const Color success = Color(0xFF388E3C);

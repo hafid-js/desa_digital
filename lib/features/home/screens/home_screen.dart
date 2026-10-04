@@ -120,9 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: AppSearchBar(hintText: "Sedang butuh layanan apa?"),
-              ),
+              Expanded(child: AppSearchBar(hintText: "Cari layanan apa?")),
               SizedBox(width: 15),
               CircleAvatar(
                 radius: 25,
@@ -173,9 +171,12 @@ class _HomeScreenState extends State<HomeScreen> {
       borderRadius: BorderRadius.circular(16),
       onTap: () => Get.to(menu.pageBuilder),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(menu.icon, height: 40, width: 40),
+          // Container(
+          //   child: Icon(menu.icon, color: AppColors.primary, size: 30),,
+          // )
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),

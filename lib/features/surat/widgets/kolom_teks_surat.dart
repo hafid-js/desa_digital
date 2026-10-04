@@ -62,12 +62,17 @@ class KolomTeksSurat extends StatelessWidget {
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide:  BorderSide(color: AppColors.textSecondaryLight, width: 1),
+            borderSide: BorderSide(
+              color: AppColors.textSecondaryLight,
+              width: 1,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
-              color: isReadOnly ? AppColors.textSecondaryLight : AppColors.primary,
+              color: isReadOnly
+                  ? AppColors.textSecondaryLight
+                  : AppColors.primary,
               width: 1,
             ),
           ),

@@ -5,7 +5,6 @@ import 'package:desa_digital/features/notifikasi/screens/notifikasi_screen.dart'
 import 'package:desa_digital/features/profil/screens/profil_screen.dart';
 import 'package:flutter/material.dart';
 
-
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
