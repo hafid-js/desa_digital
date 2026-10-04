@@ -1,9 +1,9 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/core/models/content_item.dart';
-import 'package:desa_digital/core/widgets/content_card.dart';
 import 'package:desa_digital/core/widgets/section_heading.dart';
-import 'package:desa_digital/features/profil/data/daftar_menu_profil.dart';
+import 'package:desa_digital/features/home/domain/entities/content_item.dart';
+import 'package:desa_digital/features/home/presentation/widgets/content_card.dart';
+import 'package:desa_digital/features/profil/data/datasources/profile_local_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -98,8 +98,9 @@ void main() {
     });
   });
 
-  group('bagianMenuProfil', () {
+  group('menuSections profil', () {
     test('setiap kelompok menu punya judul dan minimal satu item', () {
+      final bagianMenuProfil = ProfileLocalDataSource().menuSections();
       expect(bagianMenuProfil, isNotEmpty);
 
       for (final section in bagianMenuProfil) {
@@ -109,7 +110,7 @@ void main() {
     });
 
     test('baris terakhir tiap kelompok tidak memakai pemisah', () {
-      for (final section in bagianMenuProfil) {
+      for (final section in ProfileLocalDataSource().menuSections()) {
         expect(section.items.last.showDivider, isFalse);
       }
     });

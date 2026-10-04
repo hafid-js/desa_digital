@@ -1,16 +1,60 @@
-import 'package:desa_digital/features/surat/data/akun_repository.dart';
-import 'package:desa_digital/features/surat/data/penduduk_repository.dart';
-import 'package:desa_digital/features/surat/data/surat_mandiri_repository.dart';
-import 'package:desa_digital/features/surat/models/katalog_surat_mandiri.dart';
-import 'package:desa_digital/features/surat/screens/daftar_surat_screen.dart';
-import 'package:desa_digital/features/surat/screens/formulir_surat_mandiri_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kematian_screen.dart';
-import 'package:desa_digital/features/surat/screens/permohonan_surat_screen.dart';
-import 'package:desa_digital/features/surat/widgets/konfirmasi_pemohon.dart';
+import 'package:desa_digital/app/routes/app_pages.dart';
+import 'package:desa_digital/features/surat/data/datasources/akun_data_source.dart';
+import 'package:desa_digital/features/surat/data/datasources/katalog_surat_mandiri_data_source.dart';
+import 'package:desa_digital/features/surat/data/datasources/penduduk_data_source.dart';
+import 'package:desa_digital/features/surat/data/datasources/surat_mandiri_data_source.dart';
+import 'package:desa_digital/features/surat/data/repositories/akun_repository_impl.dart';
+import 'package:desa_digital/features/surat/data/repositories/penduduk_repository_impl.dart';
+import 'package:desa_digital/features/surat/data/repositories/surat_mandiri_repository_impl.dart';
+import 'package:desa_digital/features/surat/domain/entities/surat_mandiri.dart';
+import 'package:desa_digital/features/surat/domain/usecases/surat_usecases.dart';
+import 'package:desa_digital/features/surat/presentation/controllers/surat_controller.dart';
+import 'package:desa_digital/features/surat/presentation/screens/daftar_surat_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/formulir_surat_mandiri_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/keterangan_kelahiran_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/keterangan_kematian_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/permohonan_surat_screen.dart';
+import 'package:desa_digital/features/surat/presentation/widgets/konfirmasi_pemohon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+
+/// Katalog surat dan graf dependensi yang dipakai seluruh test, mengikuti
+/// apa yang diikat `SuratBinding` di aplikasi.
+class _LingkunganSurat {
+  _LingkunganSurat() {
+    katalog = KatalogSuratMandiriDataSource();
+    suratDataSource = SuratMandiriDataSource(katalog);
+    suratRepository = SuratMandiriRepositoryImpl(suratDataSource);
+    pendudukDataSource = PendudukDataSource();
+    akunRepository = AkunRepositoryImpl(AkunDataSource(pendudukDataSource));
+    controller = SuratController(
+      GetProfilAktif(akunRepository),
+      GetKatalogSuratMandiri(suratRepository),
+      GetKatalogSuratPerluProses(suratRepository),
+      KirimSuratMandiri(suratRepository),
+    );
+  }
+
+  late final KatalogSuratMandiriDataSource katalog;
+  late final SuratMandiriDataSource suratDataSource;
+  late final SuratMandiriRepositoryImpl suratRepository;
+  late final PendudukDataSource pendudukDataSource;
+  late final AkunRepositoryImpl akunRepository;
+  late final SuratController controller;
+
+  List<SuratMandiri> get semua => katalog.semua();
+  List<SuratMandiri> get mandiriSiap => katalog.mandiriSiap();
+  List<SuratMandiri> get perluProses => katalog.perluProses();
+}
+
+final lingkungan = _LingkunganSurat();
+
+/// Daftarkan `SuratController` yang dipakai layar dan simpan agar test bisa
+/// memeriksa payload yang terkirim.
+void setUpSurat() {
+  Get.put<SuratController>(lingkungan.controller);
+}
 
 Future<void> _aturLayar(WidgetTester tester) async {
   tester.view.physicalSize = const Size(1080, 2400);
@@ -18,14 +62,20 @@ Future<void> _aturLayar(WidgetTester tester) async {
   addTearDown(tester.view.reset);
 }
 
+/// Aplikasi test memakai `AppPages` supaya navigasi bernama (misalnya dari
+/// kartu Permohonan Surat ke daftar surat) ikut teruji.
+Widget _app(Widget home) =>
+    GetMaterialApp(home: home, getPages: AppPages.pages);
+
 void main() {
+  setUp(setUpSurat);
   tearDown(Get.reset);
 
   group('Layanan Mandiri', () {
     test('katalog memuat surat mandiri OpenSID', () {
-      expect(katalogSuratMandiri, hasLength(15));
-      expect(suratMandiriSiap, hasLength(15));
-      expect(suratPerluProses.map((item) => item.code), ['S-17', 'S-21']);
+      expect(lingkungan.semua, hasLength(15));
+      expect(lingkungan.mandiriSiap, hasLength(15));
+      expect(lingkungan.perluProses.map((item) => item.code), ['S-17', 'S-21']);
     });
 
     test('jumlah isian tiap surat sama persis dengan kode_isian OpenSID', () {
@@ -46,7 +96,7 @@ void main() {
         'S-43': 0,
         '471.1': 11,
       };
-      for (final surat in katalogSuratMandiri) {
+      for (final surat in lingkungan.semua) {
         expect(
           surat.fields.length + surat.fieldsIdentitasKedua.length,
           harapan[surat.code],
@@ -56,7 +106,7 @@ void main() {
     });
 
     test('warga hanya mengetik isian surat, bukan data penduduk', () {
-      for (final surat in katalogSuratMandiri) {
+      for (final surat in lingkungan.semua) {
         if (surat.code == '471.1') continue;
         expect(
           surat.fields.length,
@@ -67,31 +117,29 @@ void main() {
     });
 
     test('hanya 471.1 yang butuh identitas kedua', () {
-      final butuh = katalogSuratMandiri
+      final butuh = lingkungan.semua
           .where((item) => item.butuhIdentitasKedua)
           .map((item) => item.code);
       expect(butuh, ['471.1']);
     });
 
     test('semua surat mandiri punya masa berlaku 1 bulan', () {
-      for (final surat in katalogSuratMandiri) {
+      for (final surat in lingkungan.semua) {
         expect(surat.masaBerlakuBulan, 1, reason: surat.code);
       }
     });
 
     testWidgets('kartu jumlah surat memakai angka nyata', (tester) async {
       await _aturLayar(tester);
-      await tester.pumpWidget(
-        const GetMaterialApp(home: PermohonanSuratScreen()),
-      );
+      await tester.pumpWidget(_app(PermohonanSuratScreen()));
       await tester.pumpAndSettle();
 
       expect(
-        find.text("${suratMandiriSiap.length} Jenis Surat"),
+        find.text("${lingkungan.mandiriSiap.length} Jenis Surat"),
         findsOneWidget,
       );
       expect(
-        find.text("${suratPerluProses.length} Jenis Surat"),
+        find.text("${lingkungan.perluProses.length} Jenis Surat"),
         findsOneWidget,
       );
       expect(find.text('Surat Pernyataan'), findsNothing);
@@ -101,9 +149,7 @@ void main() {
       tester,
     ) async {
       await _aturLayar(tester);
-      await tester.pumpWidget(
-        const GetMaterialApp(home: PermohonanSuratScreen()),
-      );
+      await tester.pumpWidget(_app(PermohonanSuratScreen()));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Surat Mandiri'));
@@ -117,9 +163,7 @@ void main() {
       tester,
     ) async {
       await _aturLayar(tester);
-      await tester.pumpWidget(
-        const GetMaterialApp(home: PermohonanSuratScreen()),
-      );
+      await tester.pumpWidget(_app(PermohonanSuratScreen()));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Perlu Proses Desa'));
@@ -131,9 +175,7 @@ void main() {
 
     testWidgets('S-41 memakai formulir mandiri yang sama', (tester) async {
       await _aturLayar(tester);
-      await tester.pumpWidget(
-        GetMaterialApp(home: DaftarSuratScreen.mandiri()),
-      );
+      await tester.pumpWidget(_app(DaftarSuratScreen.mandiri()));
       await tester.pumpAndSettle();
 
       await tester.tap(find.textContaining('S-41'));
@@ -146,9 +188,7 @@ void main() {
 
     testWidgets('S-17 dan S-21 membuka formulir perlu proses', (tester) async {
       await _aturLayar(tester);
-      await tester.pumpWidget(
-        const GetMaterialApp(home: DaftarSuratScreen.perluProses()),
-      );
+      await tester.pumpWidget(_app(DaftarSuratScreen.perluProses()));
       await tester.pumpAndSettle();
 
       await tester.tap(find.textContaining('S-17'));
@@ -168,15 +208,12 @@ void main() {
     ) async {
       await _aturLayar(tester);
 
-      for (final surat in suratMandiriSiap) {
+      for (final surat in lingkungan.mandiriSiap) {
         if (surat.code == 'S-41') continue;
 
         await tester.pumpWidget(
-          GetMaterialApp(
-            home: FormulirSuratMandiriScreen(
-              key: ValueKey(surat.code),
-              surat: surat,
-            ),
+          _app(
+            FormulirSuratMandiriScreen(key: ValueKey(surat.code), surat: surat),
           ),
         );
         await tester.pumpAndSettle();
@@ -194,13 +231,12 @@ void main() {
     ) async {
       await _aturLayar(tester);
 
-      for (final surat in suratMandiriSiap.where((i) => i.code != 'S-41')) {
+      for (final surat in lingkungan.mandiriSiap.where(
+        (i) => i.code != 'S-41',
+      )) {
         await tester.pumpWidget(
-          GetMaterialApp(
-            home: FormulirSuratMandiriScreen(
-              key: ValueKey(surat.code),
-              surat: surat,
-            ),
+          _app(
+            FormulirSuratMandiriScreen(key: ValueKey(surat.code), surat: surat),
           ),
         );
         await tester.pumpAndSettle();
@@ -209,11 +245,9 @@ void main() {
 
     testWidgets('471.1 menampilkan blok Identitas Kedua', (tester) async {
       await _aturLayar(tester);
-      final beda = suratMandiriSiap.firstWhere((i) => i.code == '471.1');
+      final beda = lingkungan.mandiriSiap.firstWhere((i) => i.code == '471.1');
 
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: beda)),
-      );
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: beda)));
       await tester.pumpAndSettle();
 
       expect(find.text('Identitas Kedua'), findsOneWidget);
@@ -223,11 +257,9 @@ void main() {
       tester,
     ) async {
       await _aturLayar(tester);
-      final usaha = suratMandiriSiap.firstWhere((i) => i.code == '500');
+      final usaha = lingkungan.mandiriSiap.firstWhere((i) => i.code == '500');
 
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: usaha)),
-      );
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: usaha)));
       await tester.pumpAndSettle();
 
       expect(find.text('Identitas Kedua'), findsNothing);
@@ -237,11 +269,11 @@ void main() {
       tester,
     ) async {
       await _aturLayar(tester);
-      final s13 = suratMandiriSiap.firstWhere((item) => item.code == 'S-13');
-
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: s13)),
+      final s13 = lingkungan.mandiriSiap.firstWhere(
+        (item) => item.code == 'S-13',
       );
+
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: s13)));
       await tester.pumpAndSettle();
 
       await tester.dragUntilVisible(
@@ -257,11 +289,11 @@ void main() {
 
     testWidgets('pemohon tampil read-only dari profil akun', (tester) async {
       await _aturLayar(tester);
-      final s41 = suratMandiriSiap.firstWhere((item) => item.code == 'S-41');
-
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: s41)),
+      final s41 = lingkungan.mandiriSiap.firstWhere(
+        (item) => item.code == 'S-41',
       );
+
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: s41)));
       await tester.pumpAndSettle();
 
       expect(find.byType(KonfirmasiPemohon), findsOneWidget);
@@ -270,18 +302,19 @@ void main() {
         findsOneWidget,
       );
       expect(find.byType(TextField), findsWidgets);
-      final profil = await buildAkunRepository().profilAktif();
+      final profil =
+          (await lingkungan.akunRepository.profilAktif()).valueOrNull;
       expect(find.text(profil!.nik), findsOneWidget);
       expect(find.text(profil.nama), findsOneWidget);
     });
 
     testWidgets('formulir mandiri tidak punya pencarian NIK', (tester) async {
       await _aturLayar(tester);
-      final s41 = suratMandiriSiap.firstWhere((item) => item.code == 'S-41');
-
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: s41)),
+      final s41 = lingkungan.mandiriSiap.firstWhere(
+        (item) => item.code == 'S-41',
       );
+
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: s41)));
       await tester.pumpAndSettle();
 
       expect(find.text('Cari NIK atau nama'), findsNothing);
@@ -289,11 +322,11 @@ void main() {
 
     testWidgets('submit mengirim id profil akun ke repository', (tester) async {
       await _aturLayar(tester);
-      final s41 = suratMandiriSiap.firstWhere((item) => item.code == 'S-41');
-
-      await tester.pumpWidget(
-        GetMaterialApp(home: FormulirSuratMandiriScreen(surat: s41)),
+      final s41 = lingkungan.mandiriSiap.firstWhere(
+        (item) => item.code == 'S-41',
       );
+
+      await tester.pumpWidget(_app(FormulirSuratMandiriScreen(surat: s41)));
       await tester.pumpAndSettle();
 
       await tester.dragUntilVisible(
@@ -304,63 +337,85 @@ void main() {
       await tester.tap(find.text('Simpan'));
       await tester.pumpAndSettle();
 
-      final repo = buildSuratMandiriRepository() as SuratMandiriRepositoryDummy;
-      final profil = await buildAkunRepository().profilAktif();
-      expect(repo.terkirim, hasLength(1));
-      expect(repo.terkirim.first['penduduk_id'], profil!.id);
-      expect(repo.terkirim.first['kode_surat'], 'S-41');
+      // Graf di level file dipakai bersama oleh layar dan test, seperti
+      // repository singleton yang dipakai sebelum refactor.
+      final profil =
+          (await lingkungan.akunRepository.profilAktif()).valueOrNull;
+      expect(lingkungan.suratDataSource.terkirim, hasLength(1));
+      expect(
+        lingkungan.suratDataSource.terkirim.first['penduduk_id'],
+        profil!.id,
+      );
+      expect(lingkungan.suratDataSource.terkirim.first['kode_surat'], 'S-41');
     });
   });
 
   group('SuratMandiriRepository', () {
-    test('dummy menyimpan payload yang dikirim', () async {
-      final repo = SuratMandiriRepositoryDummy();
+    test('data source menyimpan payload yang dikirim', () async {
+      final dataSource = SuratMandiriDataSource(
+        KatalogSuratMandiriDataSource(),
+      );
+      final repository = SuratMandiriRepositoryImpl(dataSource);
 
-      await repo.kirim({'kode_surat': 'S-01'});
-      await repo.kirim({'kode_surat': '500'});
+      await repository.kirim({'kode_surat': 'S-01'});
+      await repository.kirim({'kode_surat': '500'});
 
-      expect(repo.terkirim.map((item) => item['kode_surat']), ['S-01', '500']);
+      expect(dataSource.terkirim.map((item) => item['kode_surat']), [
+        'S-01',
+        '500',
+      ]);
     });
 
-    test('factory mengembalikan instance yang sama', () {
-      expect(
-        identical(buildSuratMandiriRepository(), buildSuratMandiriRepository()),
-        isTrue,
+    test('katalog dibaca dari data source', () {
+      final dataSource = SuratMandiriDataSource(
+        KatalogSuratMandiriDataSource(),
       );
+      final repository = SuratMandiriRepositoryImpl(dataSource);
+
+      expect(
+        repository.katalogSiap().valueOrNull!.length,
+        dataSource.katalogSiap().length,
+      );
+      expect(repository.katalogPerluProses().valueOrNull, isNotEmpty);
     });
   });
 
   group('PendudukRepository', () {
+    late PendudukRepositoryImpl repository;
+
+    setUp(() => repository = PendudukRepositoryImpl(PendudukDataSource()));
+
     test('mengembalikan seluruh penduduk saat kunci kosong', () async {
-      final hasil = await PendudukRepositoryDummy().cari('');
-      expect(hasil.length, greaterThanOrEqualTo(2));
+      final hasil = (await repository.cari('')).valueOrNull;
+      expect(hasil!.length, greaterThanOrEqualTo(2));
     });
 
     test('mencari berdasarkan NIK', () async {
-      final hasil = await PendudukRepositoryDummy().cari('3273091805650001');
-      expect(hasil.map((item) => item.nama), ['Ratma Sari']);
+      final hasil = (await repository.cari('3273091805650001')).valueOrNull;
+      expect(hasil!.map((item) => item.nama), ['Ratma Sari']);
     });
 
     test('mencari berdasarkan nama tidak mempeduli huruf besar', () async {
-      final hasil = await PendudukRepositoryDummy().cari('budi');
-      expect(hasil.map((item) => item.nama), ['Budi Hidayat']);
+      final hasil = (await repository.cari('budi')).valueOrNull;
+      expect(hasil!.map((item) => item.nama), ['Budi Hidayat']);
     });
 
     test('kunci yang tidak cocok mengembalikan daftar kosong', () async {
-      final hasil = await PendudukRepositoryDummy().cari('zzz');
+      final hasil = (await repository.cari('zzz')).valueOrNull;
       expect(hasil, isEmpty);
     });
 
     test('umur dihitung dari tanggal lahir', () {
-      final penduduk = PendudukRepositoryDummy.daftar.first;
+      final penduduk = lingkungan.pendudukDataSource.semua().first;
       expect(penduduk.umur, isNotNull);
       expect(penduduk.labelUmur, endsWith('TAHUN'));
     });
 
-    test('factory mengembalikan instance yang sama', () {
+    test('repository dengan instance berbeda punya data yang sama', () async {
+      final lain = PendudukRepositoryImpl(PendudukDataSource());
       expect(
-        identical(buildPendudukRepository(), buildPendudukRepository()),
-        isTrue,
+        (await lain.semua()).valueOrNull!.length,
+        (await repository.semua()).valueOrNull!.length,
       );
     });
   });
