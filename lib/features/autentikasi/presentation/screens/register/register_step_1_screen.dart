@@ -1,6 +1,7 @@
-import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
+import 'package:desa_digital/features/autentikasi/domain/entities/register_step.dart';
+import 'package:desa_digital/features/autentikasi/presentation/controllers/register_controller.dart';
+import 'package:desa_digital/features/autentikasi/presentation/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RegisterStep1Screen extends StatefulWidget {
@@ -12,6 +13,7 @@ class RegisterStep1Screen extends StatefulWidget {
 
 class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
   final FocusNode _focusNode = FocusNode();
+  RegisterController get _controller => Get.find<RegisterController>();
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
     return RegisterStepScaffold(
       judul: "Masukkan Alamat Email",
       subjudul: "Pastikan email aktif jaga-jaga kalau kamu lupa password",
-      langkah: 1,
+      langkah: RegisterStep.email.nomor,
       field: TextFormField(
         focusNode: _focusNode,
         keyboardType: TextInputType.emailAddress,
@@ -40,7 +42,7 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
           hint: "Contoh: hafid.tampan@gmail.com",
         ),
       ),
-      onLanjut: () => Get.toNamed(Routes.registerStep2),
+      onLanjut: () => _controller.goto(RegisterStep.namaLengkap),
       labelLanjut: "Lanjut",
     );
   }

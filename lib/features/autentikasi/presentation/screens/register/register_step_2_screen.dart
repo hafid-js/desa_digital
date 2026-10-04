@@ -1,6 +1,7 @@
-import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
+import 'package:desa_digital/features/autentikasi/domain/entities/register_step.dart';
+import 'package:desa_digital/features/autentikasi/presentation/controllers/register_controller.dart';
+import 'package:desa_digital/features/autentikasi/presentation/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RegisterStep2Screen extends StatefulWidget {
@@ -12,6 +13,7 @@ class RegisterStep2Screen extends StatefulWidget {
 
 class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
   final FocusNode _focusNode = FocusNode();
+  RegisterController get _controller => Get.find<RegisterController>();
 
   @override
   void initState() {
@@ -32,13 +34,13 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
     return RegisterStepScaffold(
       judul: "Nama Lengkap",
       subjudul: "Sesuai KTP agar mudah mengakses berbagai layanan",
-      langkah: 2,
+      langkah: RegisterStep.namaLengkap.nomor,
       field: TextFormField(
         focusNode: _focusNode,
         keyboardType: TextInputType.name,
         decoration: dekorasiInputRegistrasi(hint: "Contoh: Hafid Tampan"),
       ),
-      onLanjut: () => Get.toNamed(Routes.registerStep3),
+      onLanjut: () => _controller.goto(RegisterStep.kataSandi),
       labelLanjut: "Lanjut",
     );
   }

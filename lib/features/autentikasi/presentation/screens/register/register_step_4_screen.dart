@@ -1,6 +1,7 @@
-import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
-import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
+import 'package:desa_digital/features/autentikasi/domain/entities/register_step.dart';
+import 'package:desa_digital/features/autentikasi/presentation/controllers/register_controller.dart';
+import 'package:desa_digital/features/autentikasi/presentation/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -14,6 +15,7 @@ class RegisterStep4Screen extends StatefulWidget {
 
 class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
   final FocusNode _focusNode = FocusNode();
+  RegisterController get _controller => Get.find<RegisterController>();
 
   @override
   void initState() {
@@ -82,9 +84,9 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
     return RegisterStepScaffold(
       judul: "Masukkan No. Whatsapp",
       subjudul: "Pastikan whatsapp aktif untuk menerima kode verifikasi",
-      langkah: 4,
+      langkah: RegisterStep.whatsapp.nomor,
       field: _buildFieldWhatsapp(),
-      onLanjut: () => Get.toNamed(Routes.verifikasiOtp),
+      onLanjut: _controller.gotoVerifikasiOtp,
       labelLanjut: "Daftar & Kirim Kode",
       infoTambahan: _buildInfoSyarat(),
     );

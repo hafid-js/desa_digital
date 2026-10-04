@@ -1,9 +1,9 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
+import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
-import 'package:desa_digital/app/routes/app_routes.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatefulWidget {

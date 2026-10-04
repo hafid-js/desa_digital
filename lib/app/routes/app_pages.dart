@@ -9,11 +9,12 @@ import 'package:desa_digital/features/agenda/presentation/screens/detail_agenda_
 import 'package:desa_digital/features/artikel/presentation/bindings/article_binding.dart';
 import 'package:desa_digital/features/artikel/presentation/screens/daftar_artikel_screen.dart';
 import 'package:desa_digital/features/artikel/presentation/screens/detail_artikel_screen.dart';
-import 'package:desa_digital/features/autentikasi/screens/login_screen.dart';
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_1_screen.dart';
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_2_screen.dart';
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_3_screen.dart';
-import 'package:desa_digital/features/autentikasi/screens/register/register_step_4_screen.dart';
+import 'package:desa_digital/features/autentikasi/presentation/bindings/auth_binding.dart';
+import 'package:desa_digital/features/autentikasi/presentation/screens/login_screen.dart';
+import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_1_screen.dart';
+import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_2_screen.dart';
+import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_3_screen.dart';
+import 'package:desa_digital/features/autentikasi/presentation/screens/register/register_step_4_screen.dart';
 import 'package:desa_digital/features/cuaca/screens/cuaca_screen.dart';
 import 'package:desa_digital/features/lapak_warga/screens/lapak_warga_screen.dart';
 import 'package:desa_digital/features/pengaduan/screens/daftar_pengaduan_screen.dart';
@@ -57,18 +58,22 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.registerStep1,
       page: () => const RegisterStep1Screen(),
+      binding: AuthBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.registerStep2,
       page: () => const RegisterStep2Screen(),
+      binding: AuthBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.registerStep3,
       page: () => const RegisterStep3Screen(),
+      binding: AuthBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.registerStep4,
       page: () => const RegisterStep4Screen(),
+      binding: AuthBinding(),
     ),
 
     // Aktivitas & Lapak warga

@@ -1,6 +1,7 @@
-import 'package:desa_digital/features/autentikasi/widgets/register_step_scaffold.dart';
+import 'package:desa_digital/features/autentikasi/domain/entities/register_step.dart';
+import 'package:desa_digital/features/autentikasi/presentation/controllers/register_controller.dart';
+import 'package:desa_digital/features/autentikasi/presentation/widgets/register_step_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RegisterStep3Screen extends StatefulWidget {
@@ -12,7 +13,7 @@ class RegisterStep3Screen extends StatefulWidget {
 
 class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
   final FocusNode _focusNode = FocusNode();
-  bool _sembunyikanPassword = true;
+  RegisterController get _controller => Get.find<RegisterController>();
 
   @override
   void initState() {
@@ -28,21 +29,15 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
     super.dispose();
   }
 
-  void _togglePassword() {
-    setState(() {
-      _sembunyikanPassword = !_sembunyikanPassword;
-    });
-  }
-
-  InputDecoration _dekorasiPassword() {
+  InputDecoration _dekorasiPassword(bool sembunyikanPassword) {
     return dekorasiInputRegistrasi(
       hint: "Minimal 8 karakter",
       suffixIcon: IconButton(
         icon: Icon(
-          _sembunyikanPassword ? Icons.visibility_off : Icons.visibility,
+          sembunyikanPassword ? Icons.visibility_off : Icons.visibility,
           color: Colors.grey,
         ),
-        onPressed: _togglePassword,
+        onPressed: _controller.togglePassword,
       ),
     );
   }
@@ -53,13 +48,15 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
       judul: "Buat Password",
       subjudul: "Gunakan kombinasi angka dan huruf",
       langkah: 3,
-      field: TextFormField(
-        focusNode: _focusNode,
-        obscureText: _sembunyikanPassword,
-        keyboardType: TextInputType.visiblePassword,
-        decoration: _dekorasiPassword(),
+      field: Obx(
+        () => TextFormField(
+          focusNode: _focusNode,
+          obscureText: _controller.sembunyikanPassword.value,
+          keyboardType: TextInputType.visiblePassword,
+          decoration: _dekorasiPassword(_controller.sembunyikanPassword.value),
+        ),
       ),
-      onLanjut: () => Get.toNamed(Routes.registerStep4),
+      onLanjut: () => _controller.goto(RegisterStep.whatsapp),
       labelLanjut: "Lanjut",
       langkahFontWeight: null,
     );
