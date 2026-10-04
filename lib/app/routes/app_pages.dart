@@ -39,10 +39,11 @@ import 'package:desa_digital/features/profil/presentation/screens/ubah_kata_sand
 import 'package:desa_digital/features/profil/presentation/screens/ubah_profil_screen.dart';
 import 'package:desa_digital/features/profil/presentation/screens/ubah_telepon_screen.dart';
 import 'package:desa_digital/features/profil/presentation/screens/verifikasi_otp_screen.dart';
-import 'package:desa_digital/features/surat/screens/daftar_surat_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kelahiran_screen.dart';
-import 'package:desa_digital/features/surat/screens/keterangan_kematian_screen.dart';
-import 'package:desa_digital/features/surat/screens/permohonan_surat_screen.dart';
+import 'package:desa_digital/features/surat/presentation/bindings/surat_binding.dart';
+import 'package:desa_digital/features/surat/presentation/screens/daftar_surat_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/keterangan_kelahiran_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/keterangan_kematian_screen.dart';
+import 'package:desa_digital/features/surat/presentation/screens/permohonan_surat_screen.dart';
 import 'package:get/get.dart';
 
 /// Registry halaman aplikasi (composition root).
@@ -153,22 +154,27 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: Routes.permohonanSurat,
       page: () => const PermohonanSuratScreen(),
+      binding: SuratBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.daftarSuratMandiri,
       page: () => const DaftarSuratScreen.mandiri(),
+      binding: SuratBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.daftarSuratPerluProses,
       page: () => const DaftarSuratScreen.perluProses(),
+      binding: SuratBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.keteranganKelahiran,
       page: () => const KeteranganKelahiranScreen(),
+      binding: SuratBinding(),
     ),
     GetPage<dynamic>(
       name: Routes.keteranganKematian,
       page: () => const KeteranganKematianScreen(),
+      binding: SuratBinding(),
     ),
 
     // Peraturan desa
