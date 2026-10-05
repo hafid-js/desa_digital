@@ -43,6 +43,24 @@ class _FormulirPengaduanScreenState extends State<FormulirPengaduanScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AttachmentPickerSection(
+                onLampiranSelesai: (aksi) {
+                  setState(() {
+                    selectedPdf = null;
+                    selectedPhoto = null;
+                  });
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          aksi == "hapus"
+                              ? "Lampiran dihapus dari laporan"
+                              : "Pilih ulang lampiran di form laporan",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                },
                 onPdfPicked: (file) {
                   setState(() {
                     selectedPdf = file;

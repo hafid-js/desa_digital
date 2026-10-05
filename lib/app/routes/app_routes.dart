@@ -26,7 +26,6 @@ abstract final class Routes {
   static const String detailPengaduan = '/pengaduan/detail';
   static const String formulirPengaduan = '/pengaduan/formulir';
   static const String pilihLokasi = '/pengaduan/lokasi';
-  static const String detailLampiran = '/pengaduan/lampiran';
 
   static const String permohonanSurat = '/surat/permohonan';
   static const String daftarSuratMandiri = '/surat/daftar-mandiri';

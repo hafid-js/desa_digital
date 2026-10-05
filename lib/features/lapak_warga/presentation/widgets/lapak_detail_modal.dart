@@ -307,7 +307,18 @@ class _LapakDesaDetailModalState extends State<LapakDesaDetailModal> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Kontak penjual tersedia setelah app terhubung ke server desa",
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                    },
                     icon: FaIcon(FontAwesomeIcons.whatsapp),
                     label: Text(
                       'Hubungi Penjual (WhatsApp)',

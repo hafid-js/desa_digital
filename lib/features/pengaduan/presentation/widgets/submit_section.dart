@@ -105,7 +105,7 @@ class _KonfirmasiKirimSheet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pop(context),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.secondary.withAlpha(
                                   40,
@@ -156,7 +156,17 @@ class _KonfirmasiKirimSheet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Laporan berhasil dikirim"),
+                                      behavior: SnackBarBehavior.floating,
+                                    ),
+                                  );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primary,
                                 foregroundColor: AppColors.primary,

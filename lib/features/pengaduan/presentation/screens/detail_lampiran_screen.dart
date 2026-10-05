@@ -5,12 +5,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class DetailLampiranScreen extends StatelessWidget {
-  const DetailLampiranScreen({super.key});
+  const DetailLampiranScreen({super.key, required this.jenis, this.onSelesai});
+
+  final String jenis;
+  final ValueChanged<String>? onSelesai;
+
+  void _selesai(String aksi) {
+    onSelesai?.call(aksi);
+    Get.back<void>();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -20,7 +26,7 @@ class DetailLampiranScreen extends StatelessWidget {
       ),
 
       body: Center(
-        child: args == "foto"
+        child: jenis == "foto"
             ? Image.asset(AppAssets.event1)
             : Column(
                 mainAxisSize: MainAxisSize.min,
@@ -50,14 +56,14 @@ class DetailLampiranScreen extends StatelessWidget {
 
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-        child: (args == "foto")
+        child: (jenis == "foto")
             ? Row(
                 children: [
                   Expanded(
                     child: SizedBox(
                       height: 45,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => _selesai("hapus"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           foregroundColor: Colors.red,
@@ -83,7 +89,7 @@ class DetailLampiranScreen extends StatelessWidget {
                   SizedBox(
                     height: 45,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _selesai("ganti"),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.secondary,
                         foregroundColor: Colors.white,
@@ -108,7 +114,7 @@ class DetailLampiranScreen extends StatelessWidget {
             : SizedBox(
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => _selesai("hapus"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     foregroundColor: Colors.red,

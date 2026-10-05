@@ -96,7 +96,7 @@ class PanduanPengaduan extends StatelessWidget {
                 child: BorderedPillButton(
                   text: "Batal",
                   color: Colors.red,
-                  onPressed: () {},
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
               const SizedBox(width: 12),

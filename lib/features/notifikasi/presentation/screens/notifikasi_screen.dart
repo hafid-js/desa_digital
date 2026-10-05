@@ -66,7 +66,16 @@ class NotifikasiScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      const SnackBar(
+                        content: Text("Preferensi notifikasi disimpan"),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 48),
                   backgroundColor: AppColors.primary,

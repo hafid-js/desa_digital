@@ -196,7 +196,18 @@ class _LoginScreenState extends State<LoginScreen> {
     required Color foreground,
   }) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text(
+                "Login dengan $label belum tersedia pada versi ini",
+              ),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+      },
       style: _gayaTombolUtama(background: background, elevation: 0.8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

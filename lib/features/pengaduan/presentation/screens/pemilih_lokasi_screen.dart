@@ -177,7 +177,10 @@ class _PemilihLokasiScreenState extends State<PemilihLokasiScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    mapController.move(selectedLocation, 15);
+                    getAddress(selectedLocation);
+                  },
                   child: Row(
                     children: [
                       const Icon(

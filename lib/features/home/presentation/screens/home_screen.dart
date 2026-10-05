@@ -1,5 +1,6 @@
 import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/features/agenda/domain/entities/event_agenda.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/utils/responsive.dart';
 import 'package:desa_digital/core/widgets/app_search_bar.dart';
@@ -148,8 +149,19 @@ class HomeScreen extends StatelessWidget {
             title: "Agenda Hari Ini",
             items: _controller.agendaHariIni,
             padding: const EdgeInsets.only(left: 15, top: 5, bottom: 8),
-            onButtonPressed: () {},
-            onTap: (item) {},
+            onButtonPressed: () => Get.toNamed(Routes.agenda),
+            onTap: (item) => Get.toNamed(
+              Routes.detailAgenda,
+              arguments: EventAgenda(
+                title: item.title,
+                image: item.image,
+                date: item.date,
+                lokasi: "Desa Gunung Condong",
+                penyelenggara: "Panitia Agenda Desa",
+                deskripsi:
+                    "Agenda desa. Detail lengkap akan tersedia setelah app terhubung ke server desa.",
+              ),
+            ),
           ),
           const SizedBox(height: 20),
           ContentSection(

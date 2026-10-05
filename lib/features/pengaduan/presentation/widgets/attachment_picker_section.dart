@@ -3,18 +3,20 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:desa_digital/features/pengaduan/presentation/screens/detail_lampiran_screen.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:desa_digital/app/routes/app_routes.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AttachmentPickerSection extends StatelessWidget {
+  final ValueChanged<String>? onLampiranSelesai;
   final ValueChanged<PlatformFile> onPdfPicked;
   final ValueChanged<PlatformFile> onVideoPicked;
   final ValueChanged<XFile> onPhotoPicked;
 
   const AttachmentPickerSection({
     super.key,
+    this.onLampiranSelesai,
     required this.onPdfPicked,
     required this.onVideoPicked,
     required this.onPhotoPicked,
@@ -47,8 +49,12 @@ class AttachmentPickerSection extends StatelessWidget {
           child: Row(
             children: [
               GestureDetector(
-                onTap: () =>
-                    Get.toNamed(Routes.detailLampiran, arguments: "foto"),
+                onTap: () => Get.to<void>(
+                  () => DetailLampiranScreen(
+                    jenis: "foto",
+                    onSelesai: onLampiranSelesai,
+                  ),
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: SizedBox(
@@ -95,8 +101,12 @@ class AttachmentPickerSection extends StatelessWidget {
               ),
               SizedBox(width: 10),
               GestureDetector(
-                onTap: () =>
-                    Get.toNamed(Routes.detailLampiran, arguments: "pdf"),
+                onTap: () => Get.to<void>(
+                  () => DetailLampiranScreen(
+                    jenis: "pdf",
+                    onSelesai: onLampiranSelesai,
+                  ),
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: SizedBox(

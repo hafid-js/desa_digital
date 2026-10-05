@@ -20,7 +20,6 @@ import 'package:desa_digital/features/cuaca/presentation/screens/cuaca_screen.da
 import 'package:desa_digital/features/lapak_warga/presentation/bindings/lapak_warga_binding.dart';
 import 'package:desa_digital/features/lapak_warga/presentation/screens/lapak_warga_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/daftar_pengaduan_screen.dart';
-import 'package:desa_digital/features/pengaduan/presentation/screens/detail_lampiran_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/detail_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/formulir_pengaduan_screen.dart';
 import 'package:desa_digital/features/pengaduan/presentation/screens/pemilih_lokasi_screen.dart';
@@ -134,11 +133,6 @@ abstract final class AppPages {
       name: Routes.pilihLokasi,
       page: () => const PemilihLokasiScreen(),
     ),
-    GetPage<dynamic>(
-      name: Routes.detailLampiran,
-      page: () => const DetailLampiranScreen(),
-    ),
-
     GetPage<dynamic>(
       name: Routes.permohonanSurat,
       page: () => const PermohonanSuratScreen(),

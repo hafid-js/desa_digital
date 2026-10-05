@@ -187,7 +187,8 @@ class _HapusAkunScreenState extends State<HapusAkunScreen> {
                                       children: [
                                         Expanded(
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () =>
+                                                Navigator.pop(context),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: HexColor.fromHex(
                                                 "#FFE5E3",
@@ -219,7 +220,20 @@ class _HapusAkunScreenState extends State<HapusAkunScreen> {
 
                                         Expanded(
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              ScaffoldMessenger.of(context)
+                                                ..hideCurrentSnackBar()
+                                                ..showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      "Permintaan hapus akun dikirim ke perangkat desa",
+                                                    ),
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                  ),
+                                                );
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.primary,
