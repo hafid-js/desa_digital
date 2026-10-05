@@ -107,7 +107,7 @@ class LupaPasswordScreen extends StatelessWidget {
               onPressed: isValid
                   ? () => Get.toNamed(
                       Routes.verifikasiOtp,
-                      arguments: "dev@hafidtech.com",
+                      arguments: _emailController.text.trim(),
                     )
                   : null,
               style: ElevatedButton.styleFrom(

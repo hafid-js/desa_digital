@@ -1,10 +1,23 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/core/widgets/rounded_image.dart';
+import 'package:desa_digital/features/artikel/domain/entities/article_category.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class DetailArtikelScreen extends StatelessWidget {
   const DetailArtikelScreen({super.key});
+
+  static const ArticleSample _cadangan = ArticleSample(
+    title:
+        "Malam Kebersamaan Kafilah MTQ Nasional di Halaman Masjid Agung Semarang",
+  );
+
+  ArticleSample get _artikel {
+    final argumen = Get.arguments;
+    if (argumen is ArticleSample) return argumen;
+    return _cadangan;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +35,7 @@ class DetailArtikelScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Malam Kebersamaan Kafilah MTQ Nasional di Halaman Masjid Agung Semarang",
+                _artikel.title,
                 style: Theme.of(
                   context,
                 ).textTheme.titleLarge!.copyWith(fontSize: 22),

@@ -1,4 +1,5 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
+import 'package:desa_digital/features/pengaduan/domain/entities/pengaduan.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:desa_digital/app/routes/app_routes.dart';
@@ -19,7 +20,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemCount: 8,
+        itemCount: daftarPengaduan.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(
@@ -29,7 +30,10 @@ class DaftarPengaduanScreen extends StatelessWidget {
               bottom: 0,
             ),
             child: GestureDetector(
-              onTap: () => Get.toNamed(Routes.detailPengaduan),
+              onTap: () => Get.toNamed(
+                Routes.detailPengaduan,
+                arguments: daftarPengaduan[index],
+              ),
               child: Container(
                 padding: EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 14),
                 decoration: BoxDecoration(
@@ -60,7 +64,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
 
                         children: [
                           Text(
-                            "LGWS67947799",
+                            daftarPengaduan[index].kode,
                             style: Theme.of(context).textTheme.titleSmall!
                                 .copyWith(
                                   color: AppColors.primary,
@@ -69,7 +73,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan",
+                            daftarPengaduan[index].ringkasan,
                             style: Theme.of(context).textTheme.labelSmall!
                                 .copyWith(color: Colors.black),
                             maxLines: 2,
@@ -85,7 +89,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
                                       .copyWith(fontSize: 12),
                                 ),
                                 TextSpan(
-                                  text: "Sukoharjo, 6 jam yang lalu",
+                                  text: daftarPengaduan[index].waktu,
                                   style: Theme.of(context).textTheme.labelSmall!
                                       .copyWith(fontSize: 11),
                                 ),
@@ -108,7 +112,7 @@ class DaftarPengaduanScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(
-                                  "Disposisi",
+                                  daftarPengaduan[index].status,
                                   style: TextStyle(
                                     color: AppColors.primary,
                                     fontSize: 10,
@@ -136,3 +140,94 @@ class DaftarPengaduanScreen extends StatelessWidget {
     );
   }
 }
+
+const List<Pengaduan> daftarPengaduan = [
+  Pengaduan(
+    kode: "LGWS67947799",
+    ringkasan:
+        "Judul : Gapura PRPP | Lokasi : Gapura PRPP Puri Anjasmoro | Deskripsi Laporan : Gapura PRPP yg lampu merah, mohon di perhatikan",
+    waktu: "Sukoharjo, 6 jam yang lalu",
+    status: "Disposisi",
+    deskripsi:
+        "Gapura PRPP yang lampunya warna merah, mohon diperhatikan. Sudah lapor ke kepala desa tapi lampu belum diperbaiki.",
+    kategori: "INFRASTRUKTUR",
+    lokasi: "KABUPATEN PURWOREJO",
+  ),
+  Pengaduan(
+    kode: "LGIG21192729",
+    ringkasan:
+        "Judul : Izin lapor | Lokasi : Depan PT Konimex | Deskripsi Laporan : Kanal sampai menyentuh ke jalan, tolong diperbaiki",
+    waktu: "Sukoharjo, 1 hari yang lalu",
+    status: "Diproses",
+    deskripsi:
+        "Izin lapor depan PT Konimex Sukoharjo, kanal sampai menyentuh ke jalan. Tolong diperbaiki, sudah lapor lewat IG pemerintah Sukoharjo tetapi tidak ditindaklanjuti.",
+    kategori: "INFRASTRUKTUR",
+    lokasi: "KABUPATEN SUKOHARJO",
+  ),
+  Pengaduan(
+    kode: "LGWS51203847",
+    ringkasan:
+        "Judul : Sampah menumpuk | Lokasi : Depan Pasar Desa | Deskripsi Laporan : Bak sampah penuh dan tidak ada angkut",
+    waktu: "Karanganyar, 2 hari yang lalu",
+    status: "Disposisi",
+    deskripsi:
+        "Bak sampah di depan pasar desa sudah penuh sejak kemarin dan aromanya mengganggu warga sekitar.",
+    kategori: "KEBERSIHAN",
+    lokasi: "KABUPATEN KARANGANYAR",
+  ),
+  Pengaduan(
+    kode: "LGWS39014522",
+    ringkasan:
+        "Judul : Jalan berlubang | Lokasi : Gang RT 03 | Deskripsi Laporan : Lubang cukup dalam dan berbahaya",
+    waktu: "Karanganyar, 3 hari yang lalu",
+    status: "Menunggu",
+    deskripsi:
+        "Jalan di gang RT 03 berlubang sedalam 30 cm. Sudah diberi tanda penghalang namun belum diperbaiki.",
+    kategori: "INFRASTRUKTUR",
+    lokasi: "KABUPATEN KARANGANYAR",
+  ),
+  Pengaduan(
+    kode: "LGIG77120983",
+    ringkasan:
+        "Judul : Lampu jalan mati | Lokasi : Jalan BK 02 | Deskripsi Laporan : Tiga lampu mati sejak malam",
+    waktu: "Gunung Condong, 4 hari yang lalu",
+    status: "Diproses",
+    deskripsi:
+        "Tiga titik lampu jalan mati di Jalan BK 02 sehingga malam menjadi gelap dan tidak aman untuk warga.",
+    kategori: "INFRASTRUKTUR",
+    lokasi: "KABUPATEN SEMARANG",
+  ),
+  Pengaduan(
+    kode: "LGWS24810673",
+    ringkasan:
+        "Judul : Air tidak mengalir | Lokasi : Masjid Al Hikmah | Deskripsi Laporan : Sumur tidak keluar air sejak seminggu",
+    waktu: "Gunung Condong, 5 hari yang lalu",
+    status: "Disposisi",
+    deskripsi:
+        "Sumur di dekat Masjid Al Hikmah tidak keluar air sejak seminggu lalu sehingga kegiatan wudu terganggu.",
+    kategori: "SANITASI",
+    lokasi: "KABUPATEN SEMARANG",
+  ),
+  Pengaduan(
+    kode: "LGWS66302714",
+    ringkasan:
+        "Judul : Pohon tumbang | Lokasi : Depan SD Negeri 2 | Deskripsi Laporan : Pohon besar tumbang menutup jalan",
+    waktu: "Ngopeni, 6 hari yang lalu",
+    status: "Selesai",
+    deskripsi:
+        "Pohon besar tumbang menutup jalan di depan SD Negeri 2. Sudah dipangkas dan jalannya sudah kembali bisa dilalui.",
+    kategori: "KEBERHATIAN",
+    lokasi: "KABUPATEN SEMARANG",
+  ),
+  Pengaduan(
+    kode: "LGIG91557460",
+    ringkasan:
+        "Judul : Air keruh | Lokasi : Cluster RT 07 | Deskripsi Laporan : Air yang keluar keruh dan berbau",
+    waktu: "Nglakoni, 1 minggu yang lalu",
+    status: "Menunggu",
+    deskripsi:
+        "Air yang keluar di cluster RT 07 keruh dan berbau sejak tiga hari lalu. Warna air seperti keruh kuning kecoklatan.",
+    kategori: "SANITASI",
+    lokasi: "KABUPATEN SEMARANG",
+  ),
+];

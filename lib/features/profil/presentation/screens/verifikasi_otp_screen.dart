@@ -20,6 +20,18 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
 
   final ValueNotifier<bool> _isValid = ValueNotifier<bool>(false);
 
+  static const String _tujuanCadangan = 'hafid.tampan@gmail.com';
+
+  String get _tujuan {
+    final argumen = Get.arguments;
+    if (argumen is String && argumen.trim().isNotEmpty) return argumen.trim();
+    return _tujuanCadangan;
+  }
+
+  String get _pesanTujuan => _tujuan.contains('@')
+      ? 'Kami telah mengirim 4 digit kode verifikasi (OTP) melalui email ke $_tujuan'
+      : 'Kami telah mengirim 4 digit kode verifikasi (OTP) melalui SMS ke $_tujuan';
+
   void _onOtpChanged(String value, int index) {
     if (value.isNotEmpty && index < 3) {
       _focusNodes[index + 1].requestFocus();
@@ -83,7 +95,7 @@ class _VerifikasiOtpScreenState extends State<VerifikasiOtpScreen> {
                               ),
                         ),
                         Text(
-                          "Kami telah mengirim 4 digit kode verifikasi (OTP) melalui email ke hafid.tampan@gmail.com",
+                          _pesanTujuan,
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: Colors.black87,

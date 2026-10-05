@@ -173,7 +173,7 @@ class PengaturanAkunScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
         child: ElevatedButton(
-          onPressed: () => Get.toNamed(Routes.login),
+          onPressed: () => Get.offAllNamed(Routes.login),
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 48),
             backgroundColor: Colors.red,

@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildTombolMasuk(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Get.toNamed(Routes.mainShell),
+      onPressed: () => Get.offAllNamed(Routes.mainShell),
       style: _gayaTombolUtama(background: AppColors.primary, elevation: 0),
       child: Text(
         "Masuk",

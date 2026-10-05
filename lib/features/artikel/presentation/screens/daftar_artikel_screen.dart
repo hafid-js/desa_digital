@@ -30,7 +30,8 @@ class DaftarArtikelScreen extends StatelessWidget {
           for (final category in categories)
             DaftarArtikel(
               category: category,
-              onItemTap: () => Get.toNamed(Routes.detailArtikel),
+              onItemTap: (item) =>
+                  Get.toNamed(Routes.detailArtikel, arguments: item),
             ),
         ],
       ),

@@ -9,7 +9,7 @@ class DetailLampiranScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String args = Get.arguments;
+    final args = Get.arguments;
 
     return Scaffold(
       appBar: AppBar(

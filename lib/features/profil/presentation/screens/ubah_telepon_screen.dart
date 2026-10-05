@@ -116,7 +116,7 @@ class _UbahTeleponScreenState extends State<UbahTeleponScreen> {
             onPressed: isValid.value
                 ? () => Get.toNamed(
                     Routes.verifikasiOtp,
-                    arguments: "082322875277",
+                    arguments: phoneController.text.trim(),
                   )
                 : null,
             style: ElevatedButton.styleFrom(

@@ -12,7 +12,7 @@ class KartuAgenda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.detailAgenda),
+      onTap: () => Get.toNamed(Routes.detailAgenda, arguments: event),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

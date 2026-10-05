@@ -3,11 +3,31 @@ import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/pengaduan/presentation/widgets/langkah_progres_pengaduan.dart';
 import 'package:desa_digital/core/utils/color_utils.dart';
+import 'package:desa_digital/features/pengaduan/domain/entities/pengaduan.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailPengaduanScreen extends StatefulWidget {
   const DetailPengaduanScreen({super.key});
+
+  static const Pengaduan _cadangan = Pengaduan(
+    kode: "LGIG21192729",
+    ringkasan:
+        "Judul : Izin lapor | Lokasi : Depan PT Konimex | Deskripsi Laporan : Kanal sampai menyentuh ke jalan",
+    waktu: "Sukoharjo, 1 hari yang lalu",
+    status: "Disposisi",
+    deskripsi:
+        "Izin lapor depan PT Konimex Sukoharjo kanel sampai menyentuh ke jalan tolong di perbaiki dong. udah lapor via ig pemerintah sukoharjo ga di tindak lanjutin",
+    kategori: "INFRASTRUKTUR",
+    lokasi: "KABUPATEN PURWOREJO",
+  );
+
+  Pengaduan get pengaduan {
+    final argumen = Get.arguments;
+    if (argumen is Pengaduan) return argumen;
+    return _cadangan;
+  }
 
   @override
   State<DetailPengaduanScreen> createState() => _DetailPengaduanScreenState();
@@ -89,7 +109,7 @@ class _DetailPengaduanScreenState extends State<DetailPengaduanScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "LGIG21192729",
+                          widget.pengaduan.kode,
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: AppColors.primary,
@@ -157,7 +177,7 @@ class _DetailPengaduanScreenState extends State<DetailPengaduanScreen> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          "Izin lapor depan PT Konimex sukoharjo kanel sampai menyentuh ke jalan tolong di perbaiki dong. udah lapor via ig pemerintah sukoharjo ga di tindak lanjutin",
+                          widget.pengaduan.deskripsi,
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(color: Colors.black87),
                         ),
@@ -168,7 +188,7 @@ class _DetailPengaduanScreenState extends State<DetailPengaduanScreen> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          "INFRASTRUKTUR",
+                          widget.pengaduan.kategori,
                           style: Theme.of(
                             context,
                           ).textTheme.labelSmall!.copyWith(color: Colors.black),
@@ -180,7 +200,7 @@ class _DetailPengaduanScreenState extends State<DetailPengaduanScreen> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          "KABUPATEN PURWOREJO",
+                          widget.pengaduan.lokasi,
                           style: Theme.of(
                             context,
                           ).textTheme.labelSmall!.copyWith(color: Colors.black),

@@ -26,7 +26,7 @@ class DaftarArtikel extends StatelessWidget {
   });
 
   final ArticleCategory category;
-  final VoidCallback onItemTap;
+  final void Function(ArticleSample sample) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class DaftarArtikel extends StatelessWidget {
           title: category.samples[index].title,
           titleColor: gaya.color,
           titleFontWeight: gaya.fontWeight,
-          onTap: onItemTap,
+          onTap: () => onItemTap(category.samples[index]),
         );
       },
     );

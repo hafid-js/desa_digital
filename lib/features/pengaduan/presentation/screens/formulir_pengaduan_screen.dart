@@ -25,6 +25,7 @@ class _FormulirPengaduanScreenState extends State<FormulirPengaduanScreen> {
   XFile? selectedPhoto;
   ComplaintVisibility? _selected = ComplaintVisibility.private;
   String? selectedRegion;
+  Map<String, dynamic>? selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +69,13 @@ class _FormulirPengaduanScreenState extends State<FormulirPengaduanScreen> {
                 },
               ),
               SizedBox(height: 10),
-              LocationPointField(),
+              LocationPointField(
+                onLocationPicked: (lokasi) {
+                  setState(() {
+                    selectedLocation = lokasi;
+                  });
+                },
+              ),
               SizedBox(height: 20),
               ReportDetailsField(),
               SizedBox(height: 20),

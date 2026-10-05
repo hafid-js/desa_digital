@@ -48,6 +48,12 @@ final List<HomeMenuItem> _menuItems = [
     icon: AppAssets.menuBursaKerja,
     route: Routes.lapakWarga,
   ),
+
+  HomeMenuItem(
+    title: 'Peraturan Desa',
+    icon: AppAssets.menuVillageRegulation,
+    route: Routes.peraturanDesa,
+  ),
 ];
 
 final List<ContentItem> _agenda = [
