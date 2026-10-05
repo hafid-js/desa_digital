@@ -7,7 +7,6 @@ import 'package:desa_digital/features/profil/domain/usecases/get_profile_data.da
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-/// Memuat data profil, menu profil, dan state form ubah profil.
 class ProfileController extends GetxController {
   ProfileController(
     this._getUser,
@@ -37,10 +36,22 @@ class ProfileController extends GetxController {
     super.onInit();
     _muat();
 
+    fullNameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneController = TextEditingController();
+    _isiFormDariProfil();
+  }
+
+  void resetForm() {
+    _isiFormDariProfil();
+    selectedGender.value = null;
+  }
+
+  void _isiFormDariProfil() {
     final profile = user.value;
-    fullNameController = TextEditingController(text: profile?.fullName ?? '');
-    emailController = TextEditingController(text: profile?.formEmail ?? '');
-    phoneController = TextEditingController(text: profile?.formPhone ?? '');
+    fullNameController.text = profile?.fullName ?? '';
+    emailController.text = profile?.formEmail ?? '';
+    phoneController.text = profile?.formPhone ?? '';
   }
 
   @override

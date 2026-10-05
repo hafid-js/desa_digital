@@ -7,8 +7,6 @@ import 'package:desa_digital/features/lapak_warga/domain/usecases/lapak_warga_us
 import 'package:desa_digital/features/lapak_warga/presentation/controllers/lapak_warga_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi Lapak	Warga: data source -> repository -> use case
-/// -> controller.
 class LapakWargaBinding extends Bindings {
   @override
   void dependencies() {
@@ -51,7 +49,6 @@ class LapakWargaBinding extends Bindings {
         Injector.resolve<GetOpsiLapak>(),
       ),
       lazy: true,
-      permanent: true,
     );
   }
 }

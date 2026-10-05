@@ -6,8 +6,6 @@ import 'package:desa_digital/features/agenda/domain/usecases/get_events_on_date.
 import 'package:desa_digital/features/agenda/presentation/controllers/agenda_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi agenda: datasource -> repository -> use case ->
-/// controller.
 class AgendaBinding extends Bindings {
   @override
   void dependencies() {
@@ -32,7 +30,6 @@ class AgendaBinding extends Bindings {
     Injector.register<AgendaController>(
       () => AgendaController(Injector.resolve<GetEventsOnDate>()),
       lazy: true,
-      permanent: true,
     );
   }
 }

@@ -6,8 +6,6 @@ import 'package:desa_digital/features/cuaca/domain/usecases/get_weather_location
 import 'package:desa_digital/features/cuaca/presentation/controllers/weather_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi cuaca: datasource -> repository -> use case ->
-/// controller.
 class WeatherBinding extends Bindings {
   @override
   void dependencies() {
@@ -32,7 +30,6 @@ class WeatherBinding extends Bindings {
     Injector.register<WeatherController>(
       () => WeatherController(Injector.resolve<GetWeatherLocations>()),
       lazy: true,
-      permanent: true,
     );
   }
 }

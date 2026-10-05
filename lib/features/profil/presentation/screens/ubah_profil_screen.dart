@@ -61,6 +61,7 @@ class _UbahProfilScreenState extends State<UbahProfilScreen>
     _tabController = TabController(length: 2, vsync: this);
 
     _tabController.addListener(_onTabChanged);
+    _controller.resetForm();
   }
 
   void _onTabChanged() {
@@ -78,8 +79,6 @@ class _UbahProfilScreenState extends State<UbahProfilScreen>
     super.dispose();
   }
 
-  /// Opsi dropdown form; diambil dari controller agar daftar ini berasal dari
-  /// data, bukan hardcoded di layar.
   ProfileFormOptions get _options =>
       _controller.formOptions.value ??
       const ProfileFormOptions(
