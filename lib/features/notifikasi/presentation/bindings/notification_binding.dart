@@ -6,8 +6,6 @@ import 'package:desa_digital/features/notifikasi/domain/usecases/get_notificatio
 import 'package:desa_digital/features/notifikasi/presentation/controllers/notification_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi notifikasi: datasource -> repository -> use case ->
-/// controller.
 class NotificationBinding extends Bindings {
   @override
   void dependencies() {

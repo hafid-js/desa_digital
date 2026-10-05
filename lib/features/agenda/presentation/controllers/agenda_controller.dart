@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-/// Menyimpan pilihan kalender (tenska fokus, tanggal terpilih, format) dan
-/// daftar acara pada tanggal terpilih.
 class AgendaController extends GetxController {
   AgendaController(this._getEventsOnDate);
 
@@ -15,7 +13,6 @@ class AgendaController extends GetxController {
   final Rx<DateTime?> selectedDay = Rx<DateTime?>(null);
   final Rx<CalendarFormat> calendarFormat = CalendarFormat.month.obs;
 
-  /// Acara pada [selectedDay]; `null` berarti belum ada tanggal terpilih.
   final Rxn<List<EventAgenda>> acaraTerpilih = Rxn<List<EventAgenda>>();
 
   @override
@@ -25,13 +22,9 @@ class AgendaController extends GetxController {
     selectedDay.value = DateTime.utc(hariIni.year, hariIni.month, hariIni.day);
     _muat(selectedDay.value!);
 
-    // Data locale 'id_ID' dimuat agar siap dipakai bila nanti kalender
-    // widget lain meminta format tanggal Indonesia. `TableCalendar` sendiri
-    // memakai locale default, jadi pemuatan ini tidak mengubah tampilannya.
     initializeDateFormatting('id_ID', null);
   }
 
-  /// Dipakai `TableCalendar.eventLoader` untuk penanda hari yang punya acara.
   List<EventAgenda> eventsOn(DateTime day) =>
       _getEventsOnDate(day).valueOrNull ?? const <EventAgenda>[];
 

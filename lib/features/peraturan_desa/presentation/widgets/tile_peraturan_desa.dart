@@ -3,7 +3,6 @@ import 'package:desa_digital/features/peraturan_desa/domain/entities/village_reg
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-/// Kartu satu peraturan desa pada daftar.
 class TilePeraturanDesa extends StatelessWidget {
   const TilePeraturanDesa({
     super.key,

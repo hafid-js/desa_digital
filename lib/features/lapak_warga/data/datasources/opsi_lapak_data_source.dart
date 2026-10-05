@@ -1,6 +1,5 @@
 import 'package:desa_digital/features/lapak_warga/domain/entities/opsi_lapak.dart';
 
-/// Opsi filter dan opsi form posting lapak dari data lokal.
 class OpsiLapakDataSource {
   const OpsiLapakDataSource();
 

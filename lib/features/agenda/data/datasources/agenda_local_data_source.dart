@@ -1,8 +1,6 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/features/agenda/domain/entities/event_agenda.dart';
 
-/// Sumber data lokal acara desa, dikunci per tanggal (UTC) agar cocok dengan
-/// kunci yang dipakai [TableCalendar.eventLoader].
 abstract interface class AgendaDataSource {
   List<EventAgenda> eventsOn(DateTime day);
 }

@@ -6,8 +6,6 @@ import 'package:desa_digital/features/pengaduan/domain/usecases/wilayah_usecases
 import 'package:desa_digital/features/pengaduan/presentation/controllers/pencarian_wilayah_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi pengaduan: datasource wilayah -> repository ->
-/// use case -> controller pencarian wilayah.
 class PengaduanBinding extends Bindings {
   @override
   void dependencies() {

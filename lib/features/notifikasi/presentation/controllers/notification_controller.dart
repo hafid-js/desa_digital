@@ -4,7 +4,6 @@ import 'package:desa_digital/features/notifikasi/domain/usecases/get_notificatio
 import 'package:desa_digital/core/usecase/usecase.dart';
 import 'package:get/get.dart';
 
-/// Menyimpan daftar notifikasi, status dibaca, dan preferensi notifikasi.
 class NotificationController extends GetxController {
   NotificationController(this._getNotifications, this._getPreferences);
 
@@ -15,7 +14,6 @@ class NotificationController extends GetxController {
   final RxList<NotificationPreference> preferences =
       <NotificationPreference>[].obs;
 
-  /// `true` setelah notifikasi dibuka; menandai notifikasi sebagai terbaca.
   final RxBool terbaca = false.obs;
 
   @override

@@ -6,7 +6,6 @@ import 'package:desa_digital/features/lapak_warga/domain/entities/urutan.dart';
 import 'package:desa_digital/features/lapak_warga/domain/usecases/lapak_warga_usecases.dart';
 import 'package:get/get.dart';
 
-/// Menyimpan state Lapak Warga: filter, urutan, dan produk yang ditampilkan.
 class LapakWargaController extends GetxController {
   LapakWargaController(this._loadProduk, this._loadOpsi);
 

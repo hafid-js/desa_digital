@@ -6,8 +6,6 @@ import 'package:desa_digital/features/peraturan_desa/domain/usecases/get_village
 import 'package:desa_digital/features/peraturan_desa/presentation/controllers/village_regulation_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi peraturan desa: datasource -> repository -> use case
-/// -> controller.
 class VillageRegulationBinding extends Bindings {
   @override
   void dependencies() {

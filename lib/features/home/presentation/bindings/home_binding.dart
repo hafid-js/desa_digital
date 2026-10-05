@@ -9,8 +9,6 @@ import 'package:desa_digital/features/home/domain/usecases/get_home_menu_items.d
 import 'package:desa_digital/features/home/presentation/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi home: datasource -> repository -> use case ->
-/// controller.
 class HomeBinding extends Bindings {
   @override
   void dependencies() {

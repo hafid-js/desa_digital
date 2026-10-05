@@ -1,7 +1,5 @@
 import 'package:desa_digital/features/cuaca/domain/entities/weather_forecast.dart';
 
-/// Sumber data prakiraan cuaca. Data masih berupa contoh sampai endpoint
-/// cuaca tersedia.
 abstract interface class WeatherDataSource {
   List<WeatherLocation> locations();
 }

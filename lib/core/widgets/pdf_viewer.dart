@@ -8,14 +8,9 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
-/// Penampil PDF generik: menerima asset bundle, file lokal, atau URL.
-///
-/// Dipakai untuk dokumen peraturan desa dan lampiran aduan.
 class PdfViewer extends StatefulWidget {
-  /// Path asset (`assets/...`) atau path file di penyimpanan perangkat.
   final String? pdfPath;
 
-  /// URL PDF yang diunduh ke cache sebelum ditampilkan.
   final String? pdfUrl;
 
   const PdfViewer({super.key, this.pdfPath, this.pdfUrl})
@@ -45,12 +40,10 @@ class _PdfViewerState extends State<PdfViewer> {
 
   Future<void> _initPdf() async {
     try {
-      // 1. Jika path berasal dari Asset (diawali dengan 'assets/')
       if (widget.pdfPath != null &&
           widget.pdfPath!.startsWith(AppConfig.assetPrefix)) {
         final bytes = await rootBundle.load(widget.pdfPath!);
         final dir = await getTemporaryDirectory();
-        // Ambil nama file dari path asset
         final filename = widget.pdfPath!.split('/').last;
         final file = File('${dir.path}/$filename');
 
@@ -63,7 +56,6 @@ class _PdfViewerState extends State<PdfViewer> {
         return;
       }
 
-      // 2. Jika path lokal biasa (storage HP)
       if (widget.pdfPath != null) {
         setState(() {
           _localFilePath = widget.pdfPath;
@@ -72,7 +64,6 @@ class _PdfViewerState extends State<PdfViewer> {
         return;
       }
 
-      // 3. Jika dari URL
       if (widget.pdfUrl != null) {
         final response = await http.get(Uri.parse(widget.pdfUrl!));
         final dir = await getTemporaryDirectory();
@@ -387,8 +378,7 @@ class _PdfViewerState extends State<PdfViewer> {
               PDFView(
                 filePath: _localFilePath!,
                 enableSwipe: true,
-                swipeHorizontal:
-                    false, // Set 'true' jika ingin swipe ke samping
+                swipeHorizontal: false,
                 autoSpacing: true,
                 pageFling: true,
                 pageSnap: true,

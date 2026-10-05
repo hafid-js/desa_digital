@@ -12,8 +12,6 @@ class TileMenuProfil extends StatelessWidget {
 
   final ProfileMenuItem item;
 
-  /// Ikon tiap aksi menu; ikon berada di presentation karena `IconData` hanya
-  /// relevan bagi tampilan.
   static const Map<ProfileMenuAction, IconData> _ikon = {
     ProfileMenuAction.profileInfo: Iconsax.profile_circle,
     ProfileMenuAction.accountSettings: Iconsax.setting_2,

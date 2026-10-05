@@ -1,8 +1,6 @@
 import 'package:desa_digital/core/widgets/pill_tab_bar.dart';
 import 'package:flutter/material.dart';
 
-/// Gabungan DefaultTabController, baris pill, dan TabBarView.
-/// Dipakai bersama oleh section di feature activity dan feature artikel.
 class TabSection extends StatelessWidget {
   const TabSection({
     super.key,

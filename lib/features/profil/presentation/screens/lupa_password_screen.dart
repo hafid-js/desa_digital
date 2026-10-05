@@ -76,7 +76,6 @@ class LupaPasswordScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: TextFormField(
           controller: _emailController,
-          // autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onChanged: _validateEmail,
           decoration: InputDecoration(

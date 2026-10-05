@@ -1,9 +1,5 @@
 import 'package:desa_digital/features/activity/domain/entities/activity_item.dart';
 
-/// Sumber data lokal untuk konten layar Aktivitas.
-///
-/// Saat API tersedia, kontrak ini tetap sama dan hanya implementasi
-/// penggantinya yang berubah.
 abstract interface class ActivityDataSource {
   List<ActivityItem> items(ActivityFeed feed);
 }

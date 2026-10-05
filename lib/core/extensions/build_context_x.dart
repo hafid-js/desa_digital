@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Pintasan akses nilai yang sering dipakai di widget.
-///
-/// Hanya menyederhanakan pemanggilan, tidak mengubah nilai maupun gaya.
 extension BuildContextX on BuildContext {
   ThemeData get theme => Theme.of(this);
 

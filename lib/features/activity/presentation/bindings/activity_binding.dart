@@ -6,11 +6,6 @@ import 'package:desa_digital/features/activity/domain/usecases/get_activity_item
 import 'package:desa_digital/features/activity/presentation/controllers/activity_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi activity: datasource -> repository -> use case ->
-/// controller.
-///
-/// Controller didaftarkan `permanent` karena Aktivitas bisa dibuka dari tab
-/// MainShell maupun dari route terpisah; satu instance dipakai keduanya.
 class ActivityBinding extends Bindings {
   @override
   void dependencies() {

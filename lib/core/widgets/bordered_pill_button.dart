@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Tombol pill transparan dengan garis tipis berwarna [color].
 class BorderedPillButton extends StatelessWidget {
   const BorderedPillButton({
     super.key,

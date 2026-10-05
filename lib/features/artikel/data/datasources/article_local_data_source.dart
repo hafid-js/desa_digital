@@ -1,6 +1,5 @@
 import 'package:desa_digital/features/artikel/domain/entities/article_category.dart';
 
-/// Sumber data lokal untuk daftar artikel.
 abstract interface class ArticleDataSource {
   List<ArticleCategory> categories();
 }

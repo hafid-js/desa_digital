@@ -1,7 +1,6 @@
 import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-/// Kartu putih dengan garis tipis di sisi kiri, kanan, dan bawah.
 class BorderedCard extends StatelessWidget {
   const BorderedCard({
     super.key,

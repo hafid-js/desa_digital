@@ -1,4 +1,3 @@
-/// Opsi pilihan pada form data diri.
 class ProfileFormOptions {
   const ProfileFormOptions({
     required this.religion,

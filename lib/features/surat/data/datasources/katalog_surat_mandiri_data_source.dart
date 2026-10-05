@@ -1,6 +1,5 @@
 import 'package:desa_digital/features/surat/domain/entities/surat_mandiri.dart';
 
-/// Katalog surat mandiri dan surat yang perlu proses desa.
 class KatalogSuratMandiriDataSource {
   const KatalogSuratMandiriDataSource();
 

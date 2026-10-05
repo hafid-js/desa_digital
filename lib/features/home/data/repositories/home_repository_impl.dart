@@ -23,7 +23,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   ApbdesSummary getApbdes() => _dataSource.apbdes();
 
-  /// Dipakai lapisan data bila sumber konten home berubah ke jaringan/API.
   static Result<T> guard<T>(T Function() reader) {
     try {
       return Result<T>.success(reader());

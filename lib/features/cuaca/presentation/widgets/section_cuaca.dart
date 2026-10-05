@@ -3,7 +3,6 @@ import 'package:desa_digital/features/cuaca/domain/entities/weather_forecast.dar
 import 'package:desa_digital/features/cuaca/presentation/widgets/card_prakiraan_cuaca.dart';
 import 'package:flutter/material.dart';
 
-/// Kartu wilayah lengkap dengan daftar prakiraan cuacanya.
 class SectionCuaca extends StatelessWidget {
   const SectionCuaca({
     super.key,
@@ -14,10 +13,8 @@ class SectionCuaca extends StatelessWidget {
 
   final WeatherLocation lokasi;
 
-  /// Radius kotak ikon lokasi.
   final double radiusIkon;
 
-  /// Radius kartu prakiraan.
   final double radiusKartu;
 
   @override

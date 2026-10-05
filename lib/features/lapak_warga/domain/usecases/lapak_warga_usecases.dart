@@ -4,7 +4,6 @@ import 'package:desa_digital/features/lapak_warga/domain/entities/opsi_lapak.dar
 import 'package:desa_digital/features/lapak_warga/domain/entities/produk_lapak.dart';
 import 'package:desa_digital/features/lapak_warga/domain/repositories/lapak_warga_repository.dart';
 
-/// Mengambil produk lapak warga untuk ditampilkan pada grid.
 class LoadProdukLapak extends BaseUseCase<List<ProdukLapak>, NoParams> {
   const LoadProdukLapak(this._repository);
 
@@ -15,7 +14,6 @@ class LoadProdukLapak extends BaseUseCase<List<ProdukLapak>, NoParams> {
       _repository.loadProduk();
 }
 
-/// Mengambil opsi filter dan opsi posting lapak.
 class GetOpsiLapak extends BaseUseCase<OpsiLapak, NoParams> {
   const GetOpsiLapak(this._repository);
 

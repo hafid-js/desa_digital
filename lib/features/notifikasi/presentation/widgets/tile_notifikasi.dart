@@ -3,11 +3,6 @@ import 'package:desa_digital/features/notifikasi/domain/entities/notification_it
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-/// Baris notifikasi pada daftar notifikasi.
-///
-/// [terbaca] memunculkan gaya notifikasi yang sudah dibaca, sedangkan gaya teks
-/// isi dan waktu diteruskan dari layar agar tiap baris tetap mengikuti style
-/// yang sama seperti sebelumnya.
 class TileNotifikasi extends StatelessWidget {
   const TileNotifikasi({
     super.key,

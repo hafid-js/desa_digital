@@ -5,7 +5,6 @@ import 'package:desa_digital/features/profil/domain/entities/profile_menu_item.d
 import 'package:desa_digital/features/profil/domain/entities/profile_user.dart';
 import 'package:desa_digital/features/profil/domain/repositories/profile_repository.dart';
 
-/// Data profil untuk kartu profil dan form informasi utama.
 class GetProfileUser extends BaseUseCase<ProfileUser, NoParams> {
   const GetProfileUser(this._repository);
 
@@ -16,7 +15,6 @@ class GetProfileUser extends BaseUseCase<ProfileUser, NoParams> {
       Result<ProfileUser>.success(_repository.getUser());
 }
 
-/// Bagian menu profil beserta itemnya.
 class GetProfileMenuSections
     extends BaseUseCase<List<ProfileMenuSection>, NoParams> {
   const GetProfileMenuSections(this._repository);
@@ -28,7 +26,6 @@ class GetProfileMenuSections
       Result<List<ProfileMenuSection>>.success(_repository.getMenuSections());
 }
 
-/// Baris informasi pada detail data diri.
 class GetPersonalDetails extends BaseUseCase<List<ProfileDetail>, NoParams> {
   const GetPersonalDetails(this._repository);
 
@@ -39,7 +36,6 @@ class GetPersonalDetails extends BaseUseCase<List<ProfileDetail>, NoParams> {
       Result<List<ProfileDetail>>.success(_repository.getPersonalDetails());
 }
 
-/// Opsi dropdown pada form data diri.
 class GetProfileFormOptions extends BaseUseCase<ProfileFormOptions, NoParams> {
   const GetProfileFormOptions(this._repository);
 

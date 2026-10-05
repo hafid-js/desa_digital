@@ -12,7 +12,6 @@ class VillageRegulationRepositoryImpl implements VillageRegulationRepository {
   @override
   List<VillageRegulation> getRegulations() => _dataSource.regulations();
 
-  /// Dipakai lapisan data bila sumber peraturan berubah ke jaringan/API.
   static Result<T> guard<T>(T Function() reader) {
     try {
       return Result<T>.success(reader());

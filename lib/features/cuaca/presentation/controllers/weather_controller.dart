@@ -4,7 +4,6 @@ import 'package:desa_digital/features/cuaca/domain/usecases/get_weather_location
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-/// Memuat wilayah beserta prakiraan cuacanya dan menjaga isi kotak pencarian.
 class WeatherController extends GetxController {
   WeatherController(this._getWeatherLocations);
 
@@ -13,7 +12,6 @@ class WeatherController extends GetxController {
   final RxList<WeatherLocation> lokasi = <WeatherLocation>[].obs;
   final TextEditingController searchController = TextEditingController();
 
-  /// Isi kotak pencarian; hanya dipakai untuk menampilkan tombol hapus.
   final RxString query = ''.obs;
 
   @override

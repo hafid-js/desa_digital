@@ -57,8 +57,6 @@ class BagianPemilihWilayah extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 builder: (context) {
-                  // Controller dibuat ulang setiap kali lembar dibuka agar
-                  // pencarian dan pilihan sebelumnya tidak terbawa.
                   final controller = Get.find<PencarianWilayahController>()
                     ..reset();
 

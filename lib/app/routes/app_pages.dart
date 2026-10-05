@@ -46,11 +46,6 @@ import 'package:desa_digital/features/surat/presentation/screens/keterangan_kema
 import 'package:desa_digital/features/surat/presentation/screens/permohonan_surat_screen.dart';
 import 'package:get/get.dart';
 
-/// Registry halaman aplikasi (composition root).
-///
-/// Daftar ini adalah satu-satunya tempat yang tahu seluruh screen, sehingga
-/// feature tidak perlu mengimpor screen milik feature lain. Binding tiap
-/// halaman ditambahkan saat feature-nya dimigrasikan ke layered architecture.
 abstract final class AppPages {
   static final List<GetPage<dynamic>> pages = <GetPage<dynamic>>[
     GetPage<dynamic>(
@@ -59,7 +54,6 @@ abstract final class AppPages {
       binding: MainShellBinding(),
     ),
 
-    // Autentikasi
     GetPage<dynamic>(name: Routes.login, page: () => const LoginScreen()),
     GetPage<dynamic>(
       name: Routes.registerStep1,
@@ -82,7 +76,6 @@ abstract final class AppPages {
       binding: AuthBinding(),
     ),
 
-    // Aktivitas & Lapak warga
     GetPage<dynamic>(
       name: Routes.aktivitas,
       page: () => const ActivityScreen(),
@@ -94,7 +87,6 @@ abstract final class AppPages {
       binding: LapakWargaBinding(),
     ),
 
-    // Home
     GetPage<dynamic>(
       name: Routes.cuaca,
       page: () => const CuacaScreen(),
@@ -106,13 +98,11 @@ abstract final class AppPages {
       binding: ArticleBinding(),
     ),
 
-    // Artikel
     GetPage<dynamic>(
       name: Routes.detailArtikel,
       page: () => const DetailArtikelScreen(),
     ),
 
-    // Agenda
     GetPage<dynamic>(
       name: Routes.agenda,
       page: () => const AgendaScreen(),
@@ -123,7 +113,6 @@ abstract final class AppPages {
       page: () => const DetailEventScreen(),
     ),
 
-    // Pengaduan
     GetPage<dynamic>(
       name: Routes.pengaduan,
       page: () => const PengaduanScreen(),
@@ -150,7 +139,6 @@ abstract final class AppPages {
       page: () => const DetailLampiranScreen(),
     ),
 
-    // Surat
     GetPage<dynamic>(
       name: Routes.permohonanSurat,
       page: () => const PermohonanSuratScreen(),
@@ -177,14 +165,12 @@ abstract final class AppPages {
       binding: SuratBinding(),
     ),
 
-    // Peraturan desa
     GetPage<dynamic>(
       name: Routes.peraturanDesa,
       page: () => const PeraturanDesaScreen(),
       binding: VillageRegulationBinding(),
     ),
 
-    // Profil
     GetPage<dynamic>(
       name: Routes.detailProfil,
       page: () => const DetailProfilScreen(),

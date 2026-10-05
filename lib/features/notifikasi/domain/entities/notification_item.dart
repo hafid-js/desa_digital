@@ -1,7 +1,5 @@
-/// Kategori notifikasi yang tersedia sebagai tab pada layar notifikasi.
 enum NotificationCategory { semua, aduan, event, berita }
 
-/// Satu baris notifikasi pada daftar.
 class NotificationItem {
   const NotificationItem({
     required this.id,
@@ -16,6 +14,5 @@ class NotificationItem {
   final String title;
   final String body;
 
-  /// Waktu relatif siap tampil, misalnya `13 jam yang lalu`.
   final String timeAgo;
 }

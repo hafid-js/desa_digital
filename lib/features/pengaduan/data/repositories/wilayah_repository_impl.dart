@@ -9,8 +9,6 @@ class WilayahRepositoryImpl implements WilayahRepository {
 
   final WilayahDataSource _dataSource;
 
-  /// Data wilayah tidak berubah selama aplikasi berjalan, jadi sekali dimuat
-  /// lalu dipakai kembali.
   Future<Result<List<Wilayah>>>? _cache;
 
   @override

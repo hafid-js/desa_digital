@@ -1,4 +1,3 @@
-/// Satu acara pada kalender desa.
 class EventAgenda {
   const EventAgenda({
     required this.title,

@@ -5,8 +5,6 @@ import 'package:desa_digital/features/pengaduan/domain/usecases/wilayah_usecases
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// Mengelola state lembar pencarian wilayah: kata kunci, hasil pencarian, dan
-/// indeks wilayah yang sedang dipilih pada wheel.
 class PencarianWilayahController extends GetxController {
   PencarianWilayahController(this._loadCatalog, this._searchWilayah);
 
@@ -25,8 +23,6 @@ class PencarianWilayahController extends GetxController {
 
   WilayahCatalog? _catalog;
 
-  /// Dipanggil setiap kali lembar pencarian dibuka agar state kembali bersih
-  /// seperti controller yang baru dibuat.
   void reset() {
     _attachedPosition?.removeListener(syncSelection);
     _attachedPosition = null;

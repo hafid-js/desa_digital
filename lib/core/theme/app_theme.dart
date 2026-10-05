@@ -4,13 +4,9 @@ import 'package:desa_digital/core/theme/app_text_theme.dart';
 import 'package:desa_digital/core/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
-/// Tema aplikasi. Widget harus memakai `Theme.of(context)` atau
-/// `AppColors`/`AppTextTheme` — jangan menentukan warna secara inline.
 class AppTheme {
   AppTheme._();
 
-  /// Bayangan kartu. Nilai warna ditulis sebagai ARGB agar audit warna
-  /// mudah: 0x0D=5%, 0x1A=10%, 0x26=15% dari hitam.
   static const List<BoxShadow> _smallShadows = [
     BoxShadow(color: Color(0x0D000000), blurRadius: 8, offset: Offset(0, 2)),
   ];

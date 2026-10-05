@@ -2,8 +2,6 @@ import 'package:desa_digital/features/profil/domain/entities/profile_form_option
 import 'package:desa_digital/features/profil/domain/entities/profile_menu_item.dart';
 import 'package:desa_digital/features/profil/domain/entities/profile_user.dart';
 
-/// Sumber data profil. Isinya masih data contoh sampai endpoint profil dan
-/// autentikasi tersedia.
 abstract interface class ProfileDataSource {
   ProfileUser user();
 

@@ -8,8 +8,6 @@ import 'package:desa_digital/features/home/domain/usecases/get_home_articles.dar
 import 'package:desa_digital/features/home/domain/usecases/get_home_menu_items.dart';
 import 'package:get/get.dart';
 
-/// Memuat seluruh konten home: menu, agenda hari ini, artikel terbaru, dan
-/// ringkasan APBDes.
 class HomeController extends GetxController {
   HomeController(
     this._getMenuItems,

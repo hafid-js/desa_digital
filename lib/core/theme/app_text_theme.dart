@@ -5,14 +5,12 @@ class AppTextTheme {
   AppTextTheme._();
 
   static TextTheme lightTextTheme = TextTheme(
-    /// HEADLINE
     headlineSmall: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
       color: AppColors.dark,
     ),
 
-    /// TITLE
     titleLarge: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
@@ -31,7 +29,6 @@ class AppTextTheme {
       color: AppColors.dark,
     ),
 
-    /// BODY
     bodyLarge: TextStyle(fontSize: 16, color: AppColors.dark),
 
     bodyMedium: TextStyle(fontSize: 14, color: AppColors.textPrimaryLight),
@@ -48,23 +45,16 @@ class AppTextTheme {
       color: AppColors.textPrimaryLight,
     ),
 
-    /// LABEL
-    labelLarge: TextStyle(
-      fontSize: 16,
-      // fontWeight: FontWeight.bold,
-      color: AppColors.textPrimaryLight,
-    ),
+    labelLarge: TextStyle(fontSize: 16, color: AppColors.textPrimaryLight),
   );
 
   static TextTheme darkTextTheme = TextTheme(
-    /// HEADLINE
     headlineMedium: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
       color: AppColors.textPrimaryDark,
     ),
 
-    /// TITLE
     titleLarge: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
@@ -82,12 +72,10 @@ class AppTextTheme {
       color: AppColors.textPrimaryDark,
     ),
 
-    /// BODY
     bodyLarge: TextStyle(fontSize: 16, color: AppColors.textPrimaryDark),
 
     bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondaryDark),
 
-    /// LABEL
     labelSmall: TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
@@ -101,11 +89,6 @@ class AppTextTheme {
       color: AppColors.textSecondaryDark,
     ),
 
-    /// LABEL
-    labelLarge: TextStyle(
-      fontSize: 16,
-      // fontWeight: FontWeight.bold,
-      color: AppColors.textSecondaryDark,
-    ),
+    labelLarge: TextStyle(fontSize: 16, color: AppColors.textSecondaryDark),
   );
 }

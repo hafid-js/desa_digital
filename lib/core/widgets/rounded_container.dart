@@ -25,18 +25,14 @@ class AppRoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width, // default 0
-      height: height, // default 0
-      padding: padding, // default 0
-      margin: margin, // default 0
+      width: width,
+      height: height,
+      padding: padding,
+      margin: margin,
       decoration: BoxDecoration(
-        color: backgroundColor, // default white
-        borderRadius: BorderRadius.circular(
-          radius,
-        ), // default 16, which is card radius large
-        border: showBorder /*false*/
-            ? Border.all(color: borderColor)
-            : null, // white color default
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(radius),
+        border: showBorder ? Border.all(color: borderColor) : null,
       ),
       child: child,
     );

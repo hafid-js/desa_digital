@@ -2,10 +2,6 @@ import 'package:desa_digital/features/activity/domain/entities/activity_item.dar
 import 'package:desa_digital/features/activity/domain/usecases/get_activity_items.dart';
 import 'package:get/get.dart';
 
-/// Menyediakan data untuk layer presentation (tab Laporan Saya dan Disimpan).
-///
-/// Data dimuat sinkron di [onInit] supaya frame pertama sudah terisi, tanpa
-/// state loading yang sebelumnya tidak ada di layar ini.
 class ActivityController extends GetxController {
   ActivityController(this._getActivityItems);
 
@@ -16,7 +12,6 @@ class ActivityController extends GetxController {
   final List<ActivityItem> keluhanTersimpan = <ActivityItem>[];
   final List<ActivityItem> beritaTersimpan = <ActivityItem>[];
 
-  /// Pesan kegagalan terakhir, `null` bila semua feed berhasil dimuat.
   final RxnString pesanGagal = RxnString();
 
   @override

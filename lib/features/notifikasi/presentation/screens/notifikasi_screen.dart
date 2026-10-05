@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-/// Tab notifikasi. Tab selain "Semua" masih menampilkan tampilan kosong karena
-/// data per kategori belum tersedia.
 const List<({String label, NotificationCategory category})> _tabs = [
   (label: "Semua", category: NotificationCategory.semua),
   (label: "Aduan", category: NotificationCategory.aduan),

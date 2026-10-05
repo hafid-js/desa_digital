@@ -13,8 +13,6 @@ import 'package:desa_digital/features/surat/domain/usecases/surat_usecases.dart'
 import 'package:desa_digital/features/surat/presentation/controllers/surat_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi surat: data source -> repository -> use case ->
-/// controller.
 class SuratBinding extends Bindings {
   @override
   void dependencies() {

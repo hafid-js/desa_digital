@@ -1,8 +1,6 @@
 import 'package:desa_digital/core/constants/app_assets.dart';
 import 'package:desa_digital/features/peraturan_desa/domain/entities/village_regulation.dart';
 
-/// Sumber data peraturan desa. Daftar masih data contoh sampai endpoint
-/// peraturan desa tersedia.
 abstract interface class VillageRegulationDataSource {
   List<VillageRegulation> regulations();
 }

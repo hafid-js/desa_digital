@@ -24,10 +24,8 @@ final class AppColors {
 
   static const Color textPrimaryDark = Colors.white;
   static const Color textSecondaryDark = Color(0xFF8BA4B4);
-  // static const Color textPrimaryLight = Color(0xFF2D4A52);
   static const Color textPrimaryLight = Colors.black87;
   static Color textSecondaryLight = HexColor.fromHex("#6e6e73");
-  // static Color textSecondaryLight = Colors.black87;
   static Color textSection = HexColor.fromHex('#2D4A52');
 
   static Color grey = HexColor.fromHex('#AAB1B9');

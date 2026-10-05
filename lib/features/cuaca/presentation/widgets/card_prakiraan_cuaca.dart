@@ -3,7 +3,6 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:desa_digital/features/cuaca/domain/entities/weather_forecast.dart';
 import 'package:flutter/material.dart';
 
-/// Kartu prakiraan satu hari pada daftar horizontal.
 class CardPrakiraanCuaca extends StatelessWidget {
   const CardPrakiraanCuaca({
     super.key,
@@ -13,7 +12,6 @@ class CardPrakiraanCuaca extends StatelessWidget {
 
   final WeatherForecast forecast;
 
-  /// Radius kartu; tiap bagian memakai nilai yang berbeda seperti aslinya.
   final double radius;
 
   @override

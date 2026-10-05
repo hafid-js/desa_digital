@@ -1,8 +1,6 @@
 import 'package:desa_digital/core/error/app_exception.dart';
 import 'package:desa_digital/core/error/failure.dart';
 
-/// Mengubah exception dari data layer menjadi [Failure] yang dipahami
-/// domain dan presentation.
 Failure mapExceptionToFailure(AppException exception) => switch (exception) {
   NetworkException(:final message) => NetworkFailure(message),
   ServerException(:final message, :final statusCode) => ServerFailure(
@@ -15,5 +13,4 @@ Failure mapExceptionToFailure(AppException exception) => switch (exception) {
   UnknownException(:final message) => UnknownFailure(message),
 };
 
-/// Memetakan error di luar [AppException] menjadi [UnknownFailure].
 Failure mapUnknownError(Object error) => UnknownFailure(error.toString());

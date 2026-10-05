@@ -1,6 +1,5 @@
 import 'package:desa_digital/features/lapak_warga/domain/entities/produk_lapak.dart';
 
-/// Produk contoh untuk mengisi grid Lapak Warga.
 class ProdukDataSource {
   const ProdukDataSource();
 

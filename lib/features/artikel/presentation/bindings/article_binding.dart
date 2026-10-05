@@ -6,8 +6,6 @@ import 'package:desa_digital/features/artikel/domain/usecases/get_article_catego
 import 'package:desa_digital/features/artikel/presentation/controllers/article_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi artikel: datasource -> repository -> use case ->
-/// controller.
 class ArticleBinding extends Bindings {
   @override
   void dependencies() {

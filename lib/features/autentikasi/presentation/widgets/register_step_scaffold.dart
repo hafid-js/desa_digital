@@ -2,7 +2,6 @@ import 'package:desa_digital/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// Dekorasi input yang sama untuk semua langkah registrasi.
 InputDecoration dekorasiInputRegistrasi({String? hint, Widget? suffixIcon}) {
   return InputDecoration(
     hintText: hint,
@@ -25,9 +24,6 @@ InputDecoration dekorasiInputRegistrasi({String? hint, Widget? suffixIcon}) {
   );
 }
 
-/// Kerangka yang dipakai keempat langkah registrasi:
-/// appBar berisi tombol kembali + judul, area input, dan baris
-/// "n dari 4" beserta tombol lanjut.
 class RegisterStepScaffold extends StatelessWidget {
   const RegisterStepScaffold({
     super.key,

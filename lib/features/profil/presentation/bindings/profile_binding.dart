@@ -6,8 +6,6 @@ import 'package:desa_digital/features/profil/domain/usecases/get_profile_data.da
 import 'package:desa_digital/features/profil/presentation/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 
-/// Mendaftarkan dependensi profil: datasource -> repository -> use case ->
-/// controller.
 class ProfileBinding extends Bindings {
   @override
   void dependencies() {

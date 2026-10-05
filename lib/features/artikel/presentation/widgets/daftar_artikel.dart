@@ -3,7 +3,6 @@ import 'package:desa_digital/features/artikel/domain/entities/article_category.d
 import 'package:desa_digital/features/artikel/presentation/widgets/kartu_daftar_artikel.dart';
 import 'package:flutter/material.dart';
 
-/// Gaya teks judul untuk sebuah kategori artikel.
 class GayaKategori {
   const GayaKategori({required this.color, this.fontWeight});
 
@@ -11,8 +10,6 @@ class GayaKategori {
   final FontWeight? fontWeight;
 }
 
-/// Kategori "Publik" memakai teks hitam semi-bold, kategori berita memakai
-/// warna primer aplikasi.
 GayaKategori gayaKategori(String label) => switch (label) {
   'Publik' => const GayaKategori(
     color: Colors.black,

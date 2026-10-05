@@ -8,8 +8,6 @@ class Responsive {
   static const double tabletBreakpoint = 600;
   static const double desktopBreakpoint = 840;
 
-  // ---------- DEVICE TYPE ----------
-
   static DeviceType deviceType(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     if (w >= desktopBreakpoint) return DeviceType.desktop;
@@ -59,16 +57,12 @@ class Responsive {
   static double systemGestureInsetBottom(BuildContext context) =>
       MediaQuery.of(context).systemGestureInsets.bottom;
 
-  // ---------- CONTENT WIDTH ----------
-  /// Caps content width on large screens for readability.
   static double maxContentWidth(BuildContext context) {
     final w = screenWidth(context);
     if (w > 840) return 840;
     if (w > 600) return w - 48;
     return w - 32;
   }
-
-  // ---------- SPACING ----------
 
   static double padding(BuildContext context) =>
       value(context, phone: 10.0, tablet: 24.0, desktop: 32.0);
@@ -82,11 +76,6 @@ class Responsive {
   static double listItemHeight(BuildContext context) =>
       value(context, phone: 80.0, tablet: 90.0, desktop: 100.0);
 
-  // ---------- SCALE FACTOR ----------
-  /// Returns a moderate scale factor:
-  ///   phone (<600)  → 1.0
-  ///   tablet (600+) → 1.125
-  ///   desktop (840+)→ 1.2
   static double scale(BuildContext context) {
     final w = screenWidth(context);
     if (w >= desktopBreakpoint) return 1.2;
@@ -106,8 +95,6 @@ class Responsive {
   static double boxSize(BuildContext context, {required double phone}) =>
       phone * scale(context);
 
-  // ---------- GRID ----------
-
   static int gridColumns(
     BuildContext context, {
     int phone = 3,
@@ -120,8 +107,6 @@ class Responsive {
     return phone;
   }
 
-  // ---------- TEXT ----------
-  /// Returns a style with overflow ellipsis and maxLines applied.
   static TextStyle textStyle(
     TextStyle? style, {
     int maxLines = 2,
@@ -130,7 +115,6 @@ class Responsive {
     return (style ?? const TextStyle()).copyWith(overflow: overflow);
   }
 
-  /// Wraps a [Text] widget with overflow and max lines protection.
   static Widget text(
     String data, {
     TextStyle? style,

@@ -4,7 +4,6 @@ import 'package:desa_digital/features/pengaduan/domain/entities/wilayah.dart';
 import 'package:desa_digital/features/pengaduan/domain/entities/wilayah_catalog.dart';
 import 'package:desa_digital/features/pengaduan/domain/repositories/wilayah_repository.dart';
 
-/// Memuat katalog wilayah sekali saja lalu memakainya untuk pencarian.
 class LoadWilayahCatalog extends BaseAsyncUseCase<WilayahCatalog, NoParams> {
   const LoadWilayahCatalog(this._repository);
 
@@ -21,7 +20,6 @@ class LoadWilayahCatalog extends BaseAsyncUseCase<WilayahCatalog, NoParams> {
   }
 }
 
-/// Parameter pencarian wilayah: katalog yang sudah dimuat dan kata kuncinya.
 class WilayahSearchParams {
   const WilayahSearchParams({
     required this.catalog,
@@ -34,7 +32,6 @@ class WilayahSearchParams {
   final int minChars;
 }
 
-/// Mencari wilayah pada [WilayahSearchParams.keyword].
 class SearchWilayah extends BaseUseCase<List<Wilayah>, WilayahSearchParams> {
   const SearchWilayah();
 

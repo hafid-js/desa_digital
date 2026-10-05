@@ -1,6 +1,5 @@
 import 'package:desa_digital/features/surat/domain/entities/penduduk.dart';
 
-/// Data penduduk dari data lokal (dummy sampai ada API kependudukan).
 class PendudukDataSource {
   const PendudukDataSource();
 
@@ -111,7 +110,6 @@ class PendudukDataSource {
 
   List<Penduduk> semua() => daftar;
 
-  /// Cari penduduk berdasarkan NIK atau nama.
   List<Penduduk> cari(String kataKunci) {
     final kunci = kataKunci.trim().toLowerCase();
     if (kunci.isEmpty) return daftar;

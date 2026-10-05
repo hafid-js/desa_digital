@@ -13,7 +13,6 @@ class ApbdesProgressItem extends StatelessWidget {
     this.stackAlignment = Alignment.centerLeft,
   });
 
-  /// Baris capaian dari [ApbdesItem], termasuk penempatan label persentasenya.
   factory ApbdesProgressItem.fromItem(ApbdesItem item) => ApbdesProgressItem(
     title: item.title,
     realAmount: item.realAmount,

@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-/// Radius ikon lokasi dan kartu prakiraan tiap bagian. Bagian pertama memakai
-/// 12, bagian berikutnya 8, sesuai tampilannya saat ini.
 const List<({double radiusIkon, double radiusKartu})> _radiusBagian = [
   (radiusIkon: 12, radiusKartu: 12),
   (radiusIkon: 8, radiusKartu: 8),

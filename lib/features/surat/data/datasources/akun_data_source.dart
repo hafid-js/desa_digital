@@ -1,7 +1,6 @@
 import 'package:desa_digital/features/surat/data/datasources/penduduk_data_source.dart';
 import 'package:desa_digital/features/surat/domain/entities/penduduk.dart';
 
-/// Sumber data akun: memakai data penduduk yang sama.
 class AkunDataSource {
   const AkunDataSource(this._penduduk);
 

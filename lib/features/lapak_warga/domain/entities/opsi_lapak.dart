@@ -1,4 +1,3 @@
-/// Kumpulan opsi yang dipakai sheet filter dan sheet posting lapak.
 class OpsiLapak {
   const OpsiLapak({
     required this.kategoriFilter,

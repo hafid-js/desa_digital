@@ -1,8 +1,6 @@
 import 'package:desa_digital/features/notifikasi/domain/entities/notification_item.dart';
 import 'package:desa_digital/features/notifikasi/domain/entities/notification_preference.dart';
 
-/// Sumber data lokal notifikasi. Daftar dan pengaturan masih berupa data
-/// contoh sampai endpoint notifikasi tersedia.
 abstract interface class NotificationDataSource {
   List<NotificationItem> items();
 

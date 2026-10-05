@@ -1,7 +1,6 @@
 import 'package:desa_digital/features/surat/data/datasources/katalog_surat_mandiri_data_source.dart';
 import 'package:desa_digital/features/surat/domain/entities/surat_mandiri.dart';
 
-/// Sumber data surat mandiri: katalog surat dan antrean permohonan terkirim.
 class SuratMandiriDataSource {
   SuratMandiriDataSource(this._katalog);
 

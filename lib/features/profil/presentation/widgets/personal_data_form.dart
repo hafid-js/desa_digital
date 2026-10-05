@@ -217,9 +217,9 @@ class PersonalDataForm extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () => onChanged(value), // Supaya area container bisa diklik
+        onTap: () => onChanged(value),
         child: Padding(
-          padding: const EdgeInsets.only(right: 16), // Padding kanan agar rapi
+          padding: const EdgeInsets.only(right: 16),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

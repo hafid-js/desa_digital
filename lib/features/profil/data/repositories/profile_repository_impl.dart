@@ -23,7 +23,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   ProfileFormOptions getFormOptions() => _dataSource.formOptions();
 
-  /// Dipakai lapisan data bila sumber profil berubah ke jaringan/API.
   static Result<T> guard<T>(T Function() reader) {
     try {
       return Result<T>.success(reader());

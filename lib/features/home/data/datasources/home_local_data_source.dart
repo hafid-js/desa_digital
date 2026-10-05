@@ -4,8 +4,6 @@ import 'package:desa_digital/features/home/domain/entities/apbdes.dart';
 import 'package:desa_digital/features/home/domain/entities/content_item.dart';
 import 'package:desa_digital/features/home/domain/entities/home_menu_item.dart';
 
-/// Sumber data konten home. Seluruh isinya masih data contoh sampai endpoint
-/// home tersedia.
 abstract interface class HomeDataSource {
   List<HomeMenuItem> menuItems();
 
@@ -40,11 +38,6 @@ final List<HomeMenuItem> _menuItems = [
   ),
 
   HomeMenuItem(title: 'Acara', icon: AppAssets.menuEvent, route: Routes.agenda),
-  // HomeMenuItem(
-  //   title: 'Peraturan Desa',
-  //   icon: AppAssets.menuVillageRegulation,
-  //   route: Routes.peraturanDesa,
-  // ),
   HomeMenuItem(
     title: 'Layanan Mandiri',
     icon: AppAssets.menuLetterRequest,
@@ -55,11 +48,6 @@ final List<HomeMenuItem> _menuItems = [
     icon: AppAssets.menuBursaKerja,
     route: Routes.lapakWarga,
   ),
-  //  HomeMenuItem(
-  //   title: 'Register',
-  //   icon: AppAssets.menuEvent,
-  //   route: Routes.registerStep1,
-  // ),
 ];
 
 final List<ContentItem> _agenda = [
@@ -109,14 +97,11 @@ final List<ContentItem> _artikel = [
   ),
 ];
 
-/// Realisasi pendapatan APBDes; progress dihitung dari nilai ini.
 const ApbdesTotal _totalPendapatan = ApbdesTotal(
   realAmount: 369305706,
   targetAmount: 1125947389,
 );
 
-/// Capaian pendapatan pada kartu pelaksanaan memakai perhitungan yang sama
-/// seperti sebelumnya: progress dari [_totalPendapatan].
 final ApbdesSection _pelaksanaan = ApbdesSection(
   title: "APBDes 2026 Pelaksanaan",
   items: [

@@ -1,4 +1,3 @@
-/// Satu produk yang ditampilkan di grid Lapak Warga.
 class ProdukLapak {
   const ProdukLapak({
     required this.title,

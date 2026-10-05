@@ -1,4 +1,3 @@
-/// Satu peraturan desa beserta Berkas yang dapat dibuka.
 class VillageRegulation {
   const VillageRegulation({
     required this.id,
@@ -15,12 +14,10 @@ class VillageRegulation {
   final String title;
   final String description;
 
-  /// Tanggal terbit siap tampil, misalnya `03 Januari 2025`.
   final String date;
   final String author;
   final String category;
 
-  /// Aset thumbnail dan berkas PDF peraturan.
   final String thumbnailAsset;
   final String pdfAsset;
 }

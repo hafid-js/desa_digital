@@ -12,7 +12,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   List<WeatherLocation> getLocations() => _dataSource.locations();
 
-  /// Dipakai lapisan data bila sumber cuaca berubah ke jaringan/API.
   static Result<T> guard<T>(T Function() reader) {
     try {
       return Result<T>.success(reader());

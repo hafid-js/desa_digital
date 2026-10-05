@@ -198,30 +198,6 @@ class PengaturanAkunScreen extends StatelessWidget {
             ],
           ),
         ),
-        // ElevatedButton(
-        //   onPressed: () => Get.toNamed(Routes.login),
-        //   style: ElevatedButton.styleFrom(
-        //     backgroundColor: HexColor.fromHex("#FFE5E3"),
-        //     foregroundColor: Colors.white,
-        //     padding: EdgeInsets.symmetric(vertical: 14),
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(20),
-        //     ),
-        //   ),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       Icon(Icons.logout, color: Colors.red),
-        //       SizedBox(width: 5),
-        //       Text(
-        //         "Logout",
-        //         style: Theme.of(
-        //           context,
-        //         ).textTheme.titleMedium!.copyWith(color: Colors.red),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

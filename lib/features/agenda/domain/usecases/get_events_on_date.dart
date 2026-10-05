@@ -3,7 +3,6 @@ import 'package:desa_digital/core/usecase/usecase.dart';
 import 'package:desa_digital/features/agenda/domain/entities/event_agenda.dart';
 import 'package:desa_digital/features/agenda/domain/repositories/agenda_repository.dart';
 
-/// Mengambil acara pada satu tanggal untuk daftar di bawah kalender.
 class GetEventsOnDate extends BaseUseCase<List<EventAgenda>, DateTime> {
   const GetEventsOnDate(this._repository);
 

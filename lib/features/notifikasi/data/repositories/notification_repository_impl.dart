@@ -16,7 +16,6 @@ class NotificationRepositoryImpl implements NotificationRepository {
   @override
   List<NotificationPreference> getPreferences() => _dataSource.preferences();
 
-  /// Dipakai lapisan data bila sumber notifikasi berubah ke jaringan/API.
   static Result<T> guard<T>(T Function() reader) {
     try {
       return Result<T>.success(reader());
